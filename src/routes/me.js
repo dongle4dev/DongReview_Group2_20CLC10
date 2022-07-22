@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const meController = require('../app/controllers/meController');
+const meController = require('../app/controllers/MeController');
 
 //path /mes/ đã được định nghĩa ở bên index.js nên ta chỉ cần '/'
 

@@ -8,7 +8,7 @@ const Film = new Schema({
     description: { type: String, default: ''},
     trailer: { type: String},
     img: { type: String},
-    slug: { type: String, slug: 'title', unique: true},
+    slug: { type: String, slug: 'title', unique: true}, 
 }, {
     timestamps: true,
 });
