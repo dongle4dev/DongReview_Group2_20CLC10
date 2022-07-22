@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const siteController = require('../app/controllers/siteController');
+const siteController = require('../app/controllers/SiteController');
 
 //path /news/ đã được định nghĩa ở bên index.js nên ta chỉ cần '/'
 
