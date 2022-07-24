@@ -1,0 +1,207 @@
+.reviewPage .intro {
+    position: relative;
+}
+
+.reviewPage .intro h1 {
+    color: rgb(245, 149, 46);
+    font-size: 1.8rem;
+    margin: 0.5rem 0 0 2.5rem;
+}
+.reviewPage .content .review {
+    width: 94%;
+    margin: -3.5rem 0 0 2.7rem;
+    background-color: rgb(205, 209, 213);
+    margin-top: 1rem;
+}
+.reviewPage .review .ava {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+}
+
+.reviewPage .review .ava>img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    position: absolute;
+    left: 2.5rem;
+
+}
+.reviewPage .review .ava>p {
+    width: 20%;
+    text-align: center;
+    font-size: 0.8rem;
+    position: absolute;
+    left: 1.2rem;
+    top: 5rem;
+}
+.reviewPage .review .sumr {
+    position: relative;
+    width: 90%;
+}
+
+.reviewPage .review .sumr > h1 {
+    margin: 0 0 1rem 10.2rem;
+    font-size: 1.5rem;
+    color: #000;
+}
+.reviewPage .review .sumr>h2 {
+    margin: 0 0 1.5rem 10.2rem;
+    font-size: 1rem;
+    color: #000;
+}
+
+.reviewPage .review .sumr>p {
+    margin: 0 0 0 10.2rem;
+    left: 10.2rem;
+    font-size: 1.5rem;
+    padding-bottom: 2rem;
+    line-height: 2.5rem;
+}
+.review .icon {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.review .icon>p,
+.review .icon>i {
+    display: inline-block;
+    margin: 0.5rem;
+    font-weight: 600;
+    padding-bottom: 2rem;
+}
+.review .icon>a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+.review .icon>i {
+    cursor: pointer;
+}
+.reviewPage .content .lstCmt {
+    margin-bottom: 6rem;
+    margin-top: 5rem;
+}
+.reviewPage .content .lstCmt > h3{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: rgb(227, 127, 40);
+    color: rgb(227, 127, 40);
+    display: inline;
+    padding: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 2.2rem;
+}
+.cmt {
+    width: 94%;
+    background-color: rgb(205, 209, 213);
+    margin: 2rem 0 1rem 2.2rem;
+    padding-bottom: 6rem;
+    border-radius: 10px;
+}
+.reviewPage .writeCmt {
+    width: 94%;
+    background-color: rgb(205, 209, 213);
+    margin: 2rem 0 1rem 2.2rem;
+    padding-bottom: 2rem;
+    border-radius: 10px;
+}
+.reviewPage .writeCmt .ava,
+.cmt .ava {
+    position: relative;
+    display: inline-block;
+    width: 50%;
+}
+.reviewPage .writeCmt .ava > img,
+.cmt .ava > img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    position: absolute;
+    left: 1.5rem;
+}
+.reviewPage .writeCmt .ava > p,
+.cmt .ava > p {
+    position: absolute;
+    top: 4.5rem;
+    width: 18%;
+    text-align: center;
+    font-size: 0.8rem;
+}
+.cmt > p {
+    position: relative;
+    width: 80%;
+    left: 10rem;
+}
+.reviewPage .writeCmt>textarea {
+    position: relative;
+    width: 80%;
+    left: 10.2rem;
+    background-color: rgb(205, 209, 213);
+    border-color: rgb(175, 173, 173);
+    font-size: 1rem;
+    padding: 1rem;
+}
+.reviewPage .writeCmt > button {
+    position: relative;
+    top: 1.8rem;
+    right: -5.6rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    background-color: rgb(205, 209, 213);
+    border-width: 0.5px;
+    border-radius: 5px;
+}
+.reviewPage .writeCmt>button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+lord-icon {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    bottom: 2.5rem;
+    left: 47%;
+}
+lord-icon:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.reviewPage .content .option
+{
+    position: relative;
+    left: 92%;
+    list-style: none;
+    font-size: 1.5rem;
+    top: 3.5rem;
+    width: 100px;
+}
+.reviewPage .content .option .choices{
+    position: absolute;
+    list-style: none;
+    font-size: 1rem;
+    width: 100px;
+    background-color: #fff;
+    opacity: 0.8;
+    /*Bóng đổ cho subnav*/
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.option .choices > li {
+    padding: 0.5rem;
+    box-shadow: 0 0 0.5px 0;
+}
+.option:hover {
+    cursor: pointer;
+}
+.option .choices>li:hover {
+    color: #fff;
+    background-color: #000;
+}
+.option li:hover .choices {
+    display: block;
+}
+
