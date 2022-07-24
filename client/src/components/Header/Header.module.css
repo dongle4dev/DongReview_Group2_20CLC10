@@ -1,0 +1,119 @@
+.header {
+    background-color: #fc761d;
+    width: 100%;
+    height: 5.5rem;
+    position: relative;
+}
+.header h1 {
+    padding: 1.5rem 1.5rem 2rem 8rem;
+    font-size: 2.5rem;
+    color: #ecad88;
+    display: inline-block;
+    text-shadow: 0 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    position: absolute;
+}
+.header input {
+    width: 45%;
+    font-size: 1.3rem;
+    border-radius: 0.6rem;
+    border: none;
+    background-color: #ecad88;
+    position: absolute;
+    top: 1.7rem;
+    right: 10rem;
+    padding: 0.5rem 0 0.3rem 1rem;
+}
+.header > i {
+    position: absolute;
+    right: 11rem;
+    top: 2.2rem;
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+.nav {
+    display: inline-block;
+    margin: 0 0.5rem 0 0.5rem;
+    position: absolute;
+    top: 6rem;
+}
+.nav > li {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    position: relative;
+}
+.nav > li a {
+    text-decoration: none;
+    color: #e1630f;
+}
+.nav > li:last-child {
+    padding-right: 0 !important;
+}
+.nav > li:hover > a{
+    color: rgb(36, 35, 35);
+    background-color: #ccc;
+    opacity: 0.8;
+}
+.nav .subnav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: #000;
+    opacity: 0.8;
+    /*Bóng đổ cho subnav*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.nav li:hover .subnav {
+    display: block;
+}
+.nav .subnav li:hover a,
+/*Chỉ tác động lên từng thẻ a(cấp 1) trực tiếp từ thẻ li trực tiếp từ nav */
+/*HOME BAND TOUR CONTACT MORE*/
+.nav .subnav > li:hover {
+    color: #000;
+    background-color: #ccc;
+}
+.nav .subnav > li {
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+}
+.nav .subnav a {
+    color: #fff;
+    font-size: 1rem;
+}
+
+.header .line {
+    width: 94.8%;
+    color: #f5813e;
+    background-color: #f5813e;
+    font-size: 0.3rem;
+    margin: 0 2.5rem 0 2.5rem;
+    position: absolute;
+    top: 8.2rem;
+    border-radius: 10px;
+}
+.header > div {
+    position: absolute;
+    top: 1.4rem;
+    right: 2.6rem;
+}
+.header div .login {
+    width: auto;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.header div > i {
+    font-size: 2rem;    
+    margin-left: 1.4rem;
+}
+/* .header div:hover {
+    cursor: pointer;
+    color: rgb(76, 59, 59);
+    
+} */
+
+.login:hover{
+    cursor: pointer;
+    color: rgb(76, 59, 59);
+}

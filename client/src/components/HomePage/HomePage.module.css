@@ -1,0 +1,56 @@
+.content {
+    margin: 0 0 0 2.5rem;
+    position: relative;
+}
+.content .list1,
+.content .list2,
+.content .list3 {
+    display: grid;
+    grid-template-columns: 288px 288px 288px;
+    gap: 0.8rem 0;
+    margin: 1rem 17.8rem 1rem 3rem;
+}
+.content .board {
+    margin: 2.8rem 0 0 0;
+    display: grid;
+    grid-template-rows: calc(1.2%) calc(96.4%/3) calc(1.2%) calc(96.4%/3) calc(1.2%) calc(96.4%/3) calc(1.2%);
+    width: 19.5rem;
+    height: 99%;
+    position: absolute;
+    background-color: #fff;
+    right: 0;
+}
+.content .board .topTitle {
+    background-color: chocolate;
+}
+.content .board .topTitle > p {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0.5rem 0 0.5rem 0;
+    font-weight: 500;
+}
+.content .title {
+    text-decoration: none;
+    color: rgb(246, 117, 70);
+    font-size: 1.5rem;
+    margin: 0 0 0 3rem;
+}
+.content .board .top center {
+    text-decoration: none;
+    margin: 0.5rem 0 0 9.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+.content .board .top a:hover {
+    cursor: pointer;
+}
+.content .board .top span {
+    position: absolute;
+    margin: 4rem 0 0 3rem;
+    background-color: rgb(216, 127, 44);
+    font-size: 3rem;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+}
