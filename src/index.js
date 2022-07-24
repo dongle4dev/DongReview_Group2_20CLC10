@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const route = require('./routes');
 const dp = require('./config/db/index')
 
+const methodOverride = require('method-override')
+
 //Connect to database
 dp.connect()
 
@@ -24,11 +26,18 @@ app.use(
 );
 app.use(express.json()); //parsing json
 
+app.use(methodOverride('_method'))
+
 // HTTP Logger => Dễ dàng debug, biết đường dẫn,...
 app.use(morgan('combined'));
 
 //Template engine => Tự động load
-app.engine('.hbs', engine({ extname: '.hbs' }));
+app.engine('.hbs', engine({ 
+    extname: '.hbs',
+    helpers: { 
+        sum: (a, b) => a + b
+    }
+}));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 //app.enable('view cache')

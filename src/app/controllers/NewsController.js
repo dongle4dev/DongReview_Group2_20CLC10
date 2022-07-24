@@ -1,13 +1,42 @@
+const News = require('../models/News')
+const { multiMongooseToObject } = require('../../util/mongoose')
+const { mongooseToObject } = require('../../util/mongoose')
+
 class NewsController {
-    //Index: lấy ra trang chính của news
-    //[GET] /news
-    index(req, res) {
-        res.render('news');
+
+    index(req, res, next) {
+        News.find({})
+            .then(news => {
+                res.render('news', {
+                    news: multiMongooseToObject(news)
+                });
+            })
+            .catch(next);
     }
 
     //[GET] /news/:slug
-    show(req, res) {
-        res.send('NEWS DETAILS!!!');
+    show(req, res, next) {
+        News.findOne({slug: req.params.slug}) 
+            .then(news => {
+                res.render('news/show', {
+                    news:  mongooseToObject(news)
+                });
+            })
+            .catch(next);
+    }
+
+    post(req, res, next) {
+        res.render('news/post');
+    }
+
+    store(req, res, next) {
+        const news = new News(req.body);
+        news.save()
+            .then(() => res.redirect('/news'))
+            .catch(error => {
+
+            });
+
     }
 }
 
