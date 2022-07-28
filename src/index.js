@@ -1,16 +1,13 @@
 const path = require('path');
 const express = require('express');
-const { engine } = require('express-handlebars');
 const morgan = require('morgan');
+require('dotenv').config()
+require('./config/db/connectionMongodb')
 
 //Tự động nạp file index.js
 const route = require('./routes');
-const dp = require('./config/db/index')
-
+const dp = require('./config/db/connectionMongodb')
 const methodOverride = require('method-override')
-
-//Connect to database
-dp.connect()
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,17 +27,6 @@ app.use(methodOverride('_method'))
 
 // HTTP Logger => Dễ dàng debug, biết đường dẫn,...
 app.use(morgan('combined'));
-
-//Template engine => Tự động load
-app.engine('.hbs', engine({ 
-    extname: '.hbs',
-    helpers: { 
-        sum: (a, b) => a + b
-    }
-}));
-app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname, 'resources', 'views'));
-//app.enable('view cache')
 
 route(app);
 

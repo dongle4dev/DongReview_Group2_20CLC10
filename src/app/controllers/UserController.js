@@ -1,12 +1,23 @@
-const Film = require('../models/Film')
+const User = require('../models/user.model')
 // const { multiMongooseToObject, mongooseToObject } = require('../../util/mongoose')
 
 class UserController {
-    //[GET] /api/user/signup
-    signup(req, res, next) {
-        
+    //[POST] /user/register
+    register(req, res, next) {
+        res.send('User register')
     }
-    
+    //[POST] /user/refreshToken
+    refreshToken(req, res, next) {
+        res.send('Refresh token')
+    }
+    //[POST] /user/login
+    login(req, res, next) {
+        res.send('Login')
+    }
+    //[POST] /user/logout
+    logout(req, res, next) {
+        res.send('Logout')
+    }
     
 }
 

@@ -1,17 +1,13 @@
 const Film = require('../models/Film')
-const { multiMongooseToObject } = require('../../util/mongoose')
 
 class SiteController {
     //[GET] /
     index(req, res, next) {
         Film.find({})
             .then(films => { 
-                res.render('home', { 
-                    films: multiMongooseToObject(films)
-                })
+                res.json(films)
             })
             .catch(next) //err => next(err)
-        //res.render('home');
     }
 }
 
