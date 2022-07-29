@@ -6,6 +6,7 @@ const filmController = require('../controllers/film.controller');
 //path /films/ đã được định nghĩa ở bên index.js nên ta chỉ cần '/'
 
 router.get('/create', filmController.create);
+router.get('/:title', filmController.findFilmWithName)
 router.get('/:id/update', filmController.update);
 router.put('/:id', filmController.submit);
 router.post('/store', filmController.store);

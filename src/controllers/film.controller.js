@@ -39,6 +39,24 @@ class FilmController {
             .then(() => res.redirect('/'))
             .catch(next)
     }
+
+    findFilmWithName(req, res) 
+    {
+        console.log("req params", req.params.title);
+        var mTitle = req.params.title;
+
+        Film.collection("films").find({"title":mTitle}).toArray(function(err, result) {
+            if (err) 
+            {
+                console.log("err", err);
+                res.status(500).send({success : false, meassage : "Phim không tồn tại"})
+            }
+            else
+                res.json(result);
+
+        })
+
+    }
 }
 
 //Tạo ra instance FilmController ra ngoài khi được gọi

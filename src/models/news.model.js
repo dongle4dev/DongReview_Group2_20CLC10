@@ -4,10 +4,10 @@ const Schema = mongoose.Schema
 mongoose.plugin(slug)
 
 const News = new Schema({
-    title: { type: String, required: true},
-    author: {type: String, default: ''},
-    content: { type: String, default: ''},
-    image: { type: String},
+    filmID: { type: String, required: true},
+    src: {type: String, default: ''},
+    img: { type: String},
+    title: { type: String, default: ''},
     slug: { type: String, slug: 'title', unique: true}, 
 }, {
     timestamps: true,
