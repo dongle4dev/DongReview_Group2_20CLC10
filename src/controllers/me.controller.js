@@ -1,4 +1,4 @@
-const Film = require('../models/Film')
+const Film = require('../models/film.model')
 const { multiMongooseToObject, mongooseToObject } = require('../util/mongoose')
 
 class MeController {

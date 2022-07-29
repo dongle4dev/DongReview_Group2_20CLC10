@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const filmController = require('../controllers/FilmController');
+const filmController = require('../controllers/film.controller');
 
 //path /films/ đã được định nghĩa ở bên index.js nên ta chỉ cần '/'
 

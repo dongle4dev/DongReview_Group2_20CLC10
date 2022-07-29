@@ -1,4 +1,4 @@
-const News = require('../models/News')
+const News = require('../models/news.model')
 const { multiMongooseToObject } = require('../util/mongoose')
 const { mongooseToObject } = require('../util/mongoose')
 
