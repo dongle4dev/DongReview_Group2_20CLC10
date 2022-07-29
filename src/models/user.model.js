@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+const { conn } = require('../config/connectionMultiMongodb')
+
 const User = new Schema({
     username: { 
         type: String,
@@ -18,4 +20,4 @@ const User = new Schema({
 
 
 //Collection sẽ có tên là Films = tên model + 's'
-module.exports = mongoose.model('User', User);
+module.exports = conn.model('User', User);

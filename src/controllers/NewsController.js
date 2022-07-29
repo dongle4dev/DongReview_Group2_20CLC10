@@ -1,6 +1,6 @@
 const News = require('../models/News')
-const { multiMongooseToObject } = require('../../util/mongoose')
-const { mongooseToObject } = require('../../util/mongoose')
+const { multiMongooseToObject } = require('../util/mongoose')
+const { mongooseToObject } = require('../util/mongoose')
 
 class NewsController {
 
