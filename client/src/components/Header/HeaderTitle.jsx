@@ -1,8 +1,9 @@
 import React from "react";
-import styles from "./HeaderTitle.module.css";
+import styles from "./Header.module.css";
 function HeaderTitle(props) {
   return (
     <header className={styles.header}>
+      <img src="logo.png"></img>
       <a href="/">
         <h1>DONGREVIEW</h1>
       </a>

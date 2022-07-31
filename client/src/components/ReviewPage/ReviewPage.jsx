@@ -21,6 +21,31 @@ function Comment(props) {
     </div>
   );
 }
+function FormReport(props) {
+  return (
+    <div className={styles.modal}>
+      <div className={styles.modalContainer}>
+        <button className={styles.btn} onClick={props.close}>
+          <i className="ti-close"></i>
+        </button>
+        <div className={styles.head}>
+          <h2>BÁO CÁO</h2>
+        </div>
+        <p style={{ marginTop: "4rem" }}>Cho mình biết lí do à gì đi^^</p>
+        <textarea
+          rows="6"
+          maxLength="1000"
+          placeholder="Ghi lí do của bạn tại đây"
+        ></textarea>
+        <div className={styles.send}>
+          <button>
+            <a href="/">Gửi</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ReviewPage() {
   const location = useLocation();
@@ -31,6 +56,7 @@ function ReviewPage() {
   const [check, setCheck] = React.useState(false);
   const [pos, setPos] = React.useState(0);
   const [checkOption, setCheckOp] = React.useState(false);
+  const [checkForm, setChecF] = React.useState(false);
 
   function clickOption(event) {
     if (checkOption === false) {
@@ -51,6 +77,12 @@ function ReviewPage() {
   function popUp() {
     setLogin(true);
   }
+  function close() {
+    setChecF(false)
+  }
+  function open() {{
+    setChecF(true);
+  }}
   function clickLike(event) {
     if (check === false) {
       setCheck(true);
@@ -67,22 +99,11 @@ function ReviewPage() {
   return (
     <div className={styles.reviewPage}>
       <HeaderTitle log={popUp} />
+
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
       </div>
       <div className={styles.content}>
-        <ul onClick={clickOption} className={styles.option}>
-          <li>
-            <i className="fa-solid fa-ellipsis"></i>
-            {checkOption ? (
-              <ul className={styles.choices}>
-                <li>Báo cáo</li>
-                <li>Xóa bài viết</li>
-              </ul>
-            ) : null}
-          </li>
-        </ul>
-
         <div className={styles.review}>
           <div className={styles.ava}>
             <img src="https://upanh123.com/wp-content/uploads/2020/11/anh-tho-chibi.0.jpg" />
@@ -92,7 +113,21 @@ function ReviewPage() {
           <div className={styles.sumr}>
             <h1>{title}</h1>
             <h2>Ngày đăng: {time}</h2>
-            <p>{content}</p>
+            <p>
+              {content}
+              <ul onClick={clickOption} className={styles.option}>
+                <li>
+                  <i className="fa-solid fa-ellipsis"></i>
+                  {checkOption ? (
+                    <ul className={styles.choices}>
+                      <li onClick={open}>Báo cáo</li>
+                      <li>Xóa bài viết</li>
+                    </ul>
+                  ) : null}
+                </li>
+              </ul>
+              {checkForm ? <FormReport close={close}/> : null}
+            </p>
             <div className={styles.icon}>
               <p>{num_like}</p>
               {check ? (
@@ -117,11 +152,9 @@ function ReviewPage() {
               onKeyDown={(event) => {
                 if (event.shiftKey === true) {
                   event.target.value = event.target.value + "\n";
-                }
-                else if (event.key === "Enter") {
+                } else if (event.key === "Enter") {
                   postCmt();
                 }
-                
               }}
               rows="6"
               maxLength="1000"

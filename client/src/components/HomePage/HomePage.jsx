@@ -17,7 +17,7 @@ function HomePage() {
   const [top1, setTopNam] = React.useState([]);
   const [top2, setTopThang] = React.useState([]);
   const [top3, setTopTuan] = React.useState([]);
-
+  const url = "/api/data.json";
   window.onload = function () {
     if (!window.location.hash) {
       window.location = window.location + "#loaded";
@@ -25,13 +25,10 @@ function HomePage() {
     }
   };
   React.useEffect(() => {
-    
     const getData = async () => {
       try {
         console.log("before getting data");
-        const res = await axios.get(
-          "https://mocki.io/v1/f3cdca9a-37bd-459a-8353-c9ab45eae488"
-        );
+        const res = await axios.get(url);
         console.log("get data", res.data);
         setTheater(res.data.theater);
         setPhimLe(res.data.phimle);

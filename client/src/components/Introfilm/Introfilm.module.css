@@ -40,6 +40,9 @@
     font-size: 2rem;
     margin-right:0.5rem;
 }
+.intro .content .rate>i:hover {
+    opacity: 0.8;
+}
 .intro .content .rate:last-child {
     margin-left: 2rem;
 }
@@ -48,6 +51,7 @@
     font-size: 1.5rem;
     margin: 0 0.5rem 0.5rem 0.2rem;
 }
+
 .intro .content .lstReview {
    margin-top: 3rem;
 }
@@ -61,6 +65,20 @@
     margin-left: 2.2rem;
     font-weight: 600;
     letter-spacing: 2px;
+}
+.intro .content .lstReview .love {
+    color: #f5813e;
+    position: absolute;
+    left: 54rem;
+    font-size: 2rem;
+}
+.intro .content .lstReview .love:hover {
+    cursor: pointer;
+}
+.intro .content .lstReview .writeReview:hover {
+    cursor: pointer;
+    background-color: #d06527;
+    color: #000;
 }
 .intro .side{
     position: relative;
@@ -173,7 +191,6 @@
 
 .intro .lstReview .square {
     right: 55%;
-    padding-bottom: 2rem;
     position: absolute;
     bottom: -5rem;
 }

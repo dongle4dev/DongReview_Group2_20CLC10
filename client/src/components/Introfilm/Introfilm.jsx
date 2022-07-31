@@ -52,10 +52,14 @@ function ReviewSumary(props) {
     </div>
   );
 }
+
+const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
   const [login, setLogin] = React.useState(false);
   const [pos, setPos] = React.useState(0);
   const [check, setCheck] = React.useState(false);
+  const [checkLike, setCheckL] = React.useState(false);
+  const [rateFilm, setRate] = React.useState(0);
 
   const location = useLocation();
   const {
@@ -72,6 +76,17 @@ function Introfilm() {
     news,
   } = location.state; // "useLocation" to get the state
 
+  function clickStar(index) {
+    setRate(index + 1);
+  }
+  function clickLike(event) {
+      if (checkLike === false) {
+        setCheckL(true);
+      } else {
+        setCheckL(false);
+      }
+      event.preventDefault();
+  }
   function clickContent(event) {
     if (check === false) {
       setCheck(true);
@@ -163,15 +178,47 @@ function Introfilm() {
             </p>
           </div>
           <div className={styles.rate}>
-            <i className="ti-star"></i>
-            <i className="ti-star"></i>
-            <i className="ti-star"></i>
-            <i className="ti-star"></i>
-            <i className="ti-star"></i>
-            <span>Rating: {rate}</span>
+            {stars.map((star, index) => {
+              if (index >= rateFilm) {
+                return (
+                  <i
+                    onClick={() => {
+                      clickStar(index);
+                    }}
+                    className="ti-star"
+                  ></i>
+                );
+              }
+              else {
+                return (
+                  <i
+                    onClick={() => {
+                      clickStar(index);
+                    }}
+                    className="fa-solid fa-star"
+                  ></i>
+                );
+              }
+            })}
+            
+            
+            <span>Rating: {rateFilm}/5</span>
           </div>
           <div className={styles.lstReview}>
             <p>Top review</p>
+            <p className={styles.writeReview}>Viết bài</p>
+            {checkLike ? (
+              <i
+                onClick={clickLike}
+                className={clsx("fa-solid fa-heart", styles.love)}
+              ></i>
+            ) : (
+              <i
+                onClick={clickLike}
+                className={clsx("ti-heart", styles.love)}
+              ></i>
+            )}
+
             {lstReview.map((item, index) => {
               if (index >= 5 * pos && index <= 5 * pos + 4) {
                 return (
