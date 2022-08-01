@@ -4,6 +4,7 @@ import LogIn from "../LogIn/LogIn";
 function Header(props) {
   return (
     <header className={styles.header}>
+      <img src="logo.png"></img>
       <a href="/">
         <h1>DONGREVIEW</h1>
       </a>

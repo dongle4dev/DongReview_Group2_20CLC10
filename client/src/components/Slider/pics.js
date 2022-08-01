@@ -66,9 +66,7 @@ import axios from "axios";
 let pics = [];
 
 //Create fake API
-const resultAPI = axios.get(
-  "https://mocki.io/v1/f3cdca9a-37bd-459a-8353-c9ab45eae488"
-);
+const resultAPI = axios.get("/api/data.json");
 
 //console.log(resultAPI)
 resultAPI.then((res) => {

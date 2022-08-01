@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 //test
-import film from "../App/film";
 
 import axios from "axios";
 import clsx from "clsx";
@@ -12,19 +11,6 @@ import pics from "./pics";
 const checks = [0, 1, 2];
 function Slider() {
   const [pos, setPos] = React.useState(0);
-  // const [pics, setPics] = React.useState([])
-
-  // React.useEffect(() => {
-  //   console.log(pics);
-  //   const getSliders = async () => {
-  //     const res = await axios.get(
-  //       "https://mocki.io/v1/f3cdca9a-37bd-459a-8353-c9ab45eae488"
-  //     );
-  //     console.log("get data", res.data);
-  //     setPics(res.data.sliders);
-  //   };
-  //   getSliders();
-  // }, []);
 
   function increase() {
     if (pos === 2) {
@@ -56,17 +42,17 @@ function Slider() {
               <Link
                 to="/introfilm"
                 state={{
-                  key: film.key,
-                  title: film.title,
-                  src: film.src,
-                  type: film.type,
-                  year: film.year,
-                  nation: film.nation,
-                  sumary: film.sumary,
-                  trailer: film.trailer,
-                  rate: film.rate,
-                  main: film.main,
-                  news: film.news,
+                  key: pic.key,
+                  title: pic.title,
+                  src: pic.src,
+                  type: pic.type,
+                  year: pic.year,
+                  nation: pic.nation,
+                  sumary: pic.sumary,
+                  trailer: pic.trailer,
+                  rate: pic.rate,
+                  main: pic.main,
+                  news: pic.news,
                 }}
               >
                 <Picture src={pic.src} title={pic.title} key={pic.key} />

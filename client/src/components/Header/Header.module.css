@@ -12,6 +12,14 @@
     text-shadow: 0 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     position: absolute;
 }
+.header img {
+    width: 8rem;
+    height: 6rem;
+    display: inline-block;
+    position: absolute;
+    margin-left: 2rem;
+    margin-top: 0.18rem;
+}
 .header input {
     width: 45%;
     font-size: 1.3rem;
