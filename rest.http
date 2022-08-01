@@ -5,6 +5,22 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "email": "user1@example.com",
+    "email": "user1@gmail.com",
     "password": "123456"
 }
+
+###
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email": "user1@gmail.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:5000/user/review
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M2Y5ZjE2ZmFjNzIxYTJmZGEwNzMiLCJpYXQiOjE2NTkzMzE3MjMsImV4cCI6MTY1OTMzNTMyM30.EZjvXwfyPXE7S84KOQojzhetDCgrJk4Iqu3V66IQ7QE
+
+###
+POST http://localhost:5000/user/refreshToken
