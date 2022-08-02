@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 
 const filmController = require('../controllers/film.controller');
+const { signAccessToken, verifyAccessToken } = require('../helpers/jwtService')
 
-//path /films/ đã được định nghĩa ở bên index.js nên ta chỉ cần '/'
+//path /film/ đã được định nghĩa ở bên index.js nên ta chỉ cần '/'
 
-router.get('/create', filmController.create);
-router.get('/:title', filmController.findFilmWithName)
-router.get('/:id/update', filmController.update);
-router.put('/:id', filmController.submit);
 router.post('/store', filmController.store);
+router.get('/found-films/:title', filmController.findFilmWithName)
+router.get('/:id/update', verifyAccessToken, filmController.update);
+router.put('/:id', verifyAccessToken, filmController.submit);
 router.get('/:slug', filmController.show);
+router.delete('/:id', filmController.deleteFilm)
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const createError = require('http-errors')
 const User = require('../models/user.model')
 const { userValidate } = require('../helpers/validation')
-const { signAccessToken, verifyAccessToken, signRefreshToken } = require('../helpers/jwtService')
+const { signAccessToken, verifyAccessToken } = require('../helpers/jwtService')
 
 class UserController {
     //[POST] /user/register

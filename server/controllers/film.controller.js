@@ -1,12 +1,8 @@
 const Film = require('../models/film.model')
+const News = require('../models/news.model')
 const { multiMongooseToObject, mongooseToObject } = require('../util/mongoose')
 
 class FilmController {
-    //[GET] /films/create
-    create(req, res, next) {
-        res.render('films/create')
-    }
-
     //[GET] /films/:id/update
     update(req, res, next) {
         Film.findById(req.params.id)
@@ -26,36 +22,44 @@ class FilmController {
     //[GET] /films/:slug
     show(req, res, next) {
         Film.findOne({ slug: req.params.slug})
-            .then(film => {
-                res.render('films/show', {film: mongooseToObject(film)})
+            .then(film => { res.json(film) })
+            .catch(next)
+    }
+
+    //[POST] /film/store
+    async store(req, res, next) {
+        try {
+            const film = new Film(req.body)
+
+            const savedFilm = await film.save()
+            return res.json({
+                status: 'OK',
+                elements: savedFilm
             })
-            .catch(next)
+        } catch(err) {
+            next(err)
+        }
     }
+    //[GET] /film/found-films/:title
+    async findFilmWithName(req, res, next) {
+        try {
+            const result = await Film.find({ title : new RegExp(req.params.title)}, 'title img slug').exec()
 
-    //[POST] /films/store
-    store(req, res, next) {
-        const film = new Film(req.body)
-        film.save()
-            .then(() => res.redirect('/'))
-            .catch(next)
+            return res.json(result)
+        } catch(err) {
+            next(err)
+        }
     }
+    //[DELETE] /film/:id
+    async deleteFilm(req, res, next) {
+        try {
+            const deleted = await Film.deleteOne({_id: req.params.id});
 
-    findFilmWithName(req, res) 
-    {
-        console.log("req params", req.params.title);
-        var mTitle = req.params.title;
-
-        Film.collection("films").find({"title":mTitle}).toArray(function(err, result) {
-            if (err) 
-            {
-                console.log("err", err);
-                res.status(500).send({success : false, meassage : "Phim không tồn tại"})
-            }
-            else
-                res.json(result);
-
-        })
-
+            return res.json({status: "Ok"})
+        } catch(e) {
+            console.error(`[error] ${e}`);
+            next(e)
+        }
     }
 }
 

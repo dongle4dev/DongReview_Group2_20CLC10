@@ -3,14 +3,9 @@ const { multiMongooseToObject } = require('../util/mongoose')
 const { mongooseToObject } = require('../util/mongoose')
 
 class NewsController {
-
     index(req, res, next) {
         News.find({})
-            .then(news => {
-                res.render('news', {
-                    news: multiMongooseToObject(news)
-                });
-            })
+            .then(news => res.json(news))
             .catch(next);
     }
 
@@ -25,17 +20,18 @@ class NewsController {
             .catch(next);
     }
 
-    post(req, res, next) {
-        res.render('news/post');
-    }
+    async store(req, res, next) {
+        try {
+            const news = new News(req.body)
 
-    store(req, res, next) {
-        const news = new News(req.body);
-        news.save()
-            .then(() => res.redirect('/news'))
-            .catch(error => {
-
-            });
+            const savedNews = await news.save()
+            return res.json({
+                status: 'OK',
+                elements: savedNews
+            })
+        } catch(err) {
+            next(err)
+        }
 
     }
 }
