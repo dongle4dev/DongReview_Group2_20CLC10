@@ -4,7 +4,7 @@ import clsx from "clsx";
 import axios from "axios";
 
 function AddFilm() {
-  const url = "/api/data";
+  //const url = "/api/data";
   const [input_arr, setArr] = React.useState([0]);
   const [film, setFilm] = React.useState({});
   function addCharacter(event) {
@@ -34,7 +34,7 @@ function AddFilm() {
           method: "post",
           mode: "no-cors",
           headers: {
-            Accept: "application/json",
+            "Accept": "application/json",
             "Content-type": "application/json",
           },
           body: JSON.stringify({
