@@ -1,0 +1,137 @@
+.modal{
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(220,220,220,0.5); */
+    background-image: url("../../../public/assets/picture/black-concrete-wall.jpg");
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .modalContainer{
+    position: relative;
+    background-color: white;
+    padding: 3rem;
+    width: 100%;
+    max-width: 30rem;
+    height: 39rem;
+    align-items: center;
+    border-width: 5px;
+    /* Để sdung keyframes modalFadeIn đi chậm ease 0.5s*/
+    animation: modalFadeIn ease 0.5s
+}   
+
+.modal .modalContainer .btn{
+    position: absolute;
+    right:-2rem;
+    top: -1.2rem;
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.modal .modalContainer .btn i {
+    font-size: 2rem;
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+}
+.modal .modalContainer button:hover {
+    cursor: pointer;
+    background-color: #e87633;
+}
+
+.modal .modalContainer > h2{
+    text-align: center;
+    background-color: #f5813e;
+    color:white;
+    padding: auto;
+    width: 100%
+}
+
+.modal .modalContainer > p{
+    margin: 3rem 0 0.5rem 4rem;
+    text-align: left;
+}
+
+.modal .modalContainer > input{
+    margin: 0rem 4rem 0rem 4rem;
+    padding: 0.8rem 0rem 0.8rem 0rem;
+    font-size: 20px;
+    width: min(100% - 7.25rem, 100rem);
+    border-width: 0.1rem;
+    border-radius: 2%;
+}
+
+.modal .modalContainer .head{
+    width: 100%;
+    height: 5rem;
+    background-color: #f5813e;
+    top: 0;
+    right: 0;
+    position: absolute;
+    align-items: center;
+    letter-spacing: 2px;
+}
+
+.modal .modalContainer .head > h2{
+    color:white;
+    position: absolute;
+    top: 1.5rem;
+    right: 6rem;
+    height:min(100% - 0.5rem, 3rem);
+}
+
+.modal .modalContainer .signIn{
+    position: absolute;
+    bottom: 5rem;
+    left: 9.8rem;
+}
+
+.modal .modalContainer .signIn > button{
+    height: 3.5rem;
+    width: 10.5rem;
+    background-color: #f5813e;  
+    border-radius: 0.2rem;
+    font-size: 20px;
+}
+.modal .modalContainer .signIn>button a {
+    text-decoration: none;
+    color: black;
+}
+.modal .modalContainer .alter{
+    position: absolute;
+    bottom: 3rem;
+    left: 8rem;
+    color: #551a8b
+}
+
+.modal .modalContainer .alter > a{
+    font-size: 20px;
+}
+
+.modal .modalContainer .alter > a:hover{
+    color: blue;
+    font-style: italic;
+}
+
+/* Làm trôi ảnh MODAL CONTAINER*/
+/* Tạo ra chuyển động liên tiếp của ảnh tĩnh */
+@keyframes modalFadeIn {
+
+    /* modal container sẽ đi từ -100px đến 0px*/
+    from {
+        opacity: 0;
+        transform: translateY(-150px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

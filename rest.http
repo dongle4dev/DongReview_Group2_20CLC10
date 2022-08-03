@@ -1,0 +1,67 @@
+GET http://localhost:5000
+
+###
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+    "email": "user1@gmail.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email": "user1@gmail.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:5000/user/review
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M2Y5ZjE2ZmFjNzIxYTJmZGEwNzMiLCJpYXQiOjE2NTkzMzE3MjMsImV4cCI6MTY1OTMzNTMyM30.EZjvXwfyPXE7S84KOQojzhetDCgrJk4Iqu3V66IQ7QE
+
+###
+POST http://localhost:5000/film/store
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M2Y5ZjE2ZmFjNzIxYTJmZGEwNzMiLCJpYXQiOjE2NTk0NDgzMTUsImV4cCI6MTY1OTQ1MTkxNX0.H-vRFfmUU2q7ZHyunImVQkKj7uK9VJ1WFktb9UTVu78
+Content-Type: application/json
+
+{
+    "title": "Doraemon: Nobita và Mặt Trăng Phiêu Lưu Ký",
+    "img": "https://mp-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=604800&url=https%3A%2F%2Fi0.wp.com%2Fimage.motphim.net%2Fposter%2Fdoraemon-nobita-va-mat-trang-phieu-luu-ky-7106.jpg%3F1568141393",
+    "type": "phimchieurap",
+    "year": 2021,
+    "nation": "Nhật Bản",
+    "description": "Doraemon: Nobita và Mặt Trăng Phiêu Lưu Ký lần này khán giả sẽ theo chân nhóm bạn của Doraemon lên thám hiểm mặt trăng. Cốt truyện sẽ được dựa trên truyện cổ dân gian của người Nhật. Họ tin rằng trên cung trăng có loài thỏ sinh sống ở đó. Phim lấy bối cảnh trên mặt trăng cùng nội dung nhấn mạnh vào tình bạn được liên kết mạnh mẽ bởi sức mạnh của niềm tin. Nhân vật mới xuất hiện là Lunna- một cô gái bí ẩn sống ở mặt trăng, và cuộc hành trình đầy gam go và khó khăn của nhóm Nobita trên con đường khám phá mặt trăng cũng như chống lại ác nhân Diabolo cùng tên hầu cận gian manh Goddard.",
+    "trailer": "https://www.youtube.com/embed/dd_R1GQwKlY",
+    "rate": 8.9,
+    "main": [
+      {
+        "name": "Doraemon",
+        "img": "https://i.pinimg.com/474x/61/fb/2d/61fb2d6b1c55e8d571c7946159f60a1e--doraemon-cake-cartoon-tv.jpg"
+      },
+      {
+        "name": "Nobita",
+        "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
+      }
+    ]
+}
+
+
+###
+GET http://localhost:5000/film/found-films/emon
+
+###
+POST http://localhost:5000/news/store
+Content-Type: application/json
+
+{
+    "filmID": "62e95c7b6df35cea5847d887",
+    "img": "https://znews-photo.zingcdn.me/w360/Uploaded/xbhunku/2019_05_24/doraemon.jpg",
+    "src": "https://zingnews.vn/doraemon-nobita-va-mat-trang-phieu-luu-ky-suc-manh-cua-niem-tin-post949604.html",
+    "title": "Doraemon: Nobita và Mặt Trăng phiêu lưu ký’ - sức mạnh của niềm tin"
+}
+
+###
+DELETE http://localhost:5000/film/62e95c7b6df35cea5847d887
