@@ -1,12 +1,14 @@
 //Mục đích: Chuyển hết các dòng code về routes vào đây
 const createError = require('http-errors')
 const newsRouter = require('./news.route');
+const reviewRouter = require('./review.route')
 const siteRouter = require('./site.route');
 const filmRouter = require('./film.route');
 const userRouter = require('./user.route');
 
 function route(app) {
     app.use('/news', newsRouter);
+    app.use('/review', reviewRouter)
     app.use('/film', filmRouter);
     app.use('/user', userRouter);
     app.use('/', siteRouter);
