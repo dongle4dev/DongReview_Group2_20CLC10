@@ -12,7 +12,6 @@ import Footer from "../Footer/Footer";
 var pages = [];
 var num_page = 0;
 for (var i = 0; i < num_page; i++) pages.push(i + 1);
-
 function ReviewSumary(props) {
   let content = props.content;
   content = content.slice(0, 200) + "...";
@@ -28,7 +27,7 @@ function ReviewSumary(props) {
         <p>
           {content}
           <Link
-            to="/reviewpage"
+            to={`/${props.title_film}/id=${props.reviewID}`}
             state={{
               reviewID: props.reviewID,
               filmID: props.filmID,
@@ -39,6 +38,7 @@ function ReviewSumary(props) {
               share: props.share,
               cmt: props.cmt,
               time: props.time,
+              title_film: props.title_film
             }}
           >
             Xem thêm
@@ -241,7 +241,14 @@ function Introfilm() {
           </div>
           <div className={styles.lstReview}>
             <p>Top review</p>
-            <p className={styles.writeReview}>Viết bài</p>
+            <p className={styles.writeReview}>
+              <Link to={`/${title}/writereview`} state={{
+                filmid_addrv: filmID,
+                userID_addrv: 1
+              }}>
+                Viết bài
+              </Link>
+            </p>
             {checkLike ? (
               <i
                 onClick={clickLike}
@@ -272,6 +279,7 @@ function Introfilm() {
                     cmt={item.cmt}
                     content={item.content}
                     time={item.time}
+                    title_film={title}
                   />
                 );
               }

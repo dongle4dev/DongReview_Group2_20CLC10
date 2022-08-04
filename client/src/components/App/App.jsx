@@ -13,6 +13,10 @@ import AdminPage from "../ProfilePage/AdminPage";
 import SignUp from "../SignUp/SignUp";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
 import AddFilm from "../AddFilm/AddFilm";
+import Page404 from "../ErrorPages/Page404";
+import Page502 from "../ErrorPages/Page502";
+import AddReview from "../AddReview/AddReview";
+import FindPage from "../FindPage/FindPage";
 
 function App() {
   return (
@@ -22,16 +26,22 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />}></Route>
             <Route exact path="/introfilm" element={<Introfilm />}></Route>
-            <Route exact path="/reviewpage" element={<ReviewPage />}></Route>
+            <Route exact path="/:title/id=:reviewid" element={<ReviewPage />}></Route>
             <Route exact path="/signup" element={<SignUp />}></Route>
+            <Route exact path="/forgetpass" element={<SignUp />}></Route>
             <Route exact path="/admin" element={<AdminPage />}></Route>
             <Route exact path="/member" element={<MemberPage />}></Route>
-            <Route exact path="/api"></Route>
-            
+            <Route exact path="/page404" element={<Page404 />}></Route>
+            <Route exact path="/page502" element={<Page502 />}></Route>
             <Route
               exact
-              path="/forgotpassword"
-              element={<ForgotPassword />}
+              path="/:title/writereview"
+              element={<AddReview />}
+            ></Route>
+            <Route
+              exact
+              path="/found-films/:title"
+              element={<FindPage />}
             ></Route>
             <Route exact path="/admin/addfilm" element={<AddFilm />}></Route>
           </Routes>

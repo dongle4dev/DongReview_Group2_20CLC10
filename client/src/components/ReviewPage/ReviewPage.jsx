@@ -66,8 +66,18 @@ function ReviewPage() {
   const url1 = "/api/users.json";
   const url2 = "/api/comments.json";
   const location = useLocation();
-  const { reviewID, filmID, userID, title, content, like, share, cmt, time } =
-    location.state;
+  const {
+    reviewID,
+    filmID,
+    userID,
+    title,
+    content,
+    like,
+    share,
+    cmt,
+    time,
+    title_film,
+  } = location.state;
   const [user, setUser] = React.useState({
     fullname: "",
     avt: "",
@@ -151,7 +161,7 @@ function ReviewPage() {
       return value;
     });
   }
-  const postCmt = (e) => {
+  const postCmt = async (e) => {
     e.preventDefault();
     const data = {
       reviewID: reviewID,
@@ -163,15 +173,11 @@ function ReviewPage() {
     const headers = {
       Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
+      "Content-type": "application/json",
     };
-    axios
+    const res = await axios
       .post("https://jsonplaceholder.typicode.com/posts", data, { headers })
-      .then((response) => {
-        console.log("Posting data,", response);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    console.log('Posted a comment', res)
   };
   return (
     <div className={styles.reviewPage}>
