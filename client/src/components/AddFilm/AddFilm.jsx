@@ -163,18 +163,17 @@ function AddFilm() {
     const headers = {
       Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
+      'Content-type': 'application/json'
     };
     const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      film,
-      { headers }
+      "http://localhost:5000/film/store", film, {headers}
     );
     console.log("Posted film", res);
     postNews(e);
   };
   const postNews = async (e) => {
     const headers = {
-      Authorization: "Bearer my-token",
+      // Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
     };
     const res1 = await axios.post(

@@ -40,4 +40,4 @@ class ReviewController {
     }
 }
 
-module.exports = new ReviewControllers();
+module.exports = new ReviewController();

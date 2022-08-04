@@ -23,7 +23,10 @@ app.use(express.json()); //parsing json
 app.use(methodOverride('_method'))
 // HTTP Logger => Dễ dàng debug, biết đường dẫn,...
 app.use(morgan('combined'));
-
+const cors = require("cors");
+   app.use(cors({
+   origin: '*'
+}));
 route(app);
 
 app.listen(port, () => {

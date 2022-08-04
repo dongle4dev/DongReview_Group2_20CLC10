@@ -24,7 +24,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M
 
 ###
 POST http://localhost:5000/film/store
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M2Y5ZjE2ZmFjNzIxYTJmZGEwNzMiLCJpYXQiOjE2NTk0NDgzMTUsImV4cCI6MTY1OTQ1MTkxNX0.H-vRFfmUU2q7ZHyunImVQkKj7uK9VJ1WFktb9UTVu78
 Content-Type: application/json
 
 {
