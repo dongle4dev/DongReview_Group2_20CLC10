@@ -79,6 +79,7 @@ function ReviewPage() {
   const [pos, setPos] = React.useState(0);
   const [checkOption, setCheckOp] = React.useState(false);
   const [checkForm, setChecF] = React.useState(false);
+  const [input_cmt, setInput] = React.useState("");
 
   React.useEffect(() => {
     console.log("reviewID: ", reviewID);
@@ -141,22 +142,30 @@ function ReviewPage() {
     }
     event.preventDefault();
   }
+  function handleChange(event) {
+    const { value } = event.target;
+
+    //k dc xai event trong setter
+    setInput((preValue) => {
+      console.log(preValue);
+      return value;
+    });
+  }
   const postCmt = (e) => {
     e.preventDefault();
-    const article = {
-      _id: 13,
-      reviewID: 1,
-      userID: 5,
-      filmID: 1,
+    const data = {
+      reviewID: reviewID,
+      userID: userID,
+      filmID: filmID,
       like: 3,
-      content: "Nghe hay thế!!!",
+      content: input_cmt,
     };
     const headers = {
       Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
     };
     axios
-      .post("https://localhost:3000/api/comments.json", article, { headers })
+      .post("https://jsonplaceholder.typicode.com/posts", data, { headers })
       .then((response) => {
         console.log("Posting data,", response);
       })
@@ -217,16 +226,19 @@ function ReviewPage() {
               <p>{user.fullname}</p>
             </div>
             <textarea
+              onChange={handleChange}
               onKeyDown={(event) => {
                 if (event.shiftKey === true) {
-                  event.target.value = event.target.value + "\n";
+                  if (event.key === "Enter")
+                    event.target.value = event.target.value + "\n";
                 } else if (event.key === "Enter") {
-                  postCmt();
+                  postCmt(event);
                 }
               }}
               rows="6"
               maxLength="1000"
               placeholder="Viết bình luận của bạn"
+              value={input_cmt}
             ></textarea>
             <button onClick={postCmt} id="post_cmt">
               Đăng
