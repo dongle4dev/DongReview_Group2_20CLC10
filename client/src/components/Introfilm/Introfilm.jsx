@@ -27,7 +27,7 @@ function ReviewSumary(props) {
         <p>
           {content}
           <Link
-            to={`/${props.title_film}/id=${props.reviewID}`}
+            to={`/${props.title_film}/${props.reviewID}`}
             state={{
               reviewID: props.reviewID,
               filmID: props.filmID,

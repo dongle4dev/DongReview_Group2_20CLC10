@@ -14,7 +14,6 @@ function AddReview() {
     userID: userID_addrv,
     title: "",
     content: "",
-    time: "",
   });
 
   function handleChange(event) {
@@ -30,17 +29,6 @@ function AddReview() {
     });
   }
   const postReview = async (e) => {
-    var date = new Date();
-    review.time =
-      date.getHours().toString() +
-      ":" +
-      date.getMinutes().toString() +
-      " " +
-      date.getDate().toString() +
-      "/" +
-      (date.getMonth() + 1).toString() +
-      "/" +
-      date.getFullYear().toString();
     const headers = {
       Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",

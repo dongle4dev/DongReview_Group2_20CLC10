@@ -5,6 +5,7 @@ import styles from "./ReviewPage.module.css";
 import HeaderTitle from "../Header/HeaderTitle";
 import LogIn from "../LogIn/LogIn";
 import Footer from "../Footer/Footer";
+import Page404 from "../ErrorPages/Page404";
 
 var pages = [];
 var num_page = 1;
@@ -37,10 +38,26 @@ function Comment(props) {
   );
 }
 function FormReport(props) {
+  const [inputReport, setReport] = React.useState({
+    reviewid_rp: props.reviewid_rp,
+    content: "",
+  });
+  function inputRp(event) {
+    const { name, value } = event.target;
+    //k dc xai event trong setter
+    setReport((preValue) => {
+      console.log(preValue);
+      return {
+        ...preValue,
+        //name luu toan bo gtri value
+        [name]: value,
+      };
+    });
+  }
   return (
     <div className={styles.modal}>
       <div className={styles.modalContainer}>
-        <button className={styles.btn} onClick={props.close}>
+        <button className={styles.btn} onClick={() => props.close(1)}>
           <i className="ti-close"></i>
         </button>
         <div className={styles.head}>
@@ -48,14 +65,32 @@ function FormReport(props) {
         </div>
         <p style={{ marginTop: "4rem" }}>Cho mình biết lí do à gì đi^^</p>
         <textarea
+          onChange={inputRp}
+          name="content"
+          value={inputReport.content}
           rows="6"
           maxLength="1000"
           placeholder="Ghi lí do của bạn tại đây"
         ></textarea>
         <div className={styles.send}>
-          <button>
-            <a href="/">Gửi</a>
+          <button onClick={() => props.sendReport(inputReport)}>
+            <a href="#">Gửi</a>
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+function FormComfirm(props) {
+  return (
+    <div className={styles.delete}>
+      <div className={styles.modalContainer}>
+        <div className={styles.head}>
+          <h2>XÁC NHẬN XÓA BÀI VIẾT</h2>
+        </div>
+        <div className={styles.send}>
+          <button onClick={props.deleteReview}>Đồng ý</button>
+          <button onClick={() => props.close(2)}>Hủy</button>
         </div>
       </div>
     </div>
@@ -88,7 +123,9 @@ function ReviewPage() {
   const [check, setCheck] = React.useState(false);
   const [pos, setPos] = React.useState(0);
   const [checkOption, setCheckOp] = React.useState(false);
-  const [checkForm, setChecF] = React.useState(false);
+  const [checkReport, setChecF] = React.useState(false);
+  const [checkDelete, setChecD] = React.useState(false);
+  const [pressDelete, setPress] = React.useState(false);
   const [input_cmt, setInput] = React.useState("");
 
   React.useEffect(() => {
@@ -134,13 +171,15 @@ function ReviewPage() {
   function popUp() {
     setLogin(true);
   }
-  function close() {
-    setChecF(false);
+  function close(num) {
+    if (num === 1) setChecF(false);
+    else if (num === 2) setChecD(false);
   }
-  function open() {
-    {
-      setChecF(true);
-    }
+  function open(event) {
+    const { name, value } = event.target;
+    console.log("value", value);
+    if (value === 1) setChecF(true);
+    else if (value === 2) setChecD(true);
   }
   function clickLike(event) {
     if (check === false) {
@@ -162,7 +201,6 @@ function ReviewPage() {
     });
   }
   const postCmt = async (e) => {
-    e.preventDefault();
     const data = {
       reviewID: reviewID,
       userID: userID,
@@ -175,11 +213,38 @@ function ReviewPage() {
       "My-Custom-Header": "foobar",
       "Content-type": "application/json",
     };
-    const res = await axios
-      .post("https://jsonplaceholder.typicode.com/posts", data, { headers })
-    console.log('Posted a comment', res)
+    const res = await axios.post(
+      "https://jsonplaceholder.typicode.com/posts",
+      data,
+      { headers }
+    );
+    console.log("Posted a comment", res);
+    setInput("");
   };
-  return (
+  const sendReport = async (inputReport) => {
+    const headers = {
+      Authorization: "Bearer my-token",
+      "My-Custom-Header": "foobar",
+      "Content-type": "application/json",
+    };
+    const res = await axios.post(
+      "https://jsonplaceholder.typicode.com/posts",
+      inputReport,
+      { headers }
+    );
+    console.log("Sent a report", res);
+  };
+  const deleteReview = async () => {
+    const del_url =
+      "http://localhost5000/" + `/${title_film}/${reviewID}`.toString();
+    console.log(del_url);
+    const res = await axios.delete(del_url);
+    console.log("Deleted the review", res);
+    setPress(true);
+  };
+  return pressDelete ? (
+    <Page404 />
+  ) : (
     <div className={styles.reviewPage}>
       <HeaderTitle log={popUp} />
 
@@ -203,13 +268,27 @@ function ReviewPage() {
                   <i className="fa-solid fa-ellipsis"></i>
                   {checkOption ? (
                     <ul className={styles.choices}>
-                      <li onClick={open}>Báo cáo</li>
-                      <li>Xóa bài viết</li>
+                      <li value={1} onClick={open}>
+                        Báo cáo
+                      </li>
+                      <li value={2} onClick={open}>
+                        Xóa bài viết
+                      </li>
                     </ul>
                   ) : null}
                 </li>
               </ul>
-              {checkForm ? <FormReport close={close} /> : null}
+
+              {checkReport ? (
+                <FormReport
+                  reviewid_rp={reviewID}
+                  sendReport={sendReport}
+                  close={close}
+                />
+              ) : null}
+              {checkDelete ? (
+                <FormComfirm deleteReview={deleteReview} close={close} />
+              ) : null}
             </p>
             <div className={styles.icon}>
               <p>{num_like}</p>
