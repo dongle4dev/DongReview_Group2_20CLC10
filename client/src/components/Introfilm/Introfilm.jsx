@@ -8,6 +8,7 @@ import HeaderTitle from "../Header/HeaderTitle";
 import LogIn from "../LogIn/LogIn";
 import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
+import Page404 from "../ErrorPages/Page404";
 
 var pages = [];
 var num_page = 0;
@@ -62,7 +63,7 @@ function FormComfirm(props) {
           <h2>XÁC NHẬN XÓA BÀI VIẾT</h2>
         </div>
         <div className={styles.send}>
-          <button onClick={props.deleteReview}>Đồng ý</button>
+          <button onClick={props.deleteFilm}>Đồng ý</button>
           <button onClick={() => props.close(2)}>Hủy</button>
         </div>
       </div>
@@ -84,6 +85,7 @@ function Introfilm() {
   const [lstReview, setReviews] = React.useState([]);
   const [checkOption, setCheckOp] = React.useState(false);
   const [checkDelete, setChecD] = React.useState(false);
+  const [pressDelete, setPress] = React.useState(false);
 
   const location = useLocation();
   const {
@@ -193,7 +195,16 @@ function Introfilm() {
   function open(event) {
     setChecD(true);
   }
-  return (
+  const deleteFilm = async () => {
+    const del_url = "http://localhost:5000/film" + `/${filmID}`.toString();
+    console.log(del_url);
+    const res = await axios.delete(del_url);
+    console.log("Deleted the film", res);
+    setPress(true);
+  };
+  return pressDelete ? (
+    <Page404 />
+  ) : (
     <div>
       <HeaderTitle log={popUp} />
 
@@ -230,7 +241,9 @@ function Introfilm() {
             ) : null}
           </li>
         </ul>
-        {checkDelete ? <FormComfirm close={close} /> : null}
+        {checkDelete ? (
+          <FormComfirm deleteFilm={deleteFilm} close={close} />
+        ) : null}
         <div className={styles.content}>
           <div className={styles.photo}>
             <Picture src={src} title={""} />

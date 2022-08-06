@@ -257,12 +257,12 @@
 
 /*  DELETE FORM*/
 .delete {
-    width: 100%;
-    top: -60rem;
-    right: -13rem;
-    position: relative;
+    width: 600px;
+    position: fixed;
     display: flex;
-
+    top: 20rem;
+    right: 20rem;
+    z-index: 1;
 }
 
 .delete .modalContainer {
@@ -317,7 +317,7 @@
     color: white;
     position: absolute;
     top: 0.5rem;
-    right: 5rem;
+    right: 6.5rem;
     font-size: 1.5rem;
 }
 

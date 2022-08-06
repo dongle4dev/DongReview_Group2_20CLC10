@@ -236,7 +236,7 @@ function ReviewPage() {
   };
   const deleteReview = async () => {
     const del_url =
-      "http://localhost5000/" + `/${title_film}/${reviewID}`.toString();
+      "http://localhost:5000/" + `/${title_film}/${reviewID}`.toString();
     console.log(del_url);
     const res = await axios.delete(del_url);
     console.log("Deleted the review", res);
