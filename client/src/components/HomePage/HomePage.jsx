@@ -156,7 +156,7 @@ function HomePage() {
         <div className={styles.list1}>
           {theater.map((pic) => (
             <Link
-              to="/introfilm"
+              to={`/film/${pic._id}`}
               state={{
                 key: pic._id,
                 filmID: pic._id,
@@ -181,7 +181,7 @@ function HomePage() {
         <div className={styles.list2}>
           {phimle.map((pic) => (
             <Link
-              to="/introfilm"
+              to={`/film/${pic._id}`}
               state={{
                 key: pic._id,
                 filmID: pic._id,
@@ -206,7 +206,7 @@ function HomePage() {
         <div className={styles.list2}>
           {anime.map((pic) => (
             <Link
-              to="/introfilm"
+              to={`/film/${pic._id}`}
               state={{
                 key: pic._id,
                 filmID: pic._id,

@@ -1,0 +1,107 @@
+.modal {
+    width: 100%;
+    /* background-color: rgba(220,220,220,0.5); */
+    background-image: url("../../../public/assets/picture/black-concrete-wall.jpg");
+    position: relative;
+    padding-left: 18%;
+}
+
+.modal .modalContainer {
+    position: relative;
+    background-color: white;
+    padding: 3rem 2rem;
+    width: 50rem;
+
+    align-items: center;
+    border-width: 5px;
+    /* Để sdung keyframes modalFadeIn đi chậm ease 0.5s*/
+    animation: modalFadeIn ease 0.5s
+}
+
+.modal .modalContainer .head {
+    width: 100%;
+    height: 3rem;
+    background-color: #f5813e;
+    top: 0;
+    right: 0;
+    position: absolute;
+    align-items: center;
+    letter-spacing: 2px;
+}
+
+.modal .modalContainer .head>h2 {
+    color: white;
+    position: absolute;
+    top: 1rem;
+    right: 18rem;
+    height: min(100% - 0.5rem, 3rem);
+}
+
+.modal .modalContainer .input {
+    margin: 1.5rem;
+}
+
+.modal .modalContainer .input>p {
+    display: inline-block;
+    margin-right: 0.2rem;
+}
+
+.modal .modalContainer .input>input {
+    display: inline-block;
+    padding: 0.5rem;
+}
+
+.modal .modalContainer .input .year,
+.modal .modalContainer .input .trailer {
+    margin-left: 8rem;
+}
+
+.modal .modalContainer .content textarea {
+    padding: 0.5rem;
+}
+
+.modal .modalContainer .addFilm {
+    margin-left: 16rem;
+}
+
+.modal .modalContainer .addFilm button {
+    font-size: 1.5rem;
+    background-color: #f5813e;
+    padding: 0.5rem;
+    margin: 2rem 0.5rem;
+    border-color: #f5813e;
+}
+
+.modal .modalContainer .addFilm button:hover {
+    background-color: #db6019;
+}
+
+.modal .modalContainer .addFilm button a {
+    color: black;
+}
+
+.modal .modalContainer .input .plus {
+
+    margin-left: 0.5rem;
+    color: #db6019;
+}
+
+.modal .modalContainer .input .plus:hover {
+    cursor: pointer;
+}
+
+/* Làm trôi ảnh MODAL CONTAINER*/
+/* Tạo ra chuyển động liên tiếp của ảnh tĩnh */
+@keyframes modalFadeIn {
+
+    /* modal container sẽ đi từ -100px đến 0px*/
+    from {
+        opacity: 0;
+        transform: translateY(-150px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -39,7 +39,7 @@ function Slider() {
           if (index >= 4 * pos && index <= 4 * pos + 3) {
             return (
               <Link
-                to="/introfilm"
+                to={`/film/${pic._id}`}
                 state={{
                   key: pic._id,
                   filmID: pic._id,

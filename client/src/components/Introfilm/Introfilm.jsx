@@ -27,7 +27,7 @@ function ReviewSumary(props) {
         <p>
           {content}
           <Link
-            to={`/${props.title_film}/${props.reviewID}`}
+            to={`/${props.filmID}/${props.reviewID}`}
             state={{
               reviewID: props.reviewID,
               filmID: props.filmID,
@@ -38,7 +38,7 @@ function ReviewSumary(props) {
               share: props.share,
               cmt: props.cmt,
               time: props.time,
-              title_film: props.title_film
+              title_film: props.title_film,
             }}
           >
             Xem thêm
@@ -54,7 +54,21 @@ function ReviewSumary(props) {
     </div>
   );
 }
-
+function FormComfirm(props) {
+  return (
+    <div className={styles.delete}>
+      <div className={styles.modalContainer}>
+        <div className={styles.head}>
+          <h2>XÁC NHẬN XÓA BÀI VIẾT</h2>
+        </div>
+        <div className={styles.send}>
+          <button onClick={props.deleteReview}>Đồng ý</button>
+          <button onClick={() => props.close(2)}>Hủy</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
   const url1 = "/api/news.json";
@@ -68,10 +82,22 @@ function Introfilm() {
   const [rateFilm, setRate] = React.useState(0);
   const [arr_new, setNews] = React.useState([]);
   const [lstReview, setReviews] = React.useState([]);
+  const [checkOption, setCheckOp] = React.useState(false);
+  const [checkDelete, setChecD] = React.useState(false);
 
   const location = useLocation();
-  const { filmID, title, src, type, year, nation, sumary, trailer, rate, main } =
-    location.state; // "useLocation" to get the state
+  const {
+    filmID,
+    title,
+    src,
+    type,
+    year,
+    nation,
+    sumary,
+    trailer,
+    rate,
+    main,
+  } = location.state; // "useLocation" to get the state
 
   React.useEffect(() => {
     console.log("filmID: ", filmID);
@@ -102,7 +128,6 @@ function Introfilm() {
         console.log("rv_lst: ", rv);
         setReviews(rv);
         setUser(res3.data);
-        
       } catch (error) {
         console.log(error);
       }
@@ -154,13 +179,58 @@ function Introfilm() {
   function popUp() {
     setLogin(true);
   }
-
+  function clickOption(event) {
+    if (checkOption === false) {
+      setCheckOp(true);
+    } else {
+      setCheckOp(false);
+    }
+    event.preventDefault();
+  }
+  function close(num) {
+    if (num === 2) setChecD(false);
+  }
+  function open(event) {
+    setChecD(true);
+  }
   return (
     <div>
       <HeaderTitle log={popUp} />
 
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
+        <ul onClick={clickOption} className={styles.option}>
+          <li>
+            <i className="fa-solid fa-ellipsis"></i>
+            {checkOption ? (
+              <ul className={styles.choices}>
+                <li>
+                  {" "}
+                  <Link
+                    to={`/${filmID}/update`}
+                    state={{
+                      filmID_ud: filmID,
+                      title_ud: title,
+                      src_ud: src,
+                      type_ud: type,
+                      year_ud: year,
+                      nation_ud: nation,
+                      sumary_ud: sumary,
+                      trailer_ud: trailer,
+                      rate_ud: rate,
+                      main_ud: main,
+                      news_ud: arr_new,
+                    }}
+                  >
+                    Chỉnh sửa phim
+                  </Link>
+                </li>
+                <li onClick={open}>Xóa phim</li>
+              </ul>
+            ) : null}
+          </li>
+        </ul>
+        {checkDelete ? <FormComfirm close={close} /> : null}
         <div className={styles.content}>
           <div className={styles.photo}>
             <Picture src={src} title={""} />
@@ -242,10 +312,13 @@ function Introfilm() {
           <div className={styles.lstReview}>
             <p>Top review</p>
             <p className={styles.writeReview}>
-              <Link to={`/${title}/writereview`} state={{
-                filmid_addrv: filmID,
-                userID_addrv: 1
-              }}>
+              <Link
+                to={`/${title}/writereview`}
+                state={{
+                  filmid_addrv: filmID,
+                  userID_addrv: 1,
+                }}
+              >
                 Viết bài
               </Link>
             </p>

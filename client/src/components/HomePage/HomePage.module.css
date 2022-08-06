@@ -15,7 +15,7 @@
     display: grid;
     grid-template-rows: calc(1.2%) calc(96.4%/3) calc(1.2%) calc(96.4%/3) calc(1.2%) calc(96.4%/3) calc(1.2%);
     width: 19.5rem;
-    height: 99%;
+    height: 735.479px;
     position: absolute;
     background-color: #fff;
     right: 0;

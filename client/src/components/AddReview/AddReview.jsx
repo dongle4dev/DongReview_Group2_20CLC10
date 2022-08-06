@@ -5,6 +5,7 @@ import styles from "./AddReview.module.css";
 import HeaderTitle from "../Header/HeaderTitle";
 import Footer from "../Footer/Footer";
 
+
 function AddReview() {
   const location = useLocation();
   const { filmid_addrv, userID_addrv } = location.state; // "useLocation" to get the state
