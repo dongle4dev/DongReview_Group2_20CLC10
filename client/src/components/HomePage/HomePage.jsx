@@ -7,6 +7,7 @@ import Slider from "../Slider/Slider";
 import styles from "./HomePage.module.css";
 import Picture from "../Picture/Picture";
 import pics from "../Slider/pics";
+import HeaderUser from "../Header/HeaderUser";
 import { Link } from "react-router-dom";
 
 function HomePage() {
@@ -17,6 +18,7 @@ function HomePage() {
   const [top1, setTopNam] = React.useState([]);
   const [top2, setTopThang] = React.useState([]);
   const [top3, setTopTuan] = React.useState([]);
+  const [auth, setAuth] = React.useState(null);
   const url = "/api/films.json";
   window.onload = function () {
     if (!window.location.hash) {
@@ -70,9 +72,15 @@ function HomePage() {
   function popUp() {
     setLogin(true);
   }
+  function authorizeUser(){
+    setAuth(true);
+  }
+  function unauthorizeUser(){
+    setAuth(false);
+  }
   return (
     <div>
-      <Header log={popUp} />
+      {auth ? <HeaderUser  unauthorize = {unauthorizeUser}/> : <Header log={popUp} />}
       <Slider />
 
       <div className={styles.content}>
@@ -227,7 +235,7 @@ function HomePage() {
         </div>
       </div>
       <Footer />
-      <LogIn trigger={login} unlog={popDown} />
+      <LogIn trigger={login} unlog={popDown} authorize = {authorizeUser}/>
     </div>
   );
 }
