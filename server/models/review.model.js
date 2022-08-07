@@ -5,14 +5,23 @@ mongoose.plugin(slug)
 const { conn } = require('../helpers/connectionMultiMongodb')
 
 const Review = new Schema({
-    filmID : { type: Schema.Types.ObjectId, ref: 'Film' },
-    userID: {type: Schema.Types.ObjectId, ref: 'User'},
+    filmID : {
+        type: Schema.Types.ObjectId,
+        ref: 'Film',
+        require: true,
+    },
+    userID: {type: Schema.Types.ObjectId,
+        ref: 'User',
+        require: true,
+    },
     content: {type: String, default: ''},
     like: { type: Number},
     slug: { type: String, slug: 'title', unique: true}, 
 }, {
     timestamps: true,
-});
+})
 
 
-module.exports = mongoose.model('Review', Review)
+
+
+module.exports = conn.model('Review', Review)
