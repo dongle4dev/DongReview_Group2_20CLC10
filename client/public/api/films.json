@@ -18,7 +18,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 2,
@@ -39,7 +41,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 3,
@@ -60,7 +64,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 4,
@@ -81,7 +87,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 5,
@@ -102,7 +110,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 6,
@@ -123,7 +133,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 7,
@@ -144,7 +156,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 8,
@@ -165,7 +179,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 9,
@@ -186,7 +202,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 10,
@@ -207,7 +225,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 11,
@@ -228,7 +248,9 @@
           "name": "Nobita",
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
-      ]
+      ],
+      "updatedOn": "01/01/2022",
+      "postedOn": "01/01/2022"
     },
     {
       "_id": 12,
@@ -250,5 +272,7 @@
           "img": "https://static.lag.vn/upload/news/18/10/15/Qt5jpHmJ_400x400_KPSP.jpg?w=800&encoder=wic&subsampling=444"
         }
       ]
-    }
+ ,
+"updatedOn": "01/01/2022",
+"postedOn": "01/01/2022"   }
   ]

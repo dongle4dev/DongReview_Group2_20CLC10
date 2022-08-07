@@ -83,9 +83,7 @@ function Introfilm() {
   const [rateFilm, setRate] = React.useState(0);
   const [arr_new, setNews] = React.useState([]);
   const [lstReview, setReviews] = React.useState([]);
-  const [checkOption, setCheckOp] = React.useState(false);
-  const [checkDelete, setChecD] = React.useState(false);
-  const [pressDelete, setPress] = React.useState(false);
+  
 
   const location = useLocation();
   const {
@@ -101,8 +99,8 @@ function Introfilm() {
     main,
   } = location.state; // "useLocation" to get the state
 
+  //console.log(filmID, title, src, type, year, nation, sumary, trailer, rate, main)
   React.useEffect(() => {
-    console.log("filmID: ", filmID);
     const getData = async () => {
       try {
         console.log("before getting data");
@@ -181,69 +179,12 @@ function Introfilm() {
   function popUp() {
     setLogin(true);
   }
-  function clickOption(event) {
-    if (checkOption === false) {
-      setCheckOp(true);
-    } else {
-      setCheckOp(false);
-    }
-    event.preventDefault();
-  }
-  function close(num) {
-    if (num === 2) setChecD(false);
-  }
-  function open(event) {
-    setChecD(true);
-  }
-  const deleteFilm = async () => {
-    const del_url = "http://localhost:5000/film" + `/${filmID}`.toString();
-    console.log(del_url);
-    const res = await axios.delete(del_url);
-    console.log("Deleted the film", res);
-    setPress(true);
-  };
-  return pressDelete ? (
-    <Page404 />
-  ) : (
+  return (
     <div>
       <HeaderTitle log={popUp} />
 
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
-        <ul onClick={clickOption} className={styles.option}>
-          <li>
-            <i className="fa-solid fa-ellipsis"></i>
-            {checkOption ? (
-              <ul className={styles.choices}>
-                <li>
-                  {" "}
-                  <Link
-                    to={`/${filmID}/update`}
-                    state={{
-                      filmID_ud: filmID,
-                      title_ud: title,
-                      src_ud: src,
-                      type_ud: type,
-                      year_ud: year,
-                      nation_ud: nation,
-                      sumary_ud: sumary,
-                      trailer_ud: trailer,
-                      rate_ud: rate,
-                      main_ud: main,
-                      news_ud: arr_new,
-                    }}
-                  >
-                    Chỉnh sửa phim
-                  </Link>
-                </li>
-                <li onClick={open}>Xóa phim</li>
-              </ul>
-            ) : null}
-          </li>
-        </ul>
-        {checkDelete ? (
-          <FormComfirm deleteFilm={deleteFilm} close={close} />
-        ) : null}
         <div className={styles.content}>
           <div className={styles.photo}>
             <Picture src={src} title={""} />

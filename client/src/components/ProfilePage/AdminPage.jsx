@@ -35,6 +35,12 @@ function AdminPage() {
         </div>
       </div>
       <div className={styles.tag_container}>
+        <a className={styles.tag} href="/admin/list-film">
+          {" "}
+          &#x2023; Quản lý phim
+        </a>
+      </div>
+      <div className={styles.tag_container}>
         <a className={styles.tag} href="">
           {" "}
           &#x2023; Kiểm duyệt{" "}
@@ -44,31 +50,53 @@ function AdminPage() {
           Xem thêm...{" "}
         </a>
       </div>
-      <div className={styles.content}>
-        <div className={styles.item}>
-          <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
-        </div>
-        <div className={styles.item}>
-          <Picture
-            src={pics[0 + 1].src}
-            title={pics[0 + 1].title}
-            key={pics[0 + 1].key}
-          />
-        </div>
-        <div className={styles.item}>
-          <Picture
-            src={pics[0 + 2].src}
-            title={pics[0 + 2].title}
-            key={pics[0 + 2].key}
-          />
-        </div>
-        <div className={styles.item}>
-          <Picture
-            src={pics[0 + 3].src}
-            title={pics[0 + 3].title}
-            key={pics[0 + 3].key}
-          />
-        </div>
+      <div className={styles.tablehold}>
+        <div className={styles.left}></div>
+        <table>
+          <tr>
+            <th>Người đăng</th>
+            <th>Phim</th>
+            <th>Link bài viết</th>
+            <th>Giờ đăng</th>
+          </tr>
+          <tr>
+            <td>Đông</td>
+            <td>Doraemon</td>
+            <td>làm gì có</td>
+            <td>30/4/1975</td>
+          </tr>
+          <tr>
+            <td>Đông</td>
+            <td>Doraemon</td>
+            <td>làm gì có</td>
+            <td>30/4/1975</td>
+          </tr>
+          <tr>
+            <td>Đông</td>
+            <td>Doraemon</td>
+            <td>làm gì có</td>
+            <td>30/4/1975</td>
+          </tr>
+          <tr>
+            <td>Đông</td>
+            <td>Doraemon</td>
+            <td>làm gì có</td>
+            <td>30/4/1975</td>
+          </tr>
+          <tr>
+            <td>Đông</td>
+            <td>Doraemon</td>
+            <td>làm gì có</td>
+            <td>30/4/1975</td>
+          </tr>
+          <tr>
+            <td>Đông</td>
+            <td>Doraemon</td>
+            <td>làm gì có</td>
+            <td>30/4/1975</td>
+          </tr>
+        </table>
+        <div className={styles.right}></div>
       </div>
       <div className={styles.tag_container}>
         <a className={styles.tag} href="">

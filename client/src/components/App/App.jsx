@@ -18,6 +18,7 @@ import Page502 from "../ErrorPages/Page502";
 import AddReview from "../AddReview/AddReview";
 import FindPage from "../FindPage/FindPage";
 import EditFilm from "../EditFilm/EditFilm";
+import LstFilm from "../LstFilm/LstFilm";
 
 function App() {
   return (
@@ -48,11 +49,8 @@ function App() {
               path="/found-films/:title"
               element={<FindPage />}
             ></Route>
-            <Route
-              exact
-              path="/:id/update"
-              element={<EditFilm />}
-            ></Route>
+            <Route exact path="/admin/list-film" element={<LstFilm />}></Route>
+            <Route exact path="/:id/update" element={<EditFilm />}></Route>
             <Route exact path="/admin/addfilm" element={<AddFilm />}></Route>
           </Routes>
         </div>
