@@ -7,7 +7,6 @@ const { use } = require('../routes/comment.route')
 
 
 class CommentController {
-
     async showallcmt(req, res, next) {
         try {
             let a = req.params.id
