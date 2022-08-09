@@ -30,7 +30,7 @@ function HeaderUser(props) {
         </li> )
         : ("")}
         <i className="ti-github"></i>
-        <p className={styles.login}>username</p>
+        <p className={styles.login}>{props.us}</p>
       </div>
 
       <p className={styles.line}>none</p>

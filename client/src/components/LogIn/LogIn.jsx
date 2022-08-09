@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styles from "./LogIn.module.css";
 import clsx from "clsx";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import Page404 from "../ErrorPages/Page404";
+
 
 function LogIn(props) {
   const [username, setUsername] = useState("")
@@ -19,14 +22,13 @@ function LogIn(props) {
     }
     setEmpty(false);
     //authorize using axios
-    axios.get(`/api/users.json`)
+    const userdata = {username: username, password: password};
+    axios.post("http://localhost:5000/user/login", userdata)
           .then(res => {
-            console.log(res.headers.authorize);
-            ResetData();
-            props.unlog();
-            props.authorize();
+            console.log(res.data);
+            
           })
-          .catch(error => console.log(error));
+        .catch(error => console.log(error));
   }
   return props.trigger ? (
 
