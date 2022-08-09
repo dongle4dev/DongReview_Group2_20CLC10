@@ -48,7 +48,7 @@ function Slider() {
                   type: pic.type,
                   year: pic.year,
                   nation: pic.nation,
-                  sumary: pic.sumary,
+                  description: pic.description,
                   trailer: pic.trailer,
                   rate: pic.rate,
                   main: pic.main,
@@ -62,7 +62,7 @@ function Slider() {
       </div>
       <div className={styles.dot}>
         {checks.map((check, index) => (
-          <span className={index === pos ? styles.sdot : styles.ndot}></span>
+          <span key={index} className={index === pos ? styles.sdot : styles.ndot}></span>
         ))}
       </div>
     </div>

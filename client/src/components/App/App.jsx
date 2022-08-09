@@ -50,6 +50,7 @@ function App() {
               element={<FindPage />}
             ></Route>
             <Route exact path="/admin/list-film" element={<LstFilm />}></Route>
+            <Route exact path="/admin/approve" element={<LstFilm />}></Route>
             <Route exact path="/:id/update" element={<EditFilm />}></Route>
             <Route exact path="/admin/addfilm" element={<AddFilm />}></Route>
           </Routes>

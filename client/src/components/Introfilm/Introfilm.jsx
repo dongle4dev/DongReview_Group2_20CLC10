@@ -13,6 +13,7 @@ import Page404 from "../ErrorPages/Page404";
 var pages = [];
 var num_page = 0;
 for (var i = 0; i < num_page; i++) pages.push(i + 1);
+var num_page_main = 0;
 function ReviewSumary(props) {
   let content = props.content;
   content = content.slice(0, 200) + "...";
@@ -55,21 +56,6 @@ function ReviewSumary(props) {
     </div>
   );
 }
-function FormComfirm(props) {
-  return (
-    <div className={styles.delete}>
-      <div className={styles.modalContainer}>
-        <div className={styles.head}>
-          <h2>XÁC NHẬN XÓA BÀI VIẾT</h2>
-        </div>
-        <div className={styles.send}>
-          <button onClick={props.deleteFilm}>Đồng ý</button>
-          <button onClick={() => props.close(2)}>Hủy</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
   const url1 = "/api/news.json";
@@ -78,12 +64,12 @@ function Introfilm() {
   const [users, setUser] = React.useState([]);
   const [login, setLogin] = React.useState(false);
   const [pos, setPos] = React.useState(0);
+  const [main_pos, setMainPos] = React.useState(0);
   const [check, setCheck] = React.useState(false);
   const [checkLike, setCheckL] = React.useState(false);
   const [rateFilm, setRate] = React.useState(0);
   const [arr_new, setNews] = React.useState([]);
   const [lstReview, setReviews] = React.useState([]);
-  
 
   const location = useLocation();
   const {
@@ -93,13 +79,13 @@ function Introfilm() {
     type,
     year,
     nation,
-    sumary,
+    description,
     trailer,
     rate,
     main,
   } = location.state; // "useLocation" to get the state
 
-  //console.log(filmID, title, src, type, year, nation, sumary, trailer, rate, main)
+  //console.log(filmID, title, src, type, year, nation, description, trailer, rate, main)
   React.useEffect(() => {
     const getData = async () => {
       try {
@@ -117,6 +103,8 @@ function Introfilm() {
           }
         });
         num_page = Math.ceil(rv.length / 5);
+        num_page_main = Math.ceil(main.length / 2);
+        console.log("num_main: ", num_page_main, main.length);
         setNews(
           res1.data.filter((item) => {
             if (item.filmID === filmID && count <= 4) {
@@ -153,6 +141,18 @@ function Introfilm() {
     }
     event.preventDefault();
   }
+  function increaseMain(event) {
+    if (main_pos < num_page_main - 1) {
+      setMainPos(main_pos + 1);
+    }
+    event.preventDefault();
+  }
+  function decreaseMain(event) {
+    if (main_pos > 0) {
+      setMainPos(main_pos - 1);
+    }
+    event.preventDefault();
+  }
   function increase(event) {
     if (pos < num_page - 1) {
       setPos(pos + 1);
@@ -181,7 +181,7 @@ function Introfilm() {
   }
   return (
     <div>
-      <HeaderTitle log={popUp} />
+      <HeaderTitle title={title} log={popUp} />
 
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
@@ -215,10 +215,10 @@ function Introfilm() {
             <p className={styles.info}>
               Nội dung:
               <span>
-                {sumary.length > 70 && !check
-                  ? sumary.slice(0, 300) + "..."
-                  : sumary + "..."}
-                {sumary.length > 70 && !check ? (
+                {description.length > 70 && !check
+                  ? description.slice(0, 300) + "..."
+                  : description + "..."}
+                {description.length > 70 && !check ? (
                   <a
                     href="/"
                     style={{ color: "rgb(127, 162, 243)" }}
@@ -287,7 +287,7 @@ function Introfilm() {
                 className={clsx("ti-heart", styles.love)}
               ></i>
             )}
-
+            {num_page === 0 ? <h2>Không có bài viết nào</h2> : null}
             {lstReview.map((item, index) => {
               if (index >= 5 * pos && index <= 5 * pos + 4) {
                 return (
@@ -335,12 +335,24 @@ function Introfilm() {
           <div className={styles.artist}>
             <p>Nhân vật/Diễn viên</p>
             <p className={styles.line}>none</p>
-            {main.map((item) => (
-              <div className={styles.nvat}>
-                <img src={item.img}></img>
-                <p>{item.name}</p>
-              </div>
-            ))}
+            <i
+              onClick={decreaseMain}
+              className={clsx(styles.left, "fa-solid fa-angles-left")}
+            ></i>
+            <i
+              onClick={increaseMain}
+              className={clsx(styles.right, "fa-solid fa-angles-right")}
+            ></i>
+            {main.map((item, index) => {
+              if (index >= 2 * main_pos && index <= 2 * main_pos + 1) {
+                return (
+                  <div key={index} className={styles.nvat}>
+                    <img src={item.img}></img>
+                    <p>{item.name}</p>
+                  </div>
+                );
+              }
+            })}
           </div>
           <div className={styles.news}>
             <p className={styles.extra}>Tin tức liên quan</p>

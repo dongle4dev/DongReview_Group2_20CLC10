@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Header.module.css";
 function HeaderTitle(props) {
+  // const location = useLocation();
+  // const { title } = location.state;
   return (
     <header className={styles.header}>
       <img src={window.location.origin + "/logo.png"}></img>

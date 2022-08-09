@@ -5,6 +5,7 @@ import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
 import pics from "../Slider/pics";
 import Header from "../Header/Header";
+import { Link } from "react-router-dom";
 
 function AdminPage() {
   return (
@@ -35,68 +36,24 @@ function AdminPage() {
         </div>
       </div>
       <div className={styles.tag_container}>
-        <a className={styles.tag} href="/admin/list-film">
+        <Link
+          className={styles.tag}
+          to="/admin/list-film"
+          state={{ title: "KHO QUẢN LÝ PHIM" }}
+        >
           {" "}
-          &#x2023; Quản lý phim
-        </a>
+          &#x2023; Quản lý phim{" "}
+        </Link>
       </div>
       <div className={styles.tag_container}>
-        <a className={styles.tag} href="">
+        <Link
+          className={styles.tag}
+          to="/admin/approve"
+          state={{ title: "KIỂM DUYỆT" }}
+        >
           {" "}
           &#x2023; Kiểm duyệt{" "}
-        </a>
-        <a className={styles.more} href="">
-          {" "}
-          Xem thêm...{" "}
-        </a>
-      </div>
-      <div className={styles.tablehold}>
-        <div className={styles.left}></div>
-        <table>
-          <tr>
-            <th>Người đăng</th>
-            <th>Phim</th>
-            <th>Link bài viết</th>
-            <th>Giờ đăng</th>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-        </table>
-        <div className={styles.right}></div>
+        </Link>
       </div>
       <div className={styles.tag_container}>
         <a className={styles.tag} href="">

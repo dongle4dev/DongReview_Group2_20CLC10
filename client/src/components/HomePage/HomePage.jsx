@@ -20,12 +20,13 @@ function HomePage() {
   const [top3, setTopTuan] = React.useState([]);
   const [auth, setAuth] = React.useState(null);
   const url = "/api/films.json";
-  window.onload = function () {
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
-  };
+
+  // window.onload = function () {
+  //   if (!window.location.hash) {
+  //     window.location = window.location + "#loaded";
+  //     window.location.reload();
+  //   }
+  // };
   React.useEffect(() => {
     const getData = async () => {
       try {
@@ -72,15 +73,19 @@ function HomePage() {
   function popUp() {
     setLogin(true);
   }
-  function authorizeUser(){
+  function authorizeUser() {
     setAuth(true);
   }
-  function unauthorizeUser(){
+  function unauthorizeUser() {
     setAuth(false);
   }
   return (
     <div>
-      {auth ? <HeaderUser  unauthorize = {unauthorizeUser}/> : <Header log={popUp} />}
+      {auth ? (
+        <HeaderUser unauthorize={unauthorizeUser} />
+      ) : (
+        <Header log={popUp} />
+      )}
       <Slider />
 
       <div className={styles.content}>
@@ -173,7 +178,7 @@ function HomePage() {
                 type: pic.type,
                 year: pic.year,
                 nation: pic.nation,
-                sumary: pic.sumary,
+                description: pic.description,
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
@@ -198,7 +203,7 @@ function HomePage() {
                 type: pic.type,
                 year: pic.year,
                 nation: pic.nation,
-                sumary: pic.sumary,
+                description: pic.description,
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
@@ -223,7 +228,7 @@ function HomePage() {
                 type: pic.type,
                 year: pic.year,
                 nation: pic.nation,
-                sumary: pic.sumary,
+                description: pic.description,
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
@@ -235,7 +240,7 @@ function HomePage() {
         </div>
       </div>
       <Footer />
-      <LogIn trigger={login} unlog={popDown} authorize = {authorizeUser}/>
+      <LogIn trigger={login} unlog={popDown} authorize={authorizeUser} />
     </div>
   );
 }

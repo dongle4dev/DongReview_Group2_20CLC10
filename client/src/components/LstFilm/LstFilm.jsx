@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./LstFilm.module.css";
 import axios from "axios";
-import HeaderUser from "../Header/HeaderUser";
 import Footer from "../Footer/Footer";
+import ProfileHeader from "../Header/ProfileHeader";
 
 function FormComfirm(props) {
   return (
@@ -138,7 +138,7 @@ function LstFilm() {
   }
   return (
     <div className={styles.lstfilm}>
-      <HeaderUser />
+      <ProfileHeader />
       <div className={styles.tablehold}>
         <div className={styles.left}></div>
         <table>
