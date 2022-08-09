@@ -6,6 +6,7 @@ const siteRouter = require('./site.route');
 const filmRouter = require('./film.route');
 const userRouter = require('./user.route');
 const commentRouter = require('./comment.route')
+const reportRouter = require('./report.route')
 
 function route(app) {
     app.use('/news', newsRouter);
@@ -13,6 +14,7 @@ function route(app) {
     app.use('/cmt', commentRouter)
     app.use('/film', filmRouter);
     app.use('/user', userRouter);
+    app.use('/report', reportRouter)
     app.use('/', siteRouter);
 
     app.use((req, res, next) => {
