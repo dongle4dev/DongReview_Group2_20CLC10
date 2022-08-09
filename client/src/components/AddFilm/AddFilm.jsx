@@ -175,6 +175,7 @@ function AddFilm() {
     const headers = {
       // Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
+      'Content-type': 'application/json'
     };
     const res1 = await axios.post(
       "https://jsonplaceholder.typicode.com/posts",

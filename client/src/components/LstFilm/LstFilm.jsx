@@ -99,7 +99,7 @@ function Film(props) {
 }
 
 function LstFilm() {
-  const url = "/api/films.json";
+  const url = "http://localhost:5000/film/all";
   const [lst_film, setFilms] = React.useState([]);
   const [checkDelete, setChecD] = React.useState(false);
   const [id, setID] = React.useState();
@@ -124,7 +124,7 @@ function LstFilm() {
 
   const deleteFilm = async () => {
     const del_url =
-      "https://jsonplaceholder.typicode.com/posts" + `/${id}`.toString();
+      "http://localhost:5000/film" + `/${id}`.toString();
     console.log(del_url);
     const res = await axios.delete(del_url);
     console.log("Deleted the film", res);
@@ -156,15 +156,15 @@ function LstFilm() {
                 key={film._id}
                 index={index}
                 title={film.title}
-                updatedOn={film.updatedOn}
-                postedOn={film.postedOn}
+                updatedOn={film.updatedAt}
+                postedOn={film.createdAt}
                 filmID={film._id}
                 main={film.main}
                 src={film.src}
                 type={film.type}
                 year={film.year}
                 nation={film.nation}
-                summary={film.sumary}
+                description={film.description}
                 rate={film.rate}
                 trailer={film.trailer}
                 open={open}

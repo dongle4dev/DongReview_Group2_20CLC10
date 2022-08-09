@@ -8,9 +8,11 @@ const { signAccessToken, verifyAccessToken } = require('../helpers/jwtService')
 
 router.post('/store', filmController.store);
 router.get('/found-films/:title', filmController.findFilmWithName)
-router.get('/:id/update', filmController.update);
-router.put('/:id', filmController.submit);
-router.get('/:slug', filmController.show);
+router.get('/top-films', filmController.findTopFilms)
+router.get('/all', filmController.all)
+router.get('/:id', filmController.show);
+router.put('/:id', filmController.update);
 router.delete('/:id', filmController.deleteFilm)
+
 
 module.exports = router;

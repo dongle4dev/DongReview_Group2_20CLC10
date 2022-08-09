@@ -1,28 +1,24 @@
 const Film = require('../models/film.model')
-const News = require('../models/news.model')
-const { multiMongooseToObject, mongooseToObject } = require('../util/mongoose')
 
 class FilmController {
-    //[GET] /films/:id/update
-    update(req, res, next) {
-        Film.findById(req.params.id)
-            .then(film => {
-                res.render('films/update', {film: mongooseToObject(film)})
-            })
-            .catch(next)
-    }
-
-    //[PUT] /films/:id
-    submit(req, res, next) {
-        Film.updateOne({_id: req.params.id}, req.body)
-            .then(() => res.redirect('/me/stored/films'))
-            .catch(next)
-    }
-
-    //[GET] /films/:slug
+    //[GET] /film/:id
     show(req, res, next) {
-        Film.findOne({ slug: req.params.slug})
-            .then(film => { res.json(film) })
+        Film.findById(req.params.id)
+            .then(film => res.json(film))
+            .catch(next)
+    }
+
+    //[PUT] /film/:id
+    update(req, res, next) {
+        Film.updateOne({_id: req.params.id}, req.body)
+            .then(() => res.json({status: 'Ok'}))
+            .catch(next)
+    }
+
+    //[GET] /all
+    all(req, res, next) {
+        Film.find({})
+            .then(films => res.json(films))
             .catch(next)
     }
 
@@ -50,6 +46,7 @@ class FilmController {
             next(err)
         }
     }
+
     //[DELETE] /film/:id
     async deleteFilm(req, res, next) {
         try {
@@ -59,6 +56,20 @@ class FilmController {
         } catch(e) {
             console.error(`[error] ${e}`);
             next(e)
+        }
+    }
+
+    //[GET] /film/top-films
+    async findTopFilms(req, res, next) {
+        try {
+            const result = await Film.find().sort({rate: 1}).limit(12)
+
+            return res.json({
+                status: "Ok",
+                elements: result
+            })
+        } catch(err) {
+            next(err)
         }
     }
 }

@@ -7,20 +7,20 @@ class UserController {
     //[POST] /user/register
     async register(req, res, next) {
         try {
-            const {email, password} = req.body
+            const {username, password} = req.body
             const {error} = userValidate(req.body)
 
             if (error) {
                 throw createError(error.details[0].message)
             }
 
-            const isExists = await User.findOne({ username: email })
+            const isExists = await User.findOne({ username: username })
 
             if (isExists) {
-                throw createError.Conflict(`This email: ${email} already exists`)
+                throw createError.Conflict(`This username: ${username} already exists`)
             }
 
-            const user = new User({ username: email, password})
+            const user = new User({ username: username, password})
             const savedUser = await user.save()
             
             return res.json({
@@ -38,13 +38,13 @@ class UserController {
     //[POST] /user/login
     async login(req, res, next) {
         try {
-            const {email, password} = req.body
+            const {username, password} = req.body
             const {error} = userValidate(req.body)
             if (error) {
                 throw createError(error.details[0].message)
             }
 
-            const user = await User.findOne({username: email})
+            const user = await User.findOne({username: username})
             if (!user) {
                 throw createError.NotFound('User is not found')
             }

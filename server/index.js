@@ -5,7 +5,6 @@ require('dotenv').config()
 
 //Tự động nạp file index.js
 const route = require('./routes');
-const methodOverride = require('method-override')
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,7 +19,6 @@ app.use(
     }),
 );
 app.use(express.json()); //parsing json
-app.use(methodOverride('_method'))
 // HTTP Logger => Dễ dàng debug, biết đường dẫn,...
 app.use(morgan('combined'));
 const cors = require("cors");

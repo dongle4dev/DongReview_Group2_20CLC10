@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const userValidate = data => {
     const user = Joi.object({
-        email: Joi.string().email().lowercase().required(),
+        username: Joi.string().lowercase().required(),
         password: Joi.string().min(4).max(32).required()
     })
 
