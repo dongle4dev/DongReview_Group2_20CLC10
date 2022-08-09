@@ -75,7 +75,7 @@ function Introfilm() {
   const {
     filmID,
     title,
-    src,
+    img,
     type,
     year,
     nation,
@@ -179,6 +179,7 @@ function Introfilm() {
   function popUp() {
     setLogin(true);
   }
+  
   return (
     <div>
       <HeaderTitle title={title} log={popUp} />
@@ -187,7 +188,7 @@ function Introfilm() {
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
         <div className={styles.content}>
           <div className={styles.photo}>
-            <Picture src={src} title={""} />
+            <Picture src={img} title={""} />
           </div>
           <iframe
             className={styles.trailer}
@@ -267,7 +268,7 @@ function Introfilm() {
             <p>Top review</p>
             <p className={styles.writeReview}>
               <Link
-                to={`/${title}/writereview`}
+                to={`/${title.replace(/ /g, "-")}/writereview`}
                 state={{
                   filmid_addrv: filmID,
                   userID_addrv: 1,

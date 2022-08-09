@@ -56,11 +56,11 @@ function Film(props) {
             key: props.filmID,
             filmID: props.filmID,
             title: props.title,
-            src: props.src,
+            img: props.img,
             type: props.type,
             year: props.year,
             nation: props.nation,
-            sumary: props.summary,
+            description: props.description,
             trailer: props.trailer,
             rate: props.rate,
             main: props.main,
@@ -84,7 +84,7 @@ function Film(props) {
             type_ud: props.type,
             year_ud: props.year,
             nation_ud: props.nation,
-            sumary_ud: props.summary,
+            sumary_ud: props.description,
             trailer_ud: props.trailer,
             rate_ud: props.rate,
             main_ud: props.main,
@@ -99,7 +99,7 @@ function Film(props) {
 }
 
 function LstFilm() {
-  const url = "http://localhost:5000/film/all";
+  //const url = "/api/films.json";
   const [lst_film, setFilms] = React.useState([]);
   const [checkDelete, setChecD] = React.useState(false);
   const [id, setID] = React.useState();
@@ -108,7 +108,7 @@ function LstFilm() {
     const getData = async () => {
       try {
         console.log("before getting films");
-        const res = await axios.get(url);
+        const res = await axios.get("http://localhost:5000/film/all");
         console.log("get films", res.data);
         setFilms(
           res.data.filter((item) => {
@@ -160,7 +160,7 @@ function LstFilm() {
                 postedOn={film.createdAt}
                 filmID={film._id}
                 main={film.main}
-                src={film.src}
+                img={film.img}
                 type={film.type}
                 year={film.year}
                 nation={film.nation}

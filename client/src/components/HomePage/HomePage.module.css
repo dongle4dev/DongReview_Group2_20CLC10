@@ -13,9 +13,9 @@
 .content .board {
     margin: 2.8rem 0 0 0;
     display: grid;
-    grid-template-rows: calc(1.2%) calc(96.4%/3) calc(1.2%) calc(96.4%/3) calc(1.2%) calc(96.4%/3) calc(1.2%);
+    grid-template-rows: calc(4%);
     width: 19.5rem;
-    height: 735.479px;
+    height: 2260px;
     position: absolute;
     background-color: #fff;
     right: 0;

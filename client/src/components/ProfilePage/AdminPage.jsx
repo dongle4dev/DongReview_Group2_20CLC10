@@ -66,7 +66,7 @@ function AdminPage() {
         </a>
       </div>
       <div className={styles.content}>
-        <div className={styles.item}>
+        {/* <div className={styles.item}>
           <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
         </div>
         <div className={styles.item}>
@@ -89,7 +89,7 @@ function AdminPage() {
             title={pics[0 + 3].title}
             key={pics[0 + 3].key}
           />
-        </div>
+        </div> */}
       </div>
       <div className={styles.tag_container}>
         <a className={styles.tag} href="">
@@ -102,7 +102,7 @@ function AdminPage() {
         </a>
       </div>
       <div className={styles.content}>
-        <div className={styles.item}>
+        {/* <div className={styles.item}>
           <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
         </div>
         <div className={styles.item}>
@@ -125,7 +125,7 @@ function AdminPage() {
             title={pics[0 + 3].title}
             key={pics[0 + 3].key}
           />
-        </div>
+        </div> */}
       </div>
       <Footer></Footer>
     </div>

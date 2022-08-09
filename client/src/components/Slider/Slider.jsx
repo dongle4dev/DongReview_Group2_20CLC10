@@ -44,7 +44,7 @@ function Slider() {
                   key: pic._id,
                   filmID: pic._id,
                   title: pic.title,
-                  src: pic.src,
+                  src: pic.img,
                   type: pic.type,
                   year: pic.year,
                   nation: pic.nation,
@@ -54,7 +54,7 @@ function Slider() {
                   main: pic.main,
                 }}
               >
-                <Picture src={pic.src} title={pic.title} key={pic._id} />
+                <Picture src={pic.img} title={pic.title} key={pic._id} />
               </Link>
             );
           }

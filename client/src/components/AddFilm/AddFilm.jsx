@@ -222,7 +222,7 @@ function AddFilm() {
             name="title"
             value={input_data.title}
             type="text"
-            placeholder="Tên đăng nhập"
+            placeholder="Nhập tên phim"
             required
           ></input>
         </div>
