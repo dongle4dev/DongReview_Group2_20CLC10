@@ -1,5 +1,5 @@
-const { multiMongooseToObject } = require('../util/mongoose')
 const { mongooseToObject } = require('../util/mongoose')
+const { multiMongooseToObject } = require('../util/mongoose')
 
 const Comment = require('../models/comment.model')
 const { use } = require('../routes/comment.route')
