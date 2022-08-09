@@ -20,7 +20,7 @@ class UserController {
                 throw createError.Conflict(`This username: ${username} already exists`)
             }
 
-            const user = new User({ username: username, password})
+            const user = new User(req.body)
             const savedUser = await user.save()
             
             return res.json({

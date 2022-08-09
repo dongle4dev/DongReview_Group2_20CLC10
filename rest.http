@@ -5,8 +5,11 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "username": "admin",
-    "password": "1234"
+    "username": "nguyenihp",
+    "password": "1234",
+    "fullName": "Nguyen Phuoc Hoang",
+    "dob": "1/6/2022",
+    "avt": "https://www.facebook.com/photo/?fbid=1201010623686034&set=a.354070621713376&__cft__[0]=AZV94meknr_0dT4MPyvVbrrg-HA4ejyHUt21yBhBNUwKfIdqsmEAcLNNev_nutlxEW-ygT_X7lCtmXo0xKKche2ASpHqwyNS5KBJOa2GGvW24mADkp7HNweqZ1i_3PeGuU5QRBECwokq0WbIsP4vfbIlFbk5CZLyFnBgfP8T37K95Q&__tn__=EH-R"
 }
 
 ###
