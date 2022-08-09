@@ -5,8 +5,11 @@ POST http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "email": "user1@gmail.com",
-    "password": "123456"
+    "username": "nguyenihp",
+    "password": "1234",
+    "fullName": "Nguyen Phuoc Hoang",
+    "dob": "1/6/2022",
+    "avt": "https://www.facebook.com/photo/?fbid=1201010623686034&set=a.354070621713376&__cft__[0]=AZV94meknr_0dT4MPyvVbrrg-HA4ejyHUt21yBhBNUwKfIdqsmEAcLNNev_nutlxEW-ygT_X7lCtmXo0xKKche2ASpHqwyNS5KBJOa2GGvW24mADkp7HNweqZ1i_3PeGuU5QRBECwokq0WbIsP4vfbIlFbk5CZLyFnBgfP8T37K95Q&__tn__=EH-R"
 }
 
 ###
@@ -14,8 +17,8 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "email": "user1@gmail.com",
-    "password": "123456"
+    "username": "admin",
+    "password": "1234"
 }
 
 ###
@@ -25,9 +28,53 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M
 ###
 POST http://localhost:5000/film/store
 Content-Type: application/json
+    
+    {
+      "title": "Minions: The Rise of Gru",
+      "src": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/minions-the-rise-of-gru/images/regions/ca/onesheet.jpg",
+      "type": "phimhoathinh",
+      "year": 2022,
+      "nation": "Phim Âu Mỹ",
+      "description": " Tiếp nối bộ phim ke cap mat trang 3 năm 2015 , lần này ở trung tâm của thập niên 1970, Felonius Gru mười hai tuổi đang lớn lên ở vùng ngoại ô. Một fanboy của một nhóm giám sát được gọi là Vicy 6, Gru ấp ủ một kế hoạch trở thành ác quỷ đủ để tham gia cùng họ. Khi Vicy 6 sa thải thủ lĩnh của họ, chiến binh huyền thoại Wild Knuckles, Gru phỏng vấn để trở thành thành viên mới nhất của họ. Mọi chuyện không suôn sẻ, và mọi thứ chỉ trở nên tồi tệ hơn sau khi Gru đánh cắp chúng với sự giúp đỡ của Kevin, Stuart, Bob, Otto và các Minion khác và đột nhiên thấy mình là kẻ thù không đội trời chung của ác quỷ. Trên đường chạy trốn, Gru và Minions sẽ chuyển sang một nguồn không thể để được hướng dẫn, chính Wild Knuckles và phát hiện ra rằng ngay cả những kẻ xấu cũng cần một chút giúp đỡ từ bạn bè của họ.",
+      "trailer": "https://www.youtube.com/embed/6DxjJzmYsXo",
+      "rate": 5,
+      "main": [
+        {
+          "name": "Steve Carell",
+          "img": "https://m.media-amazon.com/images/M/MV5BMjMyOTM2OTk1Ml5BMl5BanBnXkFtZTgwMTI3MzkyNjM@._V1_UX214_CR0,0,214,317_AL_.jpg"
+        },
+        {
+          "name": "Pierre Coffin",
+          "img": "https://m.media-amazon.com/images/M/MV5BMTUzOTQ3OTA3OF5BMl5BanBnXkFtZTcwNzEzNTMyOA@@._V1_UY317_CR3,0,214,317_AL_.jpg"
+        }
+    ]
+    }
+###
+GET http://localhost:5000/film/found-films/emon
+
+###
+POST http://localhost:5000/news/store
+Content-Type: application/json
 
 {
-    "title": "Doraemon: Nobita và Mặt Trăng Phiêu Lưu Ký",
+    "filmID": "62ecab61c20ea5c965435424",
+    "img": "https://znews-photo.zingcdn.me/w360/Uploaded/xbhunku/2019_05_24/doraemon.jpg",
+    "src": "https://zingnews.vn/doraemon-nobita-va-mat-trang-phieu-luu-ky-suc-manh-cua-niem-tin-post949604.html",
+    "title": "Doraemon: Nobita và Mặt Trăng phiêu lưu ký’ - sức mạnh của niềm tin"
+}
+
+###
+DELETE http://localhost:5000/film/62ecab61c20ea5c965435424
+
+###
+GET http://localhost:5000/film/62ecab61c20ea5c965435424
+
+###
+PUT http://localhost:5000/film/62ecab61c20ea5c965435424
+Content-Type: application/json
+
+{
+    "title": "Doraemon: Nobita và Hân Moi",
     "img": "https://mp-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=604800&url=https%3A%2F%2Fi0.wp.com%2Fimage.motphim.net%2Fposter%2Fdoraemon-nobita-va-mat-trang-phieu-luu-ky-7106.jpg%3F1568141393",
     "type": "phimchieurap",
     "year": 2021,
@@ -47,20 +94,5 @@ Content-Type: application/json
     ]
 }
 
-
 ###
-GET http://localhost:5000/film/found-films/emon
-
-###
-POST http://localhost:5000/news/store
-Content-Type: application/json
-
-{
-    "filmID": "62e95c7b6df35cea5847d887",
-    "img": "https://znews-photo.zingcdn.me/w360/Uploaded/xbhunku/2019_05_24/doraemon.jpg",
-    "src": "https://zingnews.vn/doraemon-nobita-va-mat-trang-phieu-luu-ky-suc-manh-cua-niem-tin-post949604.html",
-    "title": "Doraemon: Nobita và Mặt Trăng phiêu lưu ký’ - sức mạnh của niềm tin"
-}
-
-###
-DELETE http://localhost:5000/film/62e95c7b6df35cea5847d887
+GET http://localhost:5000/film/films

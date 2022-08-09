@@ -13,7 +13,11 @@ const User = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    fullName: { type: String, required: true},
+    dob: {type: Date},
+    isAdmin: { type: Boolean, required: true, default: false},
+    avt: { type: String, required: true}
 }, {
     timestamps: true,
 });
@@ -37,7 +41,6 @@ User.methods.isCheckPassword = async function(password) {
         next(err)
     }
 }
-
 
 //Collection sẽ có tên là Films = tên model + 's'
 module.exports = conn.model('User', User);

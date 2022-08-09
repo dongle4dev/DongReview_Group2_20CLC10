@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styles from "./LogIn.module.css";
 import clsx from "clsx";
+import axios from "axios";
+import {Link} from "react-router-dom";
+import Page404 from "../ErrorPages/Page404";
+
 
 function LogIn(props) {
   const [username, setUsername] = useState("")
@@ -14,14 +18,17 @@ function LogIn(props) {
   function handleSignIn(){
     if(username === "" || password === ""){
       setEmpty(true);
+      return;
     }
-    else{
-      setEmpty(false);
-      props.unlog();
-      props.authorize();
-      ResetData();
-
-    }
+    setEmpty(false);
+    //authorize using axios
+    const userdata = {username: username, password: password};
+    axios.post("http://localhost:5000/user/login", userdata)
+          .then(res => {
+            console.log(res.data);
+            
+          })
+        .catch(error => console.log(error));
   }
   return props.trigger ? (
 

@@ -8,9 +8,10 @@ import styles from "./HomePage.module.css";
 import Picture from "../Picture/Picture";
 import pics from "../Slider/pics";
 import HeaderUser from "../Header/HeaderUser";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomePage() {
+  const navigate = useNavigate();
   const [login, setLogin] = React.useState(false);
   const [theater, setTheater] = React.useState([]);
   const [phimle, setPhimLe] = React.useState([]);
@@ -19,6 +20,8 @@ function HomePage() {
   const [top2, setTopThang] = React.useState([]);
   const [top3, setTopTuan] = React.useState([]);
   const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const url = "/api/films.json";
 
   // window.onload = function () {
@@ -27,12 +30,14 @@ function HomePage() {
   //     window.location.reload();
   //   }
   // };
+  function getDataUser(u, p) {
+    setUsername(u);
+    setPassword(p);
+  }
   React.useEffect(() => {
     const getData = async () => {
       try {
-        console.log("before getting data");
         const res = await axios.get(url);
-        console.log("get data", res.data);
         let count = 0;
         setTheater(
           res.data.filter((item) => {
@@ -82,10 +87,11 @@ function HomePage() {
   return (
     <div>
       {auth ? (
-        <HeaderUser unauthorize={unauthorizeUser} />
+        <HeaderUser us={username} pa={password} unauthorize={unauthorizeUser} />
       ) : (
         <Header log={popUp} />
       )}
+
       <Slider />
 
       <div className={styles.content}>
@@ -240,7 +246,12 @@ function HomePage() {
         </div>
       </div>
       <Footer />
-      <LogIn trigger={login} unlog={popDown} authorize={authorizeUser} />
+      <LogIn
+        getData={getDataUser}
+        trigger={login}
+        unlog={popDown}
+        authorize={authorizeUser}
+      />
     </div>
   );
 }
