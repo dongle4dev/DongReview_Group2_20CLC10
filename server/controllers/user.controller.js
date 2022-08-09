@@ -56,7 +56,13 @@ class UserController {
             const accessToken = await signAccessToken(user._id)
             // const refreshToken = await signRefreshToken(user._id)
             res.json({
-                accessToken: accessToken
+                accessToken: accessToken,
+                elements: { 
+                    fullName: user.fullName,
+                    dob: user.dob,
+                    avt: user.avt,
+                    id: user._id,
+                }
             })
         } catch(err) {
             next(err)
