@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./LogIn.module.css";
 import clsx from "clsx";
+import axios from "axios";
 
 function LogIn(props) {
   const [username, setUsername] = useState("")
@@ -14,14 +15,18 @@ function LogIn(props) {
   function handleSignIn(){
     if(username === "" || password === ""){
       setEmpty(true);
+      return;
     }
-    else{
-      setEmpty(false);
-      props.unlog();
-      props.authorize();
-      ResetData();
-
-    }
+    setEmpty(false);
+    //authorize using axios
+    axios.get(`/api/users.json`)
+          .then(res => {
+            console.log(res.headers.authorize);
+            ResetData();
+            props.unlog();
+            props.authorize();
+          })
+          .catch(error => console.log(error));
   }
   return props.trigger ? (
 

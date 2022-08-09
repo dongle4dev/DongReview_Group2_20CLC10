@@ -29,9 +29,7 @@ function HomePage() {
   React.useEffect(() => {
     const getData = async () => {
       try {
-        console.log("before getting data");
         const res = await axios.get(url);
-        console.log("get data", res.data);
         let count = 0;
         setTheater(
           res.data.filter((item) => {
