@@ -15,14 +15,33 @@ function LogIn(props) {
     setUsername("")
     setPassword("")
   }
+
   const handleSignIn = async () => {
     if(username === "" || password === ""){
-      setEmpty(true);
-      return;
-    }
+          setEmpty(true);
+          return;
+        }
     setEmpty(false);
     //authorize using axios
     const userdata = {username: username, password: password};
+    fetch("http://localhost:5000/user/login",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userdata)
+    })
+      .then(response => response.json())
+      .then(res => {
+        console.log("data: ", res)
+                  if(res.data != ""){
+                    props.authorize()
+                    props.unlog()
+                    props.getData(username, password)
+                    ResetData()
+                  }
+                })
+              .catch(error => console.log(error));
     await axios.post("http://localhost:5000/user/login", userdata)
           .then(res => {
             console.log(res.data);
@@ -30,6 +49,26 @@ function LogIn(props) {
           })
         .catch(error => console.log(error));
   }
+  // function handleSignIn(){
+  //   if(username === "" || password === ""){
+  //     setEmpty(true);
+  //     return;
+  //   }
+  //   setEmpty(false);
+  //   //authorize using axios
+  //   const userdata = {username: username, password: password};
+  //   axios.post("http://localhost:5000/user/login", userdata)
+  //         .then(res => {
+  //           if(res.data != ""){
+  //             console.log(res.data)
+  //             props.authorize()
+  //             props.unlog()
+  //             props.getData(username, password)
+  //             ResetData()
+  //           }
+  //         })
+  //       .catch(error => console.log(error));
+  // }
   return props.trigger ? (
 
     <div className={styles.modal}>
