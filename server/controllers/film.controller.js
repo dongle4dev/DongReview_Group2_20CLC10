@@ -43,12 +43,12 @@ class FilmController {
         { title: new RegExp(req.params.title) },
         "title img slug"
       ).exec();
-
       return res.json(result);
     } catch (err) {
       next(err);
     }
   }
+
     //[DELETE] /film/:id
     async deleteFilm(req, res, next) {
         try {
@@ -64,13 +64,13 @@ class FilmController {
     //[GET] /film/top-films
     async findTopFilms(req, res, next) {
         try {
-            const result = await Film.find().sort({rate: 1}).limit(12)
+            const result = await Film.find().sort({ rate: 1 }).limit(12)
 
             return res.json({
                 status: "Ok",
                 elements: result
             })
-        } catch(err) {
+        } catch (err) {
             next(err)
         }
     }
@@ -79,8 +79,10 @@ class FilmController {
             const film = await Film.findById(req.params.id)
 
             if (film) {
+
                 let t = new Film();
                 t = req.body;
+
                 film.rate = t.rate
                 let updatefilm = null
                 try {
@@ -95,9 +97,9 @@ class FilmController {
                     film: updatefilm,
                 })
             }
+
         }
-        catch(err)
-        {
+        catch (err) {
             next(err)
         }
     }
