@@ -10,8 +10,8 @@ class FilmController {
 
     //[PUT] /film/:id
     update(req, res, next) {
-        Film.updateOne({_id: req.params.id}, req.body)
-            .then(() => res.json({status: 'Ok'}))
+        Film.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.json({ status: 'Ok' }))
             .catch(next)
     }
 
@@ -21,7 +21,7 @@ class FilmController {
             .then(films => res.json(films))
     }
 
-   
+
 
     //[POST] /film/store
     async store(req, res, next) {
@@ -63,13 +63,13 @@ class FilmController {
     //[GET] /film/top-films
     async findTopFilms(req, res, next) {
         try {
-            const result = await Film.find().sort({rate: 1}).limit(12)
+            const result = await Film.find().sort({ rate: 1 }).limit(12)
 
             return res.json({
                 status: "Ok",
                 elements: result
             })
-        } catch(err) {
+        } catch (err) {
             next(err)
         }
     }
@@ -79,28 +79,9 @@ class FilmController {
         try {
             const film = await Film.findById(req.params.id)
             if (film) {
-                const {
-                    title1,
-                    description1,
-                    trailer1,
-                    img1,
-                    year1,
-                    nation1,
-                    rate1,
-                    main1,
-                    slug1,
-                    type1
-                } = req.body
-                film.title = title1 || film.title
-                film.description = description1 || film.description
-                film.trailer = trailer1 || film.trailer
-                film.img = img1 || film.img
-                film.year1 = year1 || film.year1
-                film.nation = nation1 || film.nation
-                film.rate = (rate1 + film.rate * 20) / 21
-                film.main = main1 || film.main
-                film.slug = slug1 || film.slug
-                film.type = type1 || film.type
+                let t = new Film
+                t = req.body
+                film.rate = t.rate
                 let updatefilm = null
                 try {
                     updatefilm = await film.save()
@@ -115,8 +96,7 @@ class FilmController {
                 })
             }
         }
-        catch(err)
-        {
+        catch (err) {
             next(err)
         }
     }
