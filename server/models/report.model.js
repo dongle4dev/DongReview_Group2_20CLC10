@@ -16,4 +16,5 @@ const Report = new Schema({
     timestamps: true,
 })
 
+
 module.exports = conn.model('Report', Report)
