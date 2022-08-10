@@ -123,14 +123,24 @@ function Introfilm() {
     getData();
   }, []);
   const clickStar = async (index) => {
-    const res = await axios.put(`http://localhost:5000/film/`, {
-      _id: filmID,
-      rate: index + 1,
-    });
-    console.log("Put data: ", res.data)
+    const res = await axios.put(
+      `http://localhost:5000/film/${filmID}/updatescore`,
+      {
+        _id: filmID,
+        title: title,
+        img: img,
+        type: type,
+        year: year,
+        nation: nation,
+        description: description,
+        trailer: trailer,
+        rate: (index + 1 + rate * 20) / 21,
+        main: main,
+      }
+    );
+    console.log("Put data: ", res.data);
     setRate(index + 1);
-
-  }
+  };
   function clickLike(event) {
     if (checkLike === false) {
       setCheckL(true);
@@ -185,7 +195,7 @@ function Introfilm() {
   function popUp() {
     setLogin(true);
   }
-  
+
   return (
     <div>
       <HeaderTitle title={title} log={popUp} />

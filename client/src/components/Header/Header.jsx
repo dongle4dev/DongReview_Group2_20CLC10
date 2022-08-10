@@ -59,7 +59,7 @@ function Header(props) {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-  };;
+  };
   return (
     <header className={styles.header}>
       <img src={window.location.origin + "/logo.png"}></img>
