@@ -54,7 +54,7 @@ function App() {
             ></Route>
             <Route
               exact
-              path="/found-films/:title"
+              path="/film/found-films/:title"
               element={<FindPage />}
             ></Route>
             <Route exact path="/admin/list-film" element={<LstFilm />}></Route>
