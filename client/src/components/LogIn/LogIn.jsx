@@ -15,8 +15,8 @@ function LogIn(props) {
     setUsername("")
     setPassword("")
   }
-  const handleSignIn = e => {
-    // e.preventDefault();
+
+  const handleSignIn = async () => {
     if(username === "" || password === ""){
           setEmpty(true);
           return;
@@ -42,6 +42,12 @@ function LogIn(props) {
                   }
                 })
               .catch(error => console.log(error));
+    await axios.post("http://localhost:5000/user/login", userdata)
+          .then(res => {
+            console.log(res.data);
+            
+          })
+        .catch(error => console.log(error));
   }
   // function handleSignIn(){
   //   if(username === "" || password === ""){

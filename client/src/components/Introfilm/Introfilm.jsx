@@ -122,8 +122,14 @@ function Introfilm() {
     };
     getData();
   }, []);
-  function clickStar(index) {
+  const clickStar = async (index) => {
+    const res = await axios.put(`http://localhost:5000/film/`, {
+      _id: filmID,
+      rate: index + 1,
+    });
+    console.log("Put data: ", res.data)
     setRate(index + 1);
+
   }
   function clickLike(event) {
     if (checkLike === false) {
