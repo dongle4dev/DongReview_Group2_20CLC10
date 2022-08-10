@@ -15,7 +15,7 @@ function LogIn(props) {
     setUsername("")
     setPassword("")
   }
-  function handleSignIn(){
+  const handleSignIn = async () => {
     if(username === "" || password === ""){
       setEmpty(true);
       return;
@@ -23,7 +23,7 @@ function LogIn(props) {
     setEmpty(false);
     //authorize using axios
     const userdata = {username: username, password: password};
-    axios.post("http://localhost:5000/user/login", userdata)
+    await axios.post("http://localhost:5000/user/login", userdata)
           .then(res => {
             console.log(res.data);
             
