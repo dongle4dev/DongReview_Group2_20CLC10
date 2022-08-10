@@ -27,7 +27,15 @@ function App() {
         <div>
           <Routes>
             <Route exact path="/" element={<HomePage />}></Route>
+
             <Route exact path="/film/:id" element={<Introfilm />}></Route>
+            <Route exact path="/introfilm" element={<Introfilm />}></Route>
+            <Route exact path="/:title/:reviewid" element={<ReviewPage />}></Route>
+            <Route exact path="/signup" element={<SignUp />}></Route>
+            <Route exact path="/admin" element={<AdminPage />}></Route>
+            <Route exact path="/member" element={<MemberPage />}></Route>
+            <Route exact path="/api"></Route>
+            
             <Route
               exact
               path="/:filmid/:reviewid"
@@ -46,10 +54,11 @@ function App() {
             ></Route>
             <Route
               exact
-              path="/found-films/:title"
+              path="/film/found-films/:title"
               element={<FindPage />}
             ></Route>
             <Route exact path="/admin/list-film" element={<LstFilm />}></Route>
+            <Route exact path="/admin/approve" element={<LstFilm />}></Route>
             <Route exact path="/:id/update" element={<EditFilm />}></Route>
             <Route exact path="/admin/addfilm" element={<AddFilm />}></Route>
           </Routes>

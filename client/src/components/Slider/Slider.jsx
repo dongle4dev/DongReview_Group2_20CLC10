@@ -44,17 +44,17 @@ function Slider() {
                   key: pic._id,
                   filmID: pic._id,
                   title: pic.title,
-                  src: pic.src,
+                  src: pic.img,
                   type: pic.type,
                   year: pic.year,
                   nation: pic.nation,
-                  sumary: pic.sumary,
+                  description: pic.description,
                   trailer: pic.trailer,
                   rate: pic.rate,
                   main: pic.main,
                 }}
               >
-                <Picture src={pic.src} title={pic.title} key={pic._id} />
+                <Picture src={pic.img} title={pic.title} key={pic._id} />
               </Link>
             );
           }
@@ -62,7 +62,7 @@ function Slider() {
       </div>
       <div className={styles.dot}>
         {checks.map((check, index) => (
-          <span className={index === pos ? styles.sdot : styles.ndot}></span>
+          <span key={index} className={index === pos ? styles.sdot : styles.ndot}></span>
         ))}
       </div>
     </div>

@@ -46,7 +46,11 @@ class UserController {
 
             const user = await User.findOne({username: username})
             if (!user) {
-                throw createError.NotFound('User is not found')
+                //throw createError.NotFound('User is not found')
+                return res.json({
+                    status: 'Can not find user',
+
+                })
             }
 
             const isValid = await user.isCheckPassword(password)

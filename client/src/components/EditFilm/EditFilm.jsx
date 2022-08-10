@@ -17,36 +17,106 @@ function AddFilm() {
     trailer_ud,
     rate_ud,
     main_ud,
-    news_ud
+    news_ud,
   } = location.state; // "useLocation" to get the state
-  console.log(main_ud)
-  
-  const [input_arr, setArr] = React.useState((main_ud.map(x => 0)));
+  console.log(news_ud.length);
+  const len = news_ud.length;
+  const [input_arr, setArr] = React.useState(main_ud.map((x) => 0));
   const [charcts, setLstMain] = React.useState(main_ud);
-  const [new1, setNew1] = React.useState({
-    img: news_ud[0].img,
-    src: news_ud[0].src,
-    title: news_ud[0].title,
+  const [new1, setNew1] = React.useState((news_ud) => {
+    if (len > 0) {
+      return {
+        _id: news_ud[0]._id,
+        filmID: filmID_ud,
+        img: news_ud[0].img,
+        src: news_ud[0].src,
+        title: news_ud[0].title,
+      };
+    } else {
+      return {
+        _id: news_ud[0]._id,
+        filmID: filmID_ud,
+        img: "",
+        src: "",
+        title: "",
+      };
+    }
   });
-  const [new2, setNew2] = React.useState({
-    img: news_ud[1].img,
-    src: news_ud[1].src,
-    title: news_ud[1].title,
+  const [new2, setNew2] = React.useState((news_ud) => {
+    if (len > 0) {
+      return {
+        _id: news_ud[1]._id,
+        filmID: filmID_ud,
+        img: news_ud[1].img,
+        src: news_ud[1].src,
+        title: news_ud[1].title,
+      };
+    } else {
+      return {
+        _id: news_ud[1]._id,
+        filmID: filmID_ud,
+        img: "",
+        src: "",
+        title: "",
+      };
+    }
   });
-  const [new3, setNew3] = React.useState({
-    img: news_ud[2].img,
-    src: news_ud[2].src,
-    title: news_ud[2].title,
+  const [new3, setNew3] = React.useState((news_ud) => {
+    if (len > 0) {
+      return {
+        _id: news_ud[2]._id,
+        filmID: filmID_ud,
+        img: news_ud[2].img,
+        src: news_ud[2].src,
+        title: news_ud[2].title,
+      };
+    } else {
+      return {
+        _id: news_ud[2]._id,
+        filmID: filmID_ud,
+        img: "",
+        src: "",
+        title: "",
+      };
+    }
   });
-  const [new4, setNew4] = React.useState({
-    img: news_ud[3].img,
-    src: news_ud[3].src,
-    title: news_ud[3].title,
+  const [new4, setNew4] = React.useState((news_ud) => {
+    if (len > 0) {
+      return {
+        _id: news_ud[3]._id,
+        filmID: filmID_ud,
+        img: news_ud[3].img,
+        src: news_ud[3].src,
+        title: news_ud[3].title,
+      };
+    } else {
+      return {
+        _id: news_ud[3]._id,
+        filmID: filmID_ud,
+        img: "",
+        src: "",
+        title: "",
+      };
+    }
   });
-  const [new5, setNew5] = React.useState({
-    img: news_ud[4].img,
-    src: news_ud[4].src,
-    title: news_ud[4].title,
+  const [new5, setNew5] = React.useState((news_ud) => {
+    if (len !== 0) {
+      return {
+        _id: news_ud[4]._id,
+        filmID: filmID_ud,
+        img: news_ud[4].img,
+        src: news_ud[4].src,
+        title: news_ud[4].title,
+      };
+    } else {
+      return {
+        _id: news_ud[4]._id,
+        filmID: filmID_ud,
+        img: "",
+        src: "",
+        title: "",
+      };
+    }
   });
   const [input_data, setInput] = React.useState({
     title: title_ud,
@@ -55,7 +125,7 @@ function AddFilm() {
     pic_film: src_ud,
     trailer: trailer_ud,
     year: year_ud,
-    content: sumary_ud,
+    description: sumary_ud,
     rate: rate_ud,
     main: charcts,
   });
@@ -63,7 +133,7 @@ function AddFilm() {
     const { id, name, value } = event.target;
     //k dc xai event trong setter
     const index = parseInt(id, 10);
-    
+
     console.log("Length of lstMain: ", charcts.length);
     if (name == "name") charcts[index].name = value;
     else if (name == "src") charcts[index].src = value;
@@ -167,7 +237,7 @@ function AddFilm() {
       img: input_data.pic_film,
       trailer: input_data.trailer,
       year: input_data.year,
-      description: input_data.content,
+      description: input_data.description,
       rate: input_data.rate,
       main: charcts,
     };
@@ -176,8 +246,8 @@ function AddFilm() {
       "My-Custom-Header": "foobar",
       "Content-type": "application/json",
     };
-    const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
+    const res = await axios.put(
+      `http://localhost:5000/film/${filmID_ud}`,
       film,
       {
         headers,
@@ -297,7 +367,7 @@ function AddFilm() {
           <textarea
             onChange={handleChange}
             name="content"
-            value={input_data.content}
+            value={input_data.description}
             rows="8"
             cols="91"
             maxLength="1000"

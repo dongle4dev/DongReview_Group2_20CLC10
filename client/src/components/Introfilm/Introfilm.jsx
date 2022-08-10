@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 
 import clsx from "clsx";
 import styles from "./Introfilm.module.css";
@@ -9,10 +9,12 @@ import LogIn from "../LogIn/LogIn";
 import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
 import Page404 from "../ErrorPages/Page404";
+import ProfileHeader from "../Header/ProfileHeader";
 
 var pages = [];
 var num_page = 0;
 for (var i = 0; i < num_page; i++) pages.push(i + 1);
+var num_page_main = 0;
 function ReviewSumary(props) {
   let content = props.content;
   content = content.slice(0, 200) + "...";
@@ -55,21 +57,6 @@ function ReviewSumary(props) {
     </div>
   );
 }
-function FormComfirm(props) {
-  return (
-    <div className={styles.delete}>
-      <div className={styles.modalContainer}>
-        <div className={styles.head}>
-          <h2>XÁC NHẬN XÓA BÀI VIẾT</h2>
-        </div>
-        <div className={styles.send}>
-          <button onClick={props.deleteFilm}>Đồng ý</button>
-          <button onClick={() => props.close(2)}>Hủy</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
   const url1 = "/api/news.json";
@@ -78,28 +65,57 @@ function Introfilm() {
   const [users, setUser] = React.useState([]);
   const [login, setLogin] = React.useState(false);
   const [pos, setPos] = React.useState(0);
+  const [main_pos, setMainPos] = React.useState(0);
   const [check, setCheck] = React.useState(false);
   const [checkLike, setCheckL] = React.useState(false);
   const [rateFilm, setRate] = React.useState(0);
   const [arr_new, setNews] = React.useState([]);
   const [lstReview, setReviews] = React.useState([]);
-  
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const location = useLocation();
   const {
     filmID,
     title,
-    src,
+    img,
     type,
     year,
     nation,
-    sumary,
+    description,
     trailer,
     rate,
     main,
   } = location.state; // "useLocation" to get the state
 
-  //console.log(filmID, title, src, type, year, nation, sumary, trailer, rate, main)
+  function popDown() {
+    setLogin(false);
+  }
+
+  function popUp() {
+    setLogin(true);
+  }
+  function authorizeUser() {
+    setAuth(true);
+  }
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
+  //console.log(filmID, title, src, type, year, nation, description, trailer, rate, main)
   React.useEffect(() => {
     const getData = async () => {
       try {
@@ -117,6 +133,8 @@ function Introfilm() {
           }
         });
         num_page = Math.ceil(rv.length / 5);
+        num_page_main = Math.ceil(main.length / 2);
+        console.log("num_main: ", num_page_main, main.length);
         setNews(
           res1.data.filter((item) => {
             if (item.filmID === filmID && count <= 4) {
@@ -134,9 +152,25 @@ function Introfilm() {
     };
     getData();
   }, []);
-  function clickStar(index) {
+  const clickStar = async (index) => {
+    const res = await axios.put(
+      `http://localhost:5000/film/${filmID}/updatescore`,
+      {
+        _id: filmID,
+        title: title,
+        img: img,
+        type: type,
+        year: year,
+        nation: nation,
+        description: description,
+        trailer: trailer,
+        rate: (index + 1 + rate * 20) / 21,
+        main: main,
+      }
+    );
+    console.log("Put data: ", res.data);
     setRate(index + 1);
-  }
+  };
   function clickLike(event) {
     if (checkLike === false) {
       setCheckL(true);
@@ -150,6 +184,18 @@ function Introfilm() {
       setCheck(true);
     } else {
       setCheck(false);
+    }
+    event.preventDefault();
+  }
+  function increaseMain(event) {
+    if (main_pos < num_page_main - 1) {
+      setMainPos(main_pos + 1);
+    }
+    event.preventDefault();
+  }
+  function decreaseMain(event) {
+    if (main_pos > 0) {
+      setMainPos(main_pos - 1);
     }
     event.preventDefault();
   }
@@ -179,15 +225,41 @@ function Introfilm() {
   function popUp() {
     setLogin(true);
   }
-  return (
+
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div>
-      <HeaderTitle log={popUp} />
+      {auth ? (
+        <ProfileHeader
+          title={title}
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          us={username}
+          pa={password}
+          unauthorize={unauthorizeUser}
+        />
+      ) : (
+        <HeaderTitle
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          log={popUp}
+        />
+      )}
 
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
         <div className={styles.content}>
           <div className={styles.photo}>
-            <Picture src={src} title={""} />
+            <Picture src={img} title={""} />
           </div>
           <iframe
             className={styles.trailer}
@@ -215,10 +287,10 @@ function Introfilm() {
             <p className={styles.info}>
               Nội dung:
               <span>
-                {sumary.length > 70 && !check
-                  ? sumary.slice(0, 300) + "..."
-                  : sumary + "..."}
-                {sumary.length > 70 && !check ? (
+                {description.length > 70 && !check
+                  ? description.slice(0, 300) + "..."
+                  : description + "..."}
+                {description.length > 70 && !check ? (
                   <a
                     href="/"
                     style={{ color: "rgb(127, 162, 243)" }}
@@ -267,7 +339,7 @@ function Introfilm() {
             <p>Top review</p>
             <p className={styles.writeReview}>
               <Link
-                to={`/${title}/writereview`}
+                to={`/${title.replace(/ /g, "-")}/writereview`}
                 state={{
                   filmid_addrv: filmID,
                   userID_addrv: 1,
@@ -287,7 +359,7 @@ function Introfilm() {
                 className={clsx("ti-heart", styles.love)}
               ></i>
             )}
-
+            {num_page === 0 ? <h2>Không có bài viết nào</h2> : null}
             {lstReview.map((item, index) => {
               if (index >= 5 * pos && index <= 5 * pos + 4) {
                 return (
@@ -335,12 +407,24 @@ function Introfilm() {
           <div className={styles.artist}>
             <p>Nhân vật/Diễn viên</p>
             <p className={styles.line}>none</p>
-            {main.map((item) => (
-              <div className={styles.nvat}>
-                <img src={item.img}></img>
-                <p>{item.name}</p>
-              </div>
-            ))}
+            <i
+              onClick={decreaseMain}
+              className={clsx(styles.left, "fa-solid fa-angles-left")}
+            ></i>
+            <i
+              onClick={increaseMain}
+              className={clsx(styles.right, "fa-solid fa-angles-right")}
+            ></i>
+            {main.map((item, index) => {
+              if (index >= 2 * main_pos && index <= 2 * main_pos + 1) {
+                return (
+                  <div key={index} className={styles.nvat}>
+                    <img src={item.img}></img>
+                    <p>{item.name}</p>
+                  </div>
+                );
+              }
+            })}
           </div>
           <div className={styles.news}>
             <p className={styles.extra}>Tin tức liên quan</p>

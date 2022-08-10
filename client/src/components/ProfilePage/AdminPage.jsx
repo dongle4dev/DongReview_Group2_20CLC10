@@ -1,15 +1,53 @@
 import React from "react";
 import styles from "./ProfilePage.module.css";
-import clsx from "clsx";
-import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
-import pics from "../Slider/pics";
-import Header from "../Header/Header";
+import { Link, Navigate } from "react-router-dom";
+import ProfileHeader from "../Header/ProfileHeader";
 
 function AdminPage() {
-  return (
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(true);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function getDataUser(u, p) {
+    setUsername(u);
+    setPassword(p);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div>
-      <Header></Header>
+      <ProfileHeader
+        title="TRANG CÁ NHÂN"
+        setCheckFind={handleFind}
+        setTitle={changeTitle}
+        setFilmFind={getFilmFind}
+        us={username}
+        pa={password}
+        unauthorize={unauthorizeUser}
+      />
       <div className={styles.mainInfo}>
         <div className={styles.layer1}>
           <div className={styles.avatar}>
@@ -35,68 +73,24 @@ function AdminPage() {
         </div>
       </div>
       <div className={styles.tag_container}>
-        <a className={styles.tag} href="/admin/list-film">
+        <Link
+          className={styles.tag}
+          to="/admin/list-film"
+          state={{ title_header: "KHO QUẢN LÝ PHIM" }}
+        >
           {" "}
-          &#x2023; Quản lý phim
-        </a>
+          &#x2023; Quản lý phim{" "}
+        </Link>
       </div>
       <div className={styles.tag_container}>
-        <a className={styles.tag} href="">
+        <Link
+          className={styles.tag}
+          to="/admin/approve"
+          state={{ title_header: "KIỂM DUYỆT" }}
+        >
           {" "}
           &#x2023; Kiểm duyệt{" "}
-        </a>
-        <a className={styles.more} href="">
-          {" "}
-          Xem thêm...{" "}
-        </a>
-      </div>
-      <div className={styles.tablehold}>
-        <div className={styles.left}></div>
-        <table>
-          <tr>
-            <th>Người đăng</th>
-            <th>Phim</th>
-            <th>Link bài viết</th>
-            <th>Giờ đăng</th>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-          <tr>
-            <td>Đông</td>
-            <td>Doraemon</td>
-            <td>làm gì có</td>
-            <td>30/4/1975</td>
-          </tr>
-        </table>
-        <div className={styles.right}></div>
+        </Link>
       </div>
       <div className={styles.tag_container}>
         <a className={styles.tag} href="">
@@ -109,7 +103,7 @@ function AdminPage() {
         </a>
       </div>
       <div className={styles.content}>
-        <div className={styles.item}>
+        {/* <div className={styles.item}>
           <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
         </div>
         <div className={styles.item}>
@@ -132,7 +126,7 @@ function AdminPage() {
             title={pics[0 + 3].title}
             key={pics[0 + 3].key}
           />
-        </div>
+        </div> */}
       </div>
       <div className={styles.tag_container}>
         <a className={styles.tag} href="">
@@ -145,7 +139,7 @@ function AdminPage() {
         </a>
       </div>
       <div className={styles.content}>
-        <div className={styles.item}>
+        {/* <div className={styles.item}>
           <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
         </div>
         <div className={styles.item}>
@@ -168,7 +162,7 @@ function AdminPage() {
             title={pics[0 + 3].title}
             key={pics[0 + 3].key}
           />
-        </div>
+        </div> */}
       </div>
       <Footer></Footer>
     </div>

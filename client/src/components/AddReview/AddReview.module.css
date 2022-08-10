@@ -14,7 +14,11 @@
     position: relative;
     height: 75rem;
 }
-
+.reviewPage .review h4 {
+    margin-left: 6rem;
+    color: red;
+    font-weight: 450;
+}
 .reviewPage .review .sumr {
     /* position: relative; */
     width: 90%;

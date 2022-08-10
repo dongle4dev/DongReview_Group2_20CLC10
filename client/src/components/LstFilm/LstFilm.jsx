@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import styles from "./LstFilm.module.css";
 import axios from "axios";
-import HeaderUser from "../Header/HeaderUser";
 import Footer from "../Footer/Footer";
+import ProfileHeader from "../Header/ProfileHeader";
 
 function FormComfirm(props) {
   return (
@@ -56,11 +56,11 @@ function Film(props) {
             key: props.filmID,
             filmID: props.filmID,
             title: props.title,
-            src: props.src,
+            img: props.img,
             type: props.type,
             year: props.year,
             nation: props.nation,
-            sumary: props.summary,
+            description: props.description,
             trailer: props.trailer,
             rate: props.rate,
             main: props.main,
@@ -84,7 +84,7 @@ function Film(props) {
             type_ud: props.type,
             year_ud: props.year,
             nation_ud: props.nation,
-            sumary_ud: props.summary,
+            sumary_ud: props.description,
             trailer_ud: props.trailer,
             rate_ud: props.rate,
             main_ud: props.main,
@@ -99,16 +99,43 @@ function Film(props) {
 }
 
 function LstFilm() {
-  const url = "http://localhost:5000/film/all";
+  //const url = "/api/films.json";
+  const location = useLocation();
+  const { title_header } = location.state;
   const [lst_film, setFilms] = React.useState([]);
   const [checkDelete, setChecD] = React.useState(false);
   const [id, setID] = React.useState();
+
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function getDataUser(u, p) {
+    setUsername(u);
+    setPassword(p);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
 
   React.useEffect(() => {
     const getData = async () => {
       try {
         console.log("before getting films");
-        const res = await axios.get(url);
+        const res = await axios.get("http://localhost:5000/film/all");
         console.log("get films", res.data);
         setFilms(
           res.data.filter((item) => {
@@ -123,8 +150,7 @@ function LstFilm() {
   }, []);
 
   const deleteFilm = async () => {
-    const del_url =
-      "http://localhost:5000/film" + `/${id}`.toString();
+    const del_url = "http://localhost:5000/film" + `/${id}`.toString();
     console.log(del_url);
     const res = await axios.delete(del_url);
     console.log("Deleted the film", res);
@@ -136,9 +162,25 @@ function LstFilm() {
     setChecD(true);
     setID(id_film);
   }
-  return (
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div className={styles.lstfilm}>
-      <HeaderUser />
+      <ProfileHeader
+        title={title_header}
+        setCheckFind={handleFind}
+        setTitle={changeTitle}
+        setFilmFind={getFilmFind}
+        us={username}
+        pa={password}
+        unauthorize={unauthorizeUser}
+      />
       <div className={styles.tablehold}>
         <div className={styles.left}></div>
         <table>
@@ -160,7 +202,7 @@ function LstFilm() {
                 postedOn={film.createdAt}
                 filmID={film._id}
                 main={film.main}
-                src={film.src}
+                img={film.img}
                 type={film.type}
                 year={film.year}
                 nation={film.nation}

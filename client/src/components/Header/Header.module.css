@@ -44,14 +44,17 @@
     position: absolute;
     top: 6rem;
 }
-.nav > li {
+.nav > li,
+.nav > a{
     display: inline-block;
     font-weight: 700;
     font-size: 1.5rem;
     padding-left: 2rem;
     padding-right: 2rem;
     position: relative;
+    list-style-type: none;
 }
+
 .nav > li a {
     text-decoration: none;
     color: #e1630f;
@@ -78,17 +81,28 @@
     display: block;
     position: absolute;
     top: 100%;
+    right: -1.3rem;
     background-color: #000;
     /*Bóng đổ cho subnav*/
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    width: 7.5rem;
 }
-
+.subnav1 > li a {
+    color: #ccc;
+}
 .subnav1 > li{
+    text-decoration: none;
     list-style: none;   
     color: #ccc;
-    background-color: #fff;
+    background-color: #000;
+    padding: 0.8rem 0.5rem 0.8rem;
+}
+.subnav1>li:hover a,
+.subnav1>li:hover {
     opacity: 0.8;
-    width: 7rem;
+    background-color: #ccc;
+    color: #000;
 }
 .nav li:hover .subnav {
     display: block;
@@ -137,4 +151,11 @@
 .login:hover{
     cursor: pointer;
     color: rgb(76, 59, 59);
+}
+.header .title {
+    position: relative;
+    color: rgb(245, 149, 46);
+    font-size: 1.8rem;
+    top: 4.5rem;
+    right: 5.5rem;
 }

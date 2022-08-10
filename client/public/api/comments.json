@@ -5,7 +5,7 @@
         "userID": 1,
         "filmID": 1,
         "like": 1,
-        "content": "Phim như con cặc"
+        "content": "Phim hay"
 
     }, 
     {
@@ -14,7 +14,7 @@
         "userID": 2,
         "filmID": 1,
         "like": 2,
-        "content": "Phim khác đéo nào rác không?"
+        "content": "Phim hay"
     }, 
     {
         "_id": 3,
@@ -22,7 +22,7 @@
         "userID": 5,
         "filmID": 1,
         "like": 3,
-        "content": "Phim coi tốn băng vệ sinh vì phim như máu loz?"
+        "content": "Phim Phim hay"
     },
     {
         "_id": 4,
@@ -30,7 +30,7 @@
         "userID": 1,
         "filmID": 1,
         "like": 1,
-        "content": "Phim như con cặc"
+        "content": "có vẻ hay:)"
 
     }, 
     {
@@ -39,7 +39,7 @@
         "userID": 3,
         "filmID": 1,
         "like": 2,
-        "content": "Phim khác đéo nào rác không?"
+        "content": "rì viu z thui chứ dở ẹc"
     }, 
     {
         "_id": 6,
@@ -47,7 +47,7 @@
         "userID": 4,
         "filmID": 1,
         "like": 3,
-        "content": "Phim coi tốn băng vệ sinh vì phim như máu loz?"
+        "content": "Set kèo thui"
     },
     {
         "_id": 7,
@@ -55,7 +55,7 @@
         "userID": 1,
         "filmID": 1,
         "like": 1,
-        "content": "Phim như con cặc"
+        "content": "Nghe hay thế"
 
     }, 
     {
@@ -64,7 +64,7 @@
         "userID": 2,
         "filmID": 1,
         "like": 2,
-        "content": "Phim khác đéo nào rác không?"
+        "content": "Phim lạ v"
     }, 
     {
         "_id": 9,
@@ -72,7 +72,7 @@
         "userID": 5,
         "filmID": 1,
         "like": 3,
-        "content": "Phim coi tốn băng vệ sinh vì phim như máu loz?"
+        "content": "Hehehehe"
     },
     {
         "_id": 10,
@@ -80,7 +80,7 @@
         "userID": 1,
         "filmID": 1,
         "like": 1,
-        "content": "Phim như con cặc"
+        "content": "Thui k tin review đâu"
 
     }, 
     {
@@ -89,7 +89,7 @@
         "userID": 2,
         "filmID": 1,
         "like": 2,
-        "content": "Phim khác đéo nào rác không?"
+        "content": "hay v"
     }, 
     {
         "_id": 12,
@@ -97,6 +97,6 @@
         "userID": 5,
         "filmID": 1,
         "like": 3,
-        "content": "Phim coi tốn băng vệ sinh vì phim như máu loz?"
+        "content": "????????"
     }
 ]

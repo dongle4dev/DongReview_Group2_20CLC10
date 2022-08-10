@@ -8,49 +8,64 @@ import styles from "./HomePage.module.css";
 import Picture from "../Picture/Picture";
 import pics from "../Slider/pics";
 import HeaderUser from "../Header/HeaderUser";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import FindPage from "../FindPage/FindPage";
 
 function HomePage() {
   const navigate = useNavigate();
   const [login, setLogin] = React.useState(false);
-  const [theater, setTheater] = React.useState([]);
-  const [phimle, setPhimLe] = React.useState([]);
+  const [action, setAction] = React.useState([]);
+  const [romance, setRomance] = React.useState([]);
   const [anime, setAnime] = React.useState([]);
-  const [top1, setTopNam] = React.useState([]);
-  const [top2, setTopThang] = React.useState([]);
-  const [top3, setTopTuan] = React.useState([]);
-  const [auth, setAuth] = React.useState(null);
-  const [username, setUsername] = React.useState("")
-  const [password, setPassword] = React.useState("")
-  const url = "/api/films.json";
-  window.onload = function () {
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
-  };
+  const [topFilms, setTop] = React.useState([]);
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
 
-  function getDataUser(u, p){
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  console.log("title: ", titleFind, lst_filmFind);
+
+  // window.onload = function () {
+  //   if (!window.location.hash) {
+  //     window.location = window.location + "#loaded";
+  //     window.location.reload();
+  //   }
+  // };
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
+  function getDataUser(u, p) {
     setUsername(u);
     setPassword(p);
   }
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get(url);
+        const res1 = await axios.get("http://localhost:5000/film/all");
+        const res2 = await axios.get("http://localhost:5000/film/top-films");
+        // console.log("topfilms: ", res2.data);
         let count = 0;
-        setTheater(
-          res.data.filter((item) => {
-            if (item.type.includes("phimchieurap") && count <= 5) {
+        setAction(
+          res1.data.filter((item) => {
+            if (item.type.includes("phimhanhdong") && count <= 5) {
               count++;
               return true;
             }
           })
         );
         count = 0;
-        setPhimLe(
-          res.data.filter((item) => {
-            if (item.type.includes("phimle") && count <= 5) {
+        setRomance(
+          res1.data.filter((item) => {
+            if (item.type.includes("phimlangman") && count <= 5) {
               count++;
               return true;
             }
@@ -58,13 +73,14 @@ function HomePage() {
         );
         count = 0;
         setAnime(
-          res.data.filter((item) => {
-            if (item.type.includes("hoathinh") && count <= 5) {
+          res1.data.filter((item) => {
+            if (item.type.includes("phimhoathinh") && count <= 5) {
               count++;
               return true;
             }
           })
         );
+        setTop(res2.data.elements);
       } catch (error) {
         console.log(error);
       }
@@ -78,139 +94,136 @@ function HomePage() {
   function popUp() {
     setLogin(true);
   }
-  function authorizeUser(){
+  function authorizeUser() {
     setAuth(true);
   }
-  function unauthorizeUser(){
+  function unauthorizeUser() {
     setAuth(false);
   }
-  return (
+  
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
+    // (<FindPage lst_film={lst_filmFind} />)
     <div>
-      {auth ? <HeaderUser us={username} pa = {password} unauthorize = {unauthorizeUser}/> : <Header log={popUp} />}
+      {auth ? (
+        <HeaderUser
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          us={username}
+          pa={password}
+          unauthorize={unauthorizeUser}
+        />
+      ) : (
+        <Header
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          log={popUp}
+        />
+      )}
+
       <Slider />
 
       <div className={styles.content}>
         <div className={styles.board}>
           <div className={styles.topTitle}>
-            <p>TOP PHIM NĂM</p>
+            <p>TOP PHIM</p>
           </div>
           <div className={styles.top}>
-            {top1.map((pic, index) => (
-              <div>
-                <span>{index + 1}</span>
-                <img
-                  src={pic.src}
-                  title={pics.title}
-                  key={pic.key}
-                  style={{
-                    width: "50%",
-                    height: "17%",
-                    display: "block",
-                    margin: "2rem 0 0 9.5rem",
-                  }}
-                ></img>
-                <center>
-                  <a href="/">{pic.title}</a>
-                </center>
-              </div>
-            ))}
-          </div>
-          <div className={styles.topTitle}>
-            <p>TOP PHIM THÁNG</p>
-          </div>
-          <div className={styles.top}>
-            {top2.map((pic, index) => (
-              <div>
-                <span>{index + 1}</span>
-                <img
-                  src={pic.src}
-                  title={pic.title}
-                  key={pic._id}
-                  style={{
-                    width: "50%",
-                    height: "17%",
-                    display: "block",
-                    margin: "2rem 0 0 9.5rem",
-                  }}
-                ></img>
-                <center>
-                  <a href="/">{pic.title}</a>
-                </center>
-              </div>
-            ))}
-          </div>
-          <div className={styles.topTitle}>
-            <p>TOP PHIM TUẦN</p>
-          </div>
-          <div className={styles.top}>
-            {top3.map((pic, index) => (
-              <div>
-                <span>{index + 1}</span>
-                <img
-                  src={pic.src}
-                  title={pic.title}
-                  key={pic._id}
-                  style={{
-                    width: "50%",
-                    height: "17%",
-                    display: "block",
-                    margin: "2rem 0 0 9.5rem",
-                  }}
-                ></img>
-                <center>
-                  <a href="/">{pic.title}</a>
-                </center>
-              </div>
+            {topFilms.map((pic, index) => (
+              <Link
+                to={`/film/${pic._id}`}
+                state={{
+                  key: pic._id,
+                  filmID: pic._id,
+                  title: pic.title,
+                  img: pic.img,
+                  type: pic.type,
+                  year: pic.year,
+                  nation: pic.nation,
+                  description: pic.description,
+                  trailer: pic.trailer,
+                  rate: pic.rate,
+                  main: pic.main,
+                }}
+              >
+                <div>
+                  <span>{index + 1}</span>
+                  <img
+                    src={pic.img}
+                    // src="https://menhadep.com/wp-content/uploads/de-thuong-hinh-ve-cute.jpg"
+                    title={pics.title}
+                    key={pic.key}
+                    style={{
+                      width: "50%",
+                      height: "17%",
+                      display: "block",
+                      margin: "2rem 0 0 9.5rem",
+                    }}
+                  ></img>
+                  <center>
+                    <a href="/">{pic.title}</a>
+                  </center>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
         <a href="/" className={styles.title}>
-          PHIM CHIẾU RẠP
+          PHIM HÀNH ĐỘNG
         </a>
         <div className={styles.list1}>
-          {theater.map((pic) => (
+          {action.map((pic) => (
             <Link
               to={`/film/${pic._id}`}
               state={{
                 key: pic._id,
                 filmID: pic._id,
                 title: pic.title,
-                src: pic.src,
+                img: pic.img,
                 type: pic.type,
                 year: pic.year,
                 nation: pic.nation,
-                sumary: pic.sumary,
+                description: pic.description,
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
               }}
             >
-              <Picture key={pic._id} src={pic.src} title={pic.title} />
+              <Picture key={pic._id} src={pic.img} title={pic.title} />
             </Link>
           ))}
         </div>
         <a href="/" className={styles.title}>
-          PHIM LẺ
+          PHIM LÃNG MẠN
         </a>
         <div className={styles.list2}>
-          {phimle.map((pic) => (
+          {romance.map((pic) => (
             <Link
               to={`/film/${pic._id}`}
               state={{
                 key: pic._id,
                 filmID: pic._id,
                 title: pic.title,
-                src: pic.src,
+                img: pic.img,
                 type: pic.type,
                 year: pic.year,
                 nation: pic.nation,
-                sumary: pic.sumary,
+                description: pic.description,
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
               }}
             >
-              <Picture key={pic._id} src={pic.src} title={pic.title} />
+              <Picture key={pic._id} src={pic.img} title={pic.title} />
             </Link>
           ))}
         </div>
@@ -225,23 +238,28 @@ function HomePage() {
                 key: pic._id,
                 filmID: pic._id,
                 title: pic.title,
-                src: pic.src,
+                img: pic.img,
                 type: pic.type,
                 year: pic.year,
                 nation: pic.nation,
-                sumary: pic.sumary,
+                description: pic.description,
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
               }}
             >
-              <Picture key={pic._id} src={pic.src} title={pic.title} />
+              <Picture key={pic._id} src={pic.img} title={pic.title} />
             </Link>
           ))}
         </div>
       </div>
       <Footer />
-      <LogIn getData={getDataUser} trigger={login} unlog={popDown} authorize = {authorizeUser}/>
+      <LogIn
+        getData={getDataUser}
+        trigger={login}
+        unlog={popDown}
+        authorize={authorizeUser}
+      />
     </div>
   );
 }

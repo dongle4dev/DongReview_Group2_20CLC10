@@ -29,11 +29,15 @@
 .tablehold .posted {
     width: 100px;
 }
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     background-color: white;
+}
+table .del {
+    cursor: pointer;
 }
 
 td,

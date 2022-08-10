@@ -66,7 +66,7 @@ import axios from "axios";
 let pics = [];
 
 //Create fake API
-const resultAPI = axios.get("/api/films.json");
+const resultAPI = axios.get("http://localhost:5000/film/all");
 
 //console.log(resultAPI)
 resultAPI.then((res) => {

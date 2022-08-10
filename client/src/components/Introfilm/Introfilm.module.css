@@ -115,6 +115,13 @@
     left: 54rem;
     font-size: 2rem;
 }
+.intro .content .lstReview h2 {
+    color: #d06527;
+    position: absolute;
+    bottom: -1rem;
+    left: 23rem;
+    opacity: 0.6;
+}
 .intro .content .lstReview .love:hover {
     cursor: pointer;
 }
@@ -144,6 +151,7 @@
     display: inline-block;
     margin-top: 1rem;
     margin-right: 1rem;
+    margin-left: 1rem;
 }
 .intro .side .artist .nvat img {
     width: 6.5rem;
@@ -154,6 +162,20 @@
     color: #fff;
     font-size: 1rem;
     text-align: center;
+}
+.intro .side .artist .left {
+    position: absolute;
+    top: 7rem;
+    left: -1.5rem;
+}
+.intro .side .artist .right {
+    position: absolute;
+    top: 7rem;
+    right: 0;
+}
+.intro .side .artist .left:hover,
+.intro .side .artist .right:hover {
+    color: #d06527;
 }
 .intro .side .news {
     padding-top: 4.2rem;
