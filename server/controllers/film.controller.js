@@ -19,8 +19,9 @@ class FilmController {
     all(req, res, next) {
         Film.find({})
             .then(films => res.json(films))
-            .catch(next)
     }
+
+   
 
     //[POST] /film/store
     async store(req, res, next) {
@@ -32,17 +33,17 @@ class FilmController {
                 status: 'OK',
                 elements: savedFilm
             })
-        } catch(err) {
+        } catch (err) {
             next(err)
         }
     }
     //[GET] /film/found-films/:title
     async findFilmWithName(req, res, next) {
         try {
-            const result = await Film.find({ title : new RegExp(req.params.title)}, 'title img slug').exec()
+            const result = await Film.find({ title: new RegExp(req.params.title) }, 'title img slug').exec()
 
             return res.json(result)
-        } catch(err) {
+        } catch (err) {
             next(err)
         }
     }
@@ -50,10 +51,10 @@ class FilmController {
     //[DELETE] /film/:id
     async deleteFilm(req, res, next) {
         try {
-            const deleted = await Film.deleteOne({_id: req.params.id});
+            const deleted = await Film.deleteOne({ _id: req.params.id });
 
-            return res.json({status: "Ok"})
-        } catch(e) {
+            return res.json({ status: "Ok" })
+        } catch (e) {
             console.error(`[error] ${e}`);
             next(e)
         }

@@ -5,19 +5,23 @@ const reviewRouter = require('./review.route')
 const siteRouter = require('./site.route');
 const filmRouter = require('./film.route');
 const userRouter = require('./user.route');
+const commentRouter = require('./comment.route')
+const reportRouter = require('./report.route')
 
 function route(app) {
     app.use('/news', newsRouter);
     app.use('/review', reviewRouter)
+    app.use('/cmt', commentRouter)
     app.use('/film', filmRouter);
     app.use('/user', userRouter);
+    app.use('/report', reportRouter)
     app.use('/', siteRouter);
 
     app.use((req, res, next) => {
         next(createError.NotFound('This route does not exist.'))
     })
     app.use((err, req, res, next) => {
-        res.json({ 
+        res.json({
             status: err.status || 500,
             message: err.message
         })
