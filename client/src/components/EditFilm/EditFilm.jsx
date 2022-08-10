@@ -26,29 +26,35 @@ function AddFilm() {
   const [new1, setNew1] = React.useState((news_ud) => {
     if (len > 0) {
       return {
+        _id: news_ud[0]._id,
+        filmID: filmID_ud,
         img: news_ud[0].img,
         src: news_ud[0].src,
         title: news_ud[0].title,
       };
-    }
-    else {
+    } else {
       return {
+        _id: news_ud[0]._id,
+        filmID: filmID_ud,
         img: "",
         src: "",
         title: "",
       };
     }
-    
   });
   const [new2, setNew2] = React.useState((news_ud) => {
     if (len > 0) {
       return {
+        _id: news_ud[1]._id,
+        filmID: filmID_ud,
         img: news_ud[1].img,
         src: news_ud[1].src,
         title: news_ud[1].title,
       };
     } else {
       return {
+        _id: news_ud[1]._id,
+        filmID: filmID_ud,
         img: "",
         src: "",
         title: "",
@@ -58,12 +64,16 @@ function AddFilm() {
   const [new3, setNew3] = React.useState((news_ud) => {
     if (len > 0) {
       return {
+        _id: news_ud[2]._id,
+        filmID: filmID_ud,
         img: news_ud[2].img,
         src: news_ud[2].src,
         title: news_ud[2].title,
       };
     } else {
       return {
+        _id: news_ud[2]._id,
+        filmID: filmID_ud,
         img: "",
         src: "",
         title: "",
@@ -73,12 +83,16 @@ function AddFilm() {
   const [new4, setNew4] = React.useState((news_ud) => {
     if (len > 0) {
       return {
+        _id: news_ud[3]._id,
+        filmID: filmID_ud,
         img: news_ud[3].img,
         src: news_ud[3].src,
         title: news_ud[3].title,
       };
     } else {
       return {
+        _id: news_ud[3]._id,
+        filmID: filmID_ud,
         img: "",
         src: "",
         title: "",
@@ -88,12 +102,16 @@ function AddFilm() {
   const [new5, setNew5] = React.useState((news_ud) => {
     if (len !== 0) {
       return {
+        _id: news_ud[4]._id,
+        filmID: filmID_ud,
         img: news_ud[4].img,
         src: news_ud[4].src,
         title: news_ud[4].title,
       };
     } else {
       return {
+        _id: news_ud[4]._id,
+        filmID: filmID_ud,
         img: "",
         src: "",
         title: "",
@@ -228,8 +246,8 @@ function AddFilm() {
       "My-Custom-Header": "foobar",
       "Content-type": "application/json",
     };
-    const res = await axios.post(
-      `http://localhost:5000/film/${filmID_ud}/update`,
+    const res = await axios.put(
+      `http://localhost:5000/film/${filmID_ud}`,
       film,
       {
         headers,

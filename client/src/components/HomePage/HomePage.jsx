@@ -37,6 +37,12 @@ function HomePage() {
   function changeTitle(title) {
     setTitle(title);
   }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
   function getDataUser(u, p) {
     setUsername(u);
     setPassword(p);
@@ -94,12 +100,7 @@ function HomePage() {
   function unauthorizeUser() {
     setAuth(false);
   }
-  function handleFind(check) {
-    setFind(check);
-  }
-  function getFilmFind(lstFilm) {
-    setFilmFind(lstFilm);
-  }
+  
   return checkFind ? (
     <Navigate
       to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}

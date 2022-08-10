@@ -1,18 +1,74 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import styles from "./FindPage.module.css";
-import clsx from "clsx";
 import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
-import pics from "../Slider/pics";
 import Header from "../Header/Header";
+import ProfileHeader from "../Header/ProfileHeader";
 
 function FindPage(props) {
   const location = useLocation();
   const { lst_film, title } = location.state;
-  return (
+
+  const [login, setLogin] = React.useState(false);
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function popDown() {
+    setLogin(false);
+  }
+
+  function popUp() {
+    setLogin(true);
+  }
+  function authorizeUser() {
+    setAuth(true);
+  }
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div>
-      <Header></Header>
+      {auth ? (
+        <ProfileHeader
+          title="TÌM KIẾM"
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          us={username}
+          pa={password}
+          unauthorize={unauthorizeUser}
+        />
+      ) : (
+        <Header
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          log={popUp}
+        />
+      )}
       <div className={styles.container}>
         <h1>Kết quả tìm kiểm của từ khóa "{title}"</h1>
         <div className={styles.grid}>

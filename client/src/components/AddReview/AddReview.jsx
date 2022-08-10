@@ -1,21 +1,46 @@
 import React from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import ProfileHeader from "../Header/ProfileHeader";
 import styles from "./AddReview.module.css";
-import HeaderTitle from "../Header/HeaderTitle";
 import Footer from "../Footer/Footer";
-
 
 function AddReview() {
   const location = useLocation();
-  const { filmid_addrv, userID_addrv } = location.state; // "useLocation" to get the state
 
+  const { filmid_addrv, userID_addrv } = location.state; // "useLocation" to get the state
+  const [checkEmpty, setCheckEmpty] = React.useState(false);
   const [review, setReview] = React.useState({
     filmID: filmid_addrv,
     userID: userID_addrv,
     title: "",
     content: "",
   });
+
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(true);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function getDataUser(u, p) {
+    setUsername(u);
+    setPassword(p);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -30,27 +55,51 @@ function AddReview() {
     });
   }
   const postReview = async (e) => {
-    const headers = {
-      Authorization: "Bearer my-token",
-      "My-Custom-Header": "foobar",
-      "Content-type": "application/json",
-    };
-    const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      review,
-      { headers }
-    );
-    console.log("Posted a new review", res);
+    if (review.title === "" || review.content === "") {
+      setCheckEmpty(true);
+    } else {
+      const headers = {
+        Authorization: "Bearer my-token",
+        "My-Custom-Header": "foobar",
+        "Content-type": "application/json",
+      };
+      const res = await axios.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        review,
+        { headers }
+      );
+      console.log("Posted a new review", res);
+    }
   };
-  return (
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div className={styles.reviewPage}>
-      <HeaderTitle />
-      <div className={styles.intro}>
+      <ProfileHeader
+        title="THÊM BÀI VIẾT"
+        setCheckFind={handleFind}
+        setTitle={changeTitle}
+        setFilmFind={getFilmFind}
+        us={username}
+        pa={password}
+        unauthorize={unauthorizeUser}
+      />
+      {/* <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>VIẾT BÀI REVIEW</h1>
-      </div>
+      </div> */}
       <div className={styles.review}>
         <div className={styles.sumr}>
           <h1 style={{ paddingTop: "6rem" }}>Tiêu đề </h1>
+          {checkEmpty && review.title === "" ? (
+            <h4>Hãy nhập tiêu đề bài viết</h4>
+          ) : null}
+
           <div>
             <textarea
               onChange={handleChange}
@@ -63,6 +112,9 @@ function AddReview() {
             ></textarea>
           </div>
           <h1>Nội dung bài viết </h1>
+          {checkEmpty && review.content === "" ? (
+            <h4>Hãy nhập nội dung bài viết</h4>
+          ) : null}
           <div>
             <textarea
               onChange={handleChange}

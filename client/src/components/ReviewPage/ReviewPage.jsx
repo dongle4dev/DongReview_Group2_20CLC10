@@ -1,11 +1,12 @@
 import React from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import styles from "./ReviewPage.module.css";
-import HeaderTitle from "../Header/HeaderTitle";
+import ProfileHeader from "../Header/ProfileHeader";
 import LogIn from "../LogIn/LogIn";
 import Footer from "../Footer/Footer";
 import Page404 from "../ErrorPages/Page404";
+import HeaderTitle from "../Header/HeaderTitle";
 
 var pages = [];
 var num_page = 1;
@@ -127,7 +128,41 @@ function ReviewPage() {
   const [checkDelete, setChecD] = React.useState(false);
   const [pressDelete, setPress] = React.useState(false);
   const [input_cmt, setInput] = React.useState("");
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
 
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function authorizeUser() {
+    setAuth(true);
+  }
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function getDataUser(u, p) {
+    setUsername(u);
+    setPassword(p);
+  }
+  function popDown() {
+    setLogin(false);
+  }
+
+  function popUp() {
+    setLogin(true);
+  }
+
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
   React.useEffect(() => {
     console.log("reviewID: ", reviewID);
     const getData = async () => {
@@ -243,11 +278,35 @@ function ReviewPage() {
     console.log("Deleted the review", res);
     setPress(true);
   };
-  return pressDelete ? (
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : pressDelete ? (
     <Page404 />
   ) : (
     <div className={styles.reviewPage}>
-      <HeaderTitle log={popUp} />
+      {auth ? (
+        <ProfileHeader
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          us={username}
+          pa={password}
+          unauthorize={unauthorizeUser}
+        />
+      ) : (
+        <HeaderTitle
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          log={popUp}
+        />
+      )}
 
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>

@@ -15,51 +15,53 @@ function Header(props) {
     });
   }
   const findFilm = async () => {
-    let headers = new Headers();
+    if (data_find !== "") {
+      // let headers = new Headers();
 
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
-    headers.append("Origin", "http://localhost:3000");
-    const res = await axios.get(
-      `http://localhost:5000/film/found-films/${data_find.replace(/ /g, "-")}`
-    );
-    props.setCheckFind(true);
-    props.setTitle(data_find);
-    props.setFilmFind(res.data);
-    console.log("Send the request to find films", res.data);
+      // headers.append("Content-Type", "application/json");
+      // headers.append("Accept", "application/json");
+      // headers.append("Origin", "http://localhost:3000");
+      const res = await axios.get(
+        `http://localhost:5000/film/found-films/${data_find.replace(/ /g, "-")}`
+      );
+      props.setCheckFind(true);
+      props.setTitle(data_find);
+      props.setFilmFind(res.data);
+      console.log("Send the request to find films", res.data);
 
-    // fetch(
-    //   `http://localhost:5000/film/found-films/${data_find.replace(/ /g, "-")}`
-    //   // {
-    //   //   mode: "cors",
-    //   //   //credentials: "include",
-    //   //   method: "GET",
+      // fetch(
+      //   `http://localhost:5000/film/found-films/${data_find.replace(/ /g, "-")}`
+      //   // {
+      //   //   mode: "cors",
+      //   //   //credentials: "include",
+      //   //   method: "GET",
 
-    //   //   //body: JSON.stringify(data_find),
-    //   // }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     const len = data.length;
-    //     if (len === 0) {
-    //       setFilms("");
-    //       props.setCheckFind(true);
-    //       props.setTitle(data_find);
-    //       props.setFilmFind(lst_film);
-    //     } else {
-    //       setFilms((prev) => {
-    //         return [...prev, data];
-    //       });
-    //       props.setCheckFind(true);
-    //       props.setTitle(data_find);
-    //       props.setFilmFind(lst_film);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };;
+      //   //   //body: JSON.stringify(data_find),
+      //   // }
+      // )
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //     const len = data.length;
+      //     if (len === 0) {
+      //       setFilms("");
+      //       props.setCheckFind(true);
+      //       props.setTitle(data_find);
+      //       props.setFilmFind(lst_film);
+      //     } else {
+      //       setFilms((prev) => {
+      //         return [...prev, data];
+      //       });
+      //       props.setCheckFind(true);
+      //       props.setTitle(data_find);
+      //       props.setFilmFind(lst_film);
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    }
+  };
   return (
     <header className={styles.header}>
       <img src={window.location.origin + "/logo.png"}></img>
@@ -78,7 +80,7 @@ function Header(props) {
         }}
         placeholder="Tìm kiếm"
       ></input>
-      <i className="ti-search"></i>
+      <i onClick={findFilm} className="ti-search"></i>
       <div
         className={styles.login}
         onClick={() => {
@@ -91,7 +93,9 @@ function Header(props) {
 
       <p className={styles.line}>none</p>
       <ul className={styles.nav}>
-        <li style={{ fontSize: "1.8rem", color: "#f5813e" }}>PHIM ĐỀ XUẤT</li>
+        <a href="/">
+          <li style={{ fontSize: "1.8rem", color: "#f5813e" }}>PHIM ĐỀ XUẤT</li>
+        </a>
         <li>
           <a href="/">Phim mới</a>
         </li>
