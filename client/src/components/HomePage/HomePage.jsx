@@ -37,7 +37,7 @@ function HomePage() {
       try {
         const res1 = await axios.get("http://localhost:5000/film/all");
         const res2 = await axios.get("http://localhost:5000/film/top-films");
-        console.log("topfilms: ", res2.data);
+        // console.log("topfilms: ", res2.data);
         let count = 0;
         setAction(
           res1.data.filter((item) => {
