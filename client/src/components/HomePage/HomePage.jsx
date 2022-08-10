@@ -27,9 +27,15 @@ function HomePage() {
   React.useEffect(() => {
     const getData = async () => {
       try {
+<<<<<<< Updated upstream
         console.log("before getting data");
         const res = await axios.get(url);
         console.log("get data", res.data);
+=======
+        const res1 = await axios.get("http://localhost:5000/film/all");
+        const res2 = await axios.get("http://localhost:5000/film/top-films");
+        // console.log("topfilms: ", res2.data);
+>>>>>>> Stashed changes
         let count = 0;
         setTheater(
           res.data.filter((item) => {
@@ -227,7 +233,16 @@ function HomePage() {
         </div>
       </div>
       <Footer />
+<<<<<<< Updated upstream
       <LogIn trigger={login} unlog={popDown} />
+=======
+      <LogIn
+        getData={getDataUser}
+        trigger={login}
+        log={popDown}
+        authorize={authorizeUser}
+      />
+>>>>>>> Stashed changes
     </div>
   );
 }

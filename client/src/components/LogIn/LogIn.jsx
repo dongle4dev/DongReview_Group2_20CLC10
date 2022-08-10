@@ -1,8 +1,46 @@
 import React from "react";
 import styles from "./LogIn.module.css";
 import clsx from "clsx";
+<<<<<<< Updated upstream
 
 function LogIn(props) {
+=======
+import axios from "axios";
+import {Link} from "react-router-dom";
+import Page404 from "../ErrorPages/Page404";
+import { response } from "express";
+
+
+function LogIn(props) {
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [empty, setEmpty] = useState(null);
+  const [token, setToken] = useState("");
+  // const [auth, setAuth] = useState(null);
+  function ResetData(){
+    setUsername("")
+    setPassword("")
+  }
+  function handleSignIn(){
+    if(username === ""|| passsword === ""){
+      setEmpty(true);
+      return;
+    }
+    setEmpty(false);
+    //authorize using axios
+    const userdata = {username: username, password};
+    axios.post("http://localhost:5000/user/login", userdata)
+      .then(res => {
+        if(res.data != ""){
+          props.authorize()
+          props.log()
+          props.getData(username, password)
+          ResetData()
+        }
+      })
+      .catch(error => console.log(error))
+  }
+>>>>>>> Stashed changes
   return props.trigger ? (
     <div className={styles.modal}>
       <div className={styles.modalContainer}>
@@ -35,6 +73,9 @@ function LogIn(props) {
   ) : (
     ""
   );
-}
+          
+  }
+  
+
 
 export default LogIn;
