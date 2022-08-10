@@ -17,7 +17,7 @@ POST http://localhost:5000/user/login
 Content-Type: application/json
 
 {
-    "username": "admin",
+    "username": "nguyenihp",
     "password": "1234"
 }
 
@@ -30,8 +30,8 @@ POST http://localhost:5000/film/store
 Content-Type: application/json
     
     {
-      "title": "Minions: The Rise of Gru",
-      "src": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/minions-the-rise-of-gru/images/regions/ca/onesheet.jpg",
+      "title": "Hân là con khùng",
+      "img": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/minions-the-rise-of-gru/images/regions/ca/onesheet.jpg",
       "type": "phimhoathinh",
       "year": 2022,
       "nation": "Phim Âu Mỹ",
@@ -57,7 +57,7 @@ POST http://localhost:5000/news/store
 Content-Type: application/json
 
 {
-    "filmID": "62ecab61c20ea5c965435424",
+    "filmID": "62f3bd6a940de6b20def5b58",
     "img": "https://znews-photo.zingcdn.me/w360/Uploaded/xbhunku/2019_05_24/doraemon.jpg",
     "src": "https://zingnews.vn/doraemon-nobita-va-mat-trang-phieu-luu-ky-suc-manh-cua-niem-tin-post949604.html",
     "title": "Doraemon: Nobita và Mặt Trăng phiêu lưu ký’ - sức mạnh của niềm tin"
@@ -95,4 +95,18 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/film/films
+GET http://localhost:5000/film/all
+
+###
+GET http://localhost:5000/news/62f3bd6a940de6b20def5b58
+
+###
+PATCH http://localhost:5000/news/62f3cc59e35a0958ed9bafdf
+Content-Type: application/json
+
+{
+    "filmID": "62f3bd6a940de6b20def5b58",
+    "img": "https://znews-photo.zingcdn.me/w360/Uploaded/xbhunku/2019_05_24/doraemon.jpg",
+    "src": "https://zingnews.vn/doraemon-nobita-va-mat-trang-phieu-luu-ky-suc-manh-cua-niem-tin-post949604.html",
+    "title": "Doraemon: Nobita và Mặt Trăng phiêu lưu ký’ - sức mạnh của cái lồn tao"
+}

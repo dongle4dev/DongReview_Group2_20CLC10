@@ -1,6 +1,6 @@
 const createError = require('http-errors')
 const User = require('../models/user.model')
-const { userValidate } = require('../helpers/validation')
+const { userValidate, loginValidate } = require('../helpers/validation')
 const { signAccessToken, verifyAccessToken } = require('../helpers/jwtService')
 
 class UserController {
@@ -39,7 +39,7 @@ class UserController {
     async login(req, res, next) {
         try {
             const {username, password} = req.body
-            const {error} = userValidate(req.body)
+            const {error} = loginValidate(req.body)
             if (error) {
                 throw createError(error.details[0].message)
             }
