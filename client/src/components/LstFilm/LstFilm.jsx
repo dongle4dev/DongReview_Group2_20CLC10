@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import styles from "./LstFilm.module.css";
 import axios from "axios";
 import Footer from "../Footer/Footer";
@@ -100,9 +100,36 @@ function Film(props) {
 
 function LstFilm() {
   //const url = "/api/films.json";
+  const location = useLocation();
+  const { title_header } = location.state;
   const [lst_film, setFilms] = React.useState([]);
   const [checkDelete, setChecD] = React.useState(false);
   const [id, setID] = React.useState();
+
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function getDataUser(u, p) {
+    setUsername(u);
+    setPassword(p);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
 
   React.useEffect(() => {
     const getData = async () => {
@@ -123,8 +150,7 @@ function LstFilm() {
   }, []);
 
   const deleteFilm = async () => {
-    const del_url =
-      "http://localhost:5000/film" + `/${id}`.toString();
+    const del_url = "http://localhost:5000/film" + `/${id}`.toString();
     console.log(del_url);
     const res = await axios.delete(del_url);
     console.log("Deleted the film", res);
@@ -136,9 +162,25 @@ function LstFilm() {
     setChecD(true);
     setID(id_film);
   }
-  return (
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div className={styles.lstfilm}>
-      <ProfileHeader />
+      <ProfileHeader
+        title={title_header}
+        setCheckFind={handleFind}
+        setTitle={changeTitle}
+        setFilmFind={getFilmFind}
+        us={username}
+        pa={password}
+        unauthorize={unauthorizeUser}
+      />
       <div className={styles.tablehold}>
         <div className={styles.left}></div>
         <table>

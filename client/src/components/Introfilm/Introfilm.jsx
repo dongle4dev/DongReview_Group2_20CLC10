@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 
 import clsx from "clsx";
 import styles from "./Introfilm.module.css";
@@ -9,6 +9,7 @@ import LogIn from "../LogIn/LogIn";
 import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
 import Page404 from "../ErrorPages/Page404";
+import ProfileHeader from "../Header/ProfileHeader";
 
 var pages = [];
 var num_page = 0;
@@ -70,6 +71,13 @@ function Introfilm() {
   const [rateFilm, setRate] = React.useState(0);
   const [arr_new, setNews] = React.useState([]);
   const [lstReview, setReviews] = React.useState([]);
+  const [checkFind, setFind] = React.useState(false);
+  const [titleFind, setTitle] = React.useState("");
+  const [lst_filmFind, setFilmFind] = React.useState([]);
+
+  const [auth, setAuth] = React.useState(null);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const location = useLocation();
   const {
@@ -85,6 +93,28 @@ function Introfilm() {
     main,
   } = location.state; // "useLocation" to get the state
 
+  function popDown() {
+    setLogin(false);
+  }
+
+  function popUp() {
+    setLogin(true);
+  }
+  function authorizeUser() {
+    setAuth(true);
+  }
+  function unauthorizeUser() {
+    setAuth(false);
+  }
+  function changeTitle(title) {
+    setTitle(title);
+  }
+  function handleFind(check) {
+    setFind(check);
+  }
+  function getFilmFind(lstFilm) {
+    setFilmFind(lstFilm);
+  }
   //console.log(filmID, title, src, type, year, nation, description, trailer, rate, main)
   React.useEffect(() => {
     const getData = async () => {
@@ -196,9 +226,34 @@ function Introfilm() {
     setLogin(true);
   }
 
-  return (
+  return checkFind ? (
+    <Navigate
+      to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
+      state={{
+        lst_film: lst_filmFind,
+        title: titleFind,
+      }}
+    ></Navigate>
+  ) : (
     <div>
-      <HeaderTitle title={title} log={popUp} />
+      {auth ? (
+        <ProfileHeader
+          title={title}
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          us={username}
+          pa={password}
+          unauthorize={unauthorizeUser}
+        />
+      ) : (
+        <HeaderTitle
+          setCheckFind={handleFind}
+          setTitle={changeTitle}
+          setFilmFind={getFilmFind}
+          log={popUp}
+        />
+      )}
 
       <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>{title}</h1>

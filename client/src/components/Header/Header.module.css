@@ -44,14 +44,17 @@
     position: absolute;
     top: 6rem;
 }
-.nav > li {
+.nav > li,
+.nav > a{
     display: inline-block;
     font-weight: 700;
     font-size: 1.5rem;
     padding-left: 2rem;
     padding-right: 2rem;
     position: relative;
+    list-style-type: none;
 }
+
 .nav > li a {
     text-decoration: none;
     color: #e1630f;
@@ -82,7 +85,7 @@
     background-color: #000;
     /*Bóng đổ cho subnav*/
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 1;
+    z-index: 5;
     width: 7.5rem;
 }
 .subnav1 > li a {

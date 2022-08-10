@@ -218,12 +218,12 @@ function AddFilm() {
           <p>Tên phim: </p>
           <p>*</p>
           <input
+            required={true}
             onChange={handleChange}
             name="title"
             value={input_data.title}
             type="text"
             placeholder="Nhập tên phim"
-            required
           ></input>
         </div>
         <div className={styles.input}>
@@ -475,7 +475,7 @@ function AddFilm() {
         </div>
 
         <div className={styles.addFilm}>
-          <button onClick={(e) => handleClick(e)}>
+          <button type="submit" onClick={(e) => handleClick(e)}>
             <a href="/admin/addfilm">Thêm phim</a>
           </button>
           <button>
