@@ -26,7 +26,7 @@ function HomePage() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  console.log("title: ", titleFind, lst_filmFind);
+  // console.log("title: ", titleFind, lst_filmFind);
 
   // window.onload = function () {
   //   if (!window.location.hash) {

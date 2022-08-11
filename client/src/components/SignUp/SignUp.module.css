@@ -16,13 +16,19 @@
     background-color: white;
     padding: 3rem;
     width: 100%;
-    max-width: 30rem;
+    max-width: 50rem;
     height: 39rem;
-    align-items: center;
     border-width: 5px;
+    flex-direction: column;
     /* Để sdung keyframes modalFadeIn đi chậm ease 0.5s*/
     animation: modalFadeIn ease 0.5s
-}   
+
+}
+
+.modal .modalContainer .col{
+    position: absolute;
+    top: 5rem;
+}
 
 .modal .modalContainer .btn{
     position: absolute;
@@ -54,16 +60,16 @@
     width: 100%
 }
 
-.modal .modalContainer > p{
-    margin: 3rem 0 0.5rem 4rem;
+.modal .modalContainer .col > p{
+    margin: 3rem 0 0.5rem 2rem;
     text-align: left;
 }
 
-.modal .modalContainer > input{
-    margin: 0rem 4rem 0rem 4rem;
-    padding: 0.8rem 0rem 0.8rem 0rem;
+.modal .modalContainer .col > input{
+    margin: 0rem 1rem 1rem 1rem;
+    padding: 0.8rem 0.5rem 0.8rem 0.5rem;
     font-size: 20px;
-    width: min(100% - 7.25rem, 100rem);
+    width: 18rem;
     border-width: 0.1rem;
     border-radius: 2%;
 }
@@ -83,20 +89,20 @@
     color:white;
     position: absolute;
     top: 1.5rem;
-    right: 6rem;
+    right: 16rem;
     height:min(100% - 0.5rem, 3rem);
 }
 
 .modal .modalContainer .signIn{
     position: absolute;
     bottom: 5rem;
-    left: 9.8rem;
+    left: 18.8rem;
 }
 
 .modal .modalContainer .signIn > button{
     height: 3.5rem;
     width: 10.5rem;
-    background-color: #f5813e;  
+    background-color: #f5813e;
     border-radius: 0.2rem;
     font-size: 20px;
 }
@@ -107,7 +113,7 @@
 .modal .modalContainer .alter{
     position: absolute;
     bottom: 3rem;
-    left: 8rem;
+    left: 17rem;
     color: #551a8b
 }
 
