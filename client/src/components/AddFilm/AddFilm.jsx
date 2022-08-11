@@ -47,6 +47,7 @@ function AddFilm() {
     rate: 5,
     main: charcts,
   });
+  const [checkEmpty, setCheckEmpty] = React.useState(false);
   function handleCharct(event) {
     const { id, name, value } = event.target;
     //k dc xai event trong setter
@@ -160,22 +161,34 @@ function AddFilm() {
       rate: input_data.rate,
       main: charcts,
     };
-    const headers = {
-      Authorization: "Bearer my-token",
-      "My-Custom-Header": "foobar",
-      'Content-type': 'application/json'
-    };
-    const res = await axios.post(
-      "http://localhost:5000/film/store", film, {headers}
-    );
-    console.log("Posted film", res);
-    postNews(e);
+    if (
+      film.title !== "" &&
+      film.type !== "" &&
+      film.nation !== "" &&
+      film.img !== "" &&
+      film.trailer !== "" &&
+      film.year !== "" &&
+      film.description !== ""
+    ) {
+      const headers = {
+        Authorization: "Bearer my-token",
+        "My-Custom-Header": "foobar",
+        "Content-type": "application/json",
+      };
+      const res = await axios.post("http://localhost:5000/film/store", film, {
+        headers,
+      });
+      console.log("Posted film", res);
+      postNews(e);
+    } else {
+      setCheckEmpty(true);
+    }
   };
   const postNews = async (e) => {
     const headers = {
       // Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
-      'Content-type': 'application/json'
+      "Content-type": "application/json",
     };
     const res1 = await axios.post(
       "https://jsonplaceholder.typicode.com/posts",
@@ -216,7 +229,9 @@ function AddFilm() {
         </div>
         <div className={styles.input}>
           <p>Tên phim: </p>
-          <p>*</p>
+
+          {input_data.title === "" && checkEmpty ? <h4>*</h4> : null}
+
           <input
             required={true}
             onChange={handleChange}
@@ -228,7 +243,7 @@ function AddFilm() {
         </div>
         <div className={styles.input}>
           <p>Source ảnh: </p>
-          <p>*</p>
+          {input_data.pic_film === "" && checkEmpty ? <h4>*</h4> : null}
           <input
             onChange={handleChange}
             name="pic_film"
@@ -237,7 +252,7 @@ function AddFilm() {
             placeholder="Nhập link ảnh"
           ></input>
           <p className={styles.trailer}>Link trailer: </p>
-          <p>*</p>
+          {input_data.trailer === "" && checkEmpty ? <h4>*</h4> : null}
           <input
             onChange={handleChange}
             name="trailer"
@@ -248,7 +263,7 @@ function AddFilm() {
         </div>
         <div className={styles.input}>
           <p>Thể loại: </p>
-          <p>*</p>
+          {input_data.type === "" && checkEmpty ? <h4>*</h4> : null}
           <input
             onChange={handleChange}
             name="type"
@@ -257,7 +272,7 @@ function AddFilm() {
             placeholder="Nhập thể loại"
           ></input>
           <p className={styles.year}>Năm sản xuất:</p>
-          <p>*</p>
+          {input_data.year === "" && checkEmpty ? <h4>*</h4> : null}
           <input
             onChange={handleChange}
             name="year"
@@ -268,7 +283,7 @@ function AddFilm() {
         </div>
         <div className={styles.input}>
           <p>Quốc gia:</p>
-          <p>*</p>
+          {input_data.nation === "" && checkEmpty ? <h4>*</h4> : null}
           <input
             onChange={handleChange}
             name="nation"
@@ -279,7 +294,7 @@ function AddFilm() {
         </div>
         <div className={clsx(styles.input, styles.content)}>
           <p>Nội dung:</p>
-          <p>*</p>
+          {input_data.content === "" && checkEmpty ? <h4>*</h4> : null}
           <textarea
             onChange={handleChange}
             name="content"
@@ -475,6 +490,7 @@ function AddFilm() {
         </div>
 
         <div className={styles.addFilm}>
+          {checkEmpty ? <h4>Vui lòng điền thông tin còn thiếu</h4> : null}
           <button type="submit" onClick={(e) => handleClick(e)}>
             <a href="/admin/addfilm">Thêm phim</a>
           </button>
