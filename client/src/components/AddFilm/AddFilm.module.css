@@ -77,6 +77,21 @@
     cursor: pointer;
 }
 
+.modal h4 {
+    display: inline-block;
+    color: red;
+    font-size: 0.8rem;
+    margin-right: 0.2rem;
+}
+.modal .addFilm h4 {
+    display: block;
+    color: red;
+    font-size: 1rem;
+    margin-left: 0.25rem;
+    margin-top: 3rem;
+    font-weight: 400;
+}
+
 /* Làm trôi ảnh MODAL CONTAINER*/
 /* Tạo ra chuyển động liên tiếp của ảnh tĩnh */
 @keyframes modalFadeIn {

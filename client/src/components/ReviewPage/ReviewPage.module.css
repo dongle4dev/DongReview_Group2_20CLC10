@@ -40,6 +40,12 @@
     /* position: relative; */
     width: 90%;
 }
+.reviewPage h4 {
+    color: red;
+    font-size: 0.8rem;
+    margin-left: 10.2rem;
+    margin-bottom: 0.5rem;
+}
 
 .reviewPage .review .sumr > h1 {
     margin: 0 0 1rem 10.2rem;

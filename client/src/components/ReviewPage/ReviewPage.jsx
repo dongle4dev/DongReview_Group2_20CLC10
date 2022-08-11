@@ -131,6 +131,7 @@ function ReviewPage() {
   const [checkFind, setFind] = React.useState(false);
   const [titleFind, setTitle] = React.useState("");
   const [lst_filmFind, setFilmFind] = React.useState([]);
+  const [checkEmpty, setCheckEmpty] = React.useState(false);
 
   const [auth, setAuth] = React.useState(null);
   const [username, setUsername] = React.useState("");
@@ -236,25 +237,29 @@ function ReviewPage() {
     });
   }
   const postCmt = async (e) => {
-    const data = {
-      reviewID: reviewID,
-      userID: userID,
-      filmID: filmID,
-      like: 3,
-      content: input_cmt,
-    };
-    const headers = {
-      Authorization: "Bearer my-token",
-      "My-Custom-Header": "foobar",
-      "Content-type": "application/json",
-    };
-    const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      data,
-      { headers }
-    );
-    console.log("Posted a comment", res);
-    setInput("");
+    if (input_cmt === "" || input_cmt.length >= 1000) {
+      setCheckEmpty(true);
+    } else {
+      const data = {
+        reviewID: reviewID,
+        userID: userID,
+        filmID: filmID,
+        like: 3,
+        content: input_cmt,
+      };
+      const headers = {
+        Authorization: "Bearer my-token",
+        "My-Custom-Header": "foobar",
+        "Content-type": "application/json",
+      };
+      const res = await axios.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        data,
+        { headers }
+      );
+      console.log("Posted a comment", res);
+      setInput("");
+    }
   };
   const sendReport = async (inputReport) => {
     const headers = {
@@ -370,6 +375,12 @@ function ReviewPage() {
               <img src={user.avt} />
               <p>{user.fullname}</p>
             </div>
+            {checkEmpty && input_cmt === "" ? (
+              <h4>Hãy nhập bình luận của bạn</h4>
+            ) : null}
+            {checkEmpty && input_cmt.length === 1000 ? (
+              <h4>Tối đa 1000 kí tự</h4>
+            ) : null}
             <textarea
               onChange={handleChange}
               onKeyDown={(event) => {
