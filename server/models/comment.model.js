@@ -6,23 +6,23 @@ const { conn } = require('../helpers/connectionMultiMongodb')
 
 const Comment = new Schema({
   filmID: {
-    type: Schema.Types.ObjectId,
-    ref: 'Film',
+    type: String,
     require: true,
+    unique: false,
   },
   userID: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     require: true,
+    unique: false,
   },
   reviewID: {
-    type: Schema.Types.ObjectId,
-    ref: 'Review',
+    type: String,
     require: true,
+    unique: false,
   },
   like: { type: Number },
   content: { type: String, default: '' }
-}, {
+},{
   timestamps: true,
 });
 

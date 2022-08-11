@@ -8,11 +8,11 @@ const { verifyAccessToken } = require('../helpers/jwtService')
 
 
 router.post('/store', reviewController.store)
-router.get('/:id/update', reviewController.updateReview)
+router.put('/:id/update', reviewController.updatereview)
 router.get('/:id/updatelike', reviewController.updatelike)
 router.get('/:id/showreview', reviewController.showallreview)
 router.get('/:id/getreview', reviewController.show)
-router.put('/:id', reviewController.submit)
+router.get('/:id/topreview', reviewController.findTopreview)
 router.delete('/:id', reviewController.deleteReview)
 
 module.exports = router;

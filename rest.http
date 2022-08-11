@@ -28,7 +28,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M
 ###
 POST http://localhost:5000/film/store
 Content-Type: application/json
-    
+
     {
       "title": "Minions: The Rise of Gru",
       "src": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/minions-the-rise-of-gru/images/regions/ca/onesheet.jpg",

@@ -5,9 +5,8 @@ const commentController = require('../controllers/comment.controller');
 const { signAccessToken, verifyAccessToken } = require('../helpers/jwtService')
 
 router.post('/store', commentController.store)
-router.get('/:id/updatecmt', commentController.updateComment)
+router.put('/:id/updatecmt', commentController.updatercmt)
 router.get('/:id/updatelike', commentController.updatelike)
-router.put('/:id', commentController.submit)
 router.get('/:id/allcmt', commentController.showallcmt)
 router.delete('/:id/delecmt', commentController.deleteCmt)
 
