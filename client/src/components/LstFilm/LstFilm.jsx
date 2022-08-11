@@ -21,18 +21,19 @@ function FormComfirm(props) {
   );
 }
 function Film(props) {
-  const url = "/api/news.json";
   const [arr_new, setNews] = React.useState([]);
 
   React.useEffect(() => {
     let count = 0;
+    const filmID_i = props.filmID;
     const getData = async () => {
       try {
         console.log("before getting news");
-        const res = await axios.get(url);
+        console.log("filmID: ", filmID_i);
+        const res = await axios.get(`http://localhost:5000/news/${filmID_i}`);
         console.log("get news", res.data);
         setNews(
-          res.data.filter((item) => {
+          res.data.elements.filter((item) => {
             if (item.filmID === props.filmID && count <= 4) {
               count++;
               return true;

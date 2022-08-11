@@ -8,7 +8,6 @@ import HeaderTitle from "../Header/HeaderTitle";
 import LogIn from "../LogIn/LogIn";
 import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
-import Page404 from "../ErrorPages/Page404";
 import ProfileHeader from "../Header/ProfileHeader";
 
 var pages = [];
@@ -60,8 +59,7 @@ function ReviewSumary(props) {
 const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
   const url1 = "/api/news.json";
-  const url3 = "/api/users.json"
-
+  const url3 = "/api/users.json";
 
   const [users, setUser] = React.useState([]);
   const [login, setLogin] = React.useState(false);
@@ -94,8 +92,7 @@ function Introfilm() {
     main,
   } = location.state; // "useLocation" to get the state
 
-
-
+  const [point, setPoint] = React.useState(rate.toFixed(1));
   function popDown() {
     setLogin(false);
   }
@@ -120,28 +117,29 @@ function Introfilm() {
   }
   //console.log(filmID, title, src, type, year, nation, description, trailer, rate, main)
   React.useEffect(() => {
+    
     const getData = async () => {
       try {
         const url2 = `http://localhost:5000/review/${filmID}/showreview`;
         console.log("before getting data");
-        const res1 = await axios.get(url1);
+        const res1 = await axios.get(`http://localhost:5000/news/${filmID}`);
         const res2 = await axios.get(url2);
         const res3 = await axios.get(url3);
         console.log("get users", res3.data);
-        console.log("get news", res1.data);
+        console.log("get news", res1.data.elements);
         console.log("get reviews", res2.data);
         let count = 0;
-         const rv = res2.filter((item) => {
-             if (item.filmID === filmID) {
-               return true;
-            }
-          });
+        const rv = res2.data.listofreview.filter((item) => {
+          if (item.filmID === filmID) {
+            return true;
+          }
+        });
         //const rv = res2.data
         num_page = Math.ceil(rv.length / 5);
         num_page_main = Math.ceil(main.length / 2);
         console.log("num_main: ", num_page_main, main.length);
         setNews(
-          res1.data.filter((item) => {
+          res1.data.elements.filter((item) => {
             if (item.filmID === filmID && count <= 4) {
               count++;
               return true;
@@ -175,6 +173,7 @@ function Introfilm() {
     );
     console.log("Put data: ", res.data);
     setRate(index + 1);
+    setPoint(((index + 1 + rate * 20) / 21).toFixed(1));
   };
   function clickLike(event) {
     if (checkLike === false) {
@@ -338,7 +337,7 @@ function Introfilm() {
               }
             })}
 
-            <span>Rating: {rateFilm}/5</span>
+            <span>Rating: {point}</span>
           </div>
           <div className={styles.lstReview}>
             <p>Top review</p>

@@ -190,35 +190,25 @@ function AddFilm() {
       "My-Custom-Header": "foobar",
       "Content-type": "application/json",
     };
-    const res1 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new1,
-      { headers }
-    );
+    const res1 = await axios.post("http://localhost:5000/news/store", new1, {
+      headers,
+    });
     console.log("Posted new1", res1);
-    const res2 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new2,
-      { headers }
-    );
+    const res2 = await axios.post("http://localhost:5000/news/store", new2, {
+      headers,
+    });
     console.log("Posted new2", res2);
-    const res3 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new3,
-      { headers }
-    );
+    const res3 = await axios.post("http://localhost:5000/news/store", new3, {
+      headers,
+    });
     console.log("Posted new3", res3);
-    const res4 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new4,
-      { headers }
-    );
+    const res4 = await axios.post("http://localhost:5000/news/store", new4, {
+      headers,
+    });
     console.log("Posted new4", res4);
-    const res5 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new5,
-      { headers }
-    );
+    const res5 = await axios.post("http://localhost:5000/news/store", new5, {
+      headers,
+    });
     console.log("Posted new5", res5);
   };
   return (
