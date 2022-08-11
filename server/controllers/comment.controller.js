@@ -11,10 +11,10 @@ class CommentController {
             let listofcmt = []
             const comments = await Comment.find()
             for (const item of comments) {
-                k = item
+                let k = item
                 let o = k.reviewID
-                if (o.equals(a)) {
-                    listofreview.push(item)
+                if (o == a) {
+                    listofcmt.push(item)
                 }
             }
             return res.json({
@@ -39,19 +39,38 @@ class CommentController {
         }
     }
 
-    updateComment(req, res, next) {
-        Comment.findById(req.params.id)
-            .then(comment =>
-                res.render('comments/update', { comment: mongooseToObject(comment) })
-            )
-            .catch(next)
+    async updatercmt(req, res, next) {
+        try {
+            const comment = await Comment.findById(req.params.id)
+            if (comment) {
+                let t = new Comment();
+                t = req.body;
+                comment = t
+                let updatecmt = null
+                try {
+                    updatecmt = await comment.save()
+                }
+                catch (err) {
+                    next(err)
+                }
+                return res.statuc(200).json({
+                    success: true,
+                    message: "Update like success",
+                    review: updatecmt
+                })
+            }
+            return res
+                .status(404)
+                .json({
+                    success: false,
+                    message: "Wrong id",
+                })
+
+        } catch (err) {
+            next(err)
+        }
     }
 
-    submit(req, res, next) {
-        Comment.updateOne({ _id: req.params.id }, req.body)
-            .then(() => res.redirect('/me/stored/comments'))
-            .catch(next)
-    }
 
     async updatelike(req, res, next) {
         try {

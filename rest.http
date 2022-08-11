@@ -28,7 +28,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmU1M
 ###
 POST http://localhost:5000/film/store
 Content-Type: application/json
-    
+
     {
       "title": "Hân là con khùng",
       "img": "https://dx35vtwkllhj9.cloudfront.net/universalstudios/minions-the-rise-of-gru/images/regions/ca/onesheet.jpg",
@@ -110,3 +110,4 @@ Content-Type: application/json
     "src": "https://zingnews.vn/doraemon-nobita-va-mat-trang-phieu-luu-ky-suc-manh-cua-niem-tin-post949604.html",
     "title": "Doraemon: Nobita và Mặt Trăng phiêu lưu ký’ - sức mạnh của cái lồn tao"
 }
+

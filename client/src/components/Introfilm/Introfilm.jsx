@@ -60,8 +60,9 @@ function ReviewSumary(props) {
 const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
   const url1 = "/api/news.json";
-  const url2 = "/api/reviews.json";
-  const url3 = "/api/users.json";
+  const url3 = "/api/users.json"
+
+
   const [users, setUser] = React.useState([]);
   const [login, setLogin] = React.useState(false);
   const [pos, setPos] = React.useState(0);
@@ -93,6 +94,8 @@ function Introfilm() {
     main,
   } = location.state; // "useLocation" to get the state
 
+
+
   function popDown() {
     setLogin(false);
   }
@@ -119,6 +122,7 @@ function Introfilm() {
   React.useEffect(() => {
     const getData = async () => {
       try {
+        const url2 = `http://localhost:5000/review/${filmID}/showreview`;
         console.log("before getting data");
         const res1 = await axios.get(url1);
         const res2 = await axios.get(url2);
@@ -127,11 +131,12 @@ function Introfilm() {
         console.log("get news", res1.data);
         console.log("get reviews", res2.data);
         let count = 0;
-        const rv = res2.data.filter((item) => {
-          if (item.filmID === filmID) {
-            return true;
-          }
-        });
+         const rv = res2.filter((item) => {
+             if (item.filmID === filmID) {
+               return true;
+            }
+          });
+        //const rv = res2.data
         num_page = Math.ceil(rv.length / 5);
         num_page_main = Math.ceil(main.length / 2);
         console.log("num_main: ", num_page_main, main.length);
