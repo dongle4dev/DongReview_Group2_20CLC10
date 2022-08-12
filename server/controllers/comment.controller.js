@@ -53,7 +53,7 @@ class CommentController {
                 catch (err) {
                     next(err)
                 }
-                return res.statuc(200).json({
+                return res.status(200).json({
                     success: true,
                     message: "Update like success",
                     review: updatecmt
@@ -84,7 +84,7 @@ class CommentController {
                 catch (err) {
                     next(err)
                 }
-                return res.statuc(200).json({
+                return res.status(200).json({
                     success: true,
                     message: "Update like success",
                     comment: updatecmt
@@ -101,6 +101,7 @@ class CommentController {
             next(err)
         }
     }
+
 
     async deleteCmt(req, res, next) {
         try {
