@@ -188,7 +188,7 @@ lord-icon:hover {
     left: 59rem;
     list-style: none;
     font-size: 1.5rem;
-    top: -66rem;
+    top: -38rem;
     width: 100px;
 }
 .reviewPage .content .option .choices{
@@ -219,7 +219,7 @@ lord-icon:hover {
 /*  DELETE FORM*/
 .delete {
     width: 100%;
-    top: -60rem;
+    top: -40rem;
     right: -13rem;
     position: relative;
     display: flex;
@@ -311,11 +311,10 @@ lord-icon:hover {
 
 .modal {
     width: 100%;
-    top: -60rem;
-    right: -13rem;
-    position: relative;
-    display: flex;
-
+    top: 8rem;
+    right: -25rem;
+    position: fixed;
+    z-index: 1;
 }
 
 .modal .modalContainer {
@@ -328,7 +327,7 @@ lord-icon:hover {
     align-items: center;
     border-width: 5px;
     /* Để sdung keyframes modalFadeIn đi chậm ease 0.5s*/
-    animation: modalFadeIn ease 0.5s
+    animation: modalFadeIn ease 0.5s;
 }
 
 .modal .modalContainer .btn {

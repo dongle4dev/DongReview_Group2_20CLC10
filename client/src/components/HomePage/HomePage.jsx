@@ -167,8 +167,8 @@ function HomePage() {
                     title={pics.title}
                     key={pic.key}
                     style={{
-                      width: "50%",
-                      height: "17%",
+                      width: "25%",
+                      height: "5%",
                       display: "block",
                       margin: "2rem 0 0 9.5rem",
                     }}

@@ -13,12 +13,11 @@ var num_page = 1;
 for (var i = 0; i < num_page; i++) pages.push(i + 1);
 
 function Comment(props) {
-  const url = "/api/users.json";
   const [user, setUser] = React.useState({});
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios.get(url);
+        const res = await axios.get(`http://localhost:5000/user/all`);
         const usr = res.data.find((item) => item._id === props.userID);
         setUser(usr);
       } catch (error) {
@@ -30,10 +29,8 @@ function Comment(props) {
   return (
     <div className={styles.cmt}>
       <div className={styles.ava}>
-        {/* <img src={user.avt} />
-        <p>{user.fullname}</p> */}
-        <img src="" />
-        <p>giahan</p>
+        <img src={user.avt} />
+        <p>{user.fullName}</p>
       </div>
       <p>{props.content}</p>
     </div>
@@ -100,8 +97,6 @@ function FormComfirm(props) {
 }
 
 function ReviewPage() {
-  const url1 = "/api/users.json";
-  const url2 = "/api/comments.json";
   const location = useLocation();
   const {
     reviewID,
@@ -112,14 +107,13 @@ function ReviewPage() {
     like,
     share,
     cmt,
-    time,
+    createdAt,
     title_film,
-    member
+    member,
   } = location.state;
-  const [user, setUser] = React.useState({
-    fullname: "",
-    avt: "",
-  });
+  console.log("CreatedAt: ", createdAt);
+  const [u, setUserLogin] = React.useState(member);
+  const [user_rv, setUserRv] = React.useState({ fullName: "", avt: "" });
   const [num_cmt, setNumCmt] = React.useState(0);
   const [cmts, setCmts] = React.useState([]);
   const [login, setLogin] = React.useState(false);
@@ -136,10 +130,8 @@ function ReviewPage() {
   const [lst_filmFind, setFilmFind] = React.useState([]);
   const [checkEmpty, setCheckEmpty] = React.useState(false);
 
-  const [auth, setAuth] = React.useState(null);
-  
   function getDataUser(u) {
-    
+    setUserLogin(u);
   }
   function popDown() {
     setLogin(false);
@@ -162,7 +154,7 @@ function ReviewPage() {
     console.log("reviewID: ", reviewID);
     const getData = async () => {
       try {
-        const res1 = await axios.get(url1);
+        const res1 = await axios.get(`http://localhost:5000/user/all`);
         const res2 = await axios.get(
           `http://localhost:5000/cmt/${reviewID}/allcmt`
         );
@@ -170,18 +162,13 @@ function ReviewPage() {
         //    `http://localhost:5000/review/${reviewID}/getreview`
         //  );
         // setNumCmt(res3.data.cmt);
-        const usr_review = res1.data.find((item) => item._id === userID);
+        setUserRv(res1.data.find((item) => item._id === userID));
         console.log(res2.data);
         const lst_cmt = res2.data.listofcmt.filter((cmt) => {
           if (cmt.reviewID === reviewID) return true;
         });
         num_page = Math.ceil(lst_cmt.length / 8);
-        setUser({
-          //fullname: usr_review.fullname,
-          fullname: "giahan",
-          //avt: usr_review.avt,
-          avt: "ffff",
-        });
+
         console.log("lst_cmt: ", lst_cmt);
         setCmts(lst_cmt);
       } catch (error) {
@@ -294,18 +281,19 @@ function ReviewPage() {
       state={{
         lst_film: lst_filmFind,
         title: titleFind,
+        user: u,
       }}
     ></Navigate>
   ) : pressDelete ? (
     <Page404 />
   ) : (
     <div className={styles.reviewPage}>
-      {member.fullName !== "" ? (
+      {u.fullName !== "" ? (
         <ProfileHeader
           setCheckFind={handleFind}
           setTitle={changeTitle}
           setFilmFind={getFilmFind}
-          user={member}
+          user={u}
         />
       ) : (
         <HeaderTitle
@@ -322,43 +310,31 @@ function ReviewPage() {
       <div className={styles.content}>
         <div className={styles.review}>
           <div className={styles.ava}>
-            <img src={user.avt} />
-            <p>{user.fullName}</p>
+            <img src={user_rv.avt} />
+            <p>{user_rv.fullName}</p>
           </div>
 
-          <ul onClick={clickOption} className={styles.option}>
-            <li>
-              <i className="fa-solid fa-ellipsis"></i>
-              {checkOption ? (
-                <ul className={styles.choices}>
-                  <li value={1} onClick={open}>
-                    Báo cáo
-                  </li>
-                  <li value={2} onClick={open}>
-                    Xóa bài viết
-                  </li>
-                </ul>
-              ) : null}
-            </li>
-          </ul>
-          {checkReport ? (
-            <FormReport
-              reviewid_rp={reviewID}
-              sendReport={sendReport}
-              close={close}
-            />
-          ) : null}
-          {checkDelete ? (
-            <FormComfirm deleteReview={deleteReview} close={close} />
-          ) : null}
           <div className={styles.sumr}>
-            <i className="fa-solid fa-ellipsis"></i>
             <h1>{title}</h1>
-            <h2>Ngày đăng: {time}</h2>
+            <h2>Ngày đăng: {createdAt}</h2>
             <p className={styles.sum_content}>
               {content}
-
-              {/* {checkReport ? (
+              <ul onClick={clickOption} className={styles.option}>
+                <li>
+                  <i className="fa-solid fa-ellipsis"></i>
+                  {checkOption ? (
+                    <ul className={styles.choices}>
+                      <li value={1} onClick={open}>
+                        Báo cáo
+                      </li>
+                      <li value={2} onClick={open}>
+                        Xóa bài viết
+                      </li>
+                    </ul>
+                  ) : null}
+                </li>
+              </ul>
+              {checkReport ? (
                 <FormReport
                   reviewid_rp={reviewID}
                   sendReport={sendReport}
@@ -367,7 +343,7 @@ function ReviewPage() {
               ) : null}
               {checkDelete ? (
                 <FormComfirm deleteReview={deleteReview} close={close} />
-              ) : null} */}
+              ) : null}
             </p>
             <div className={styles.icon}>
               <p>{num_like}</p>
@@ -386,8 +362,8 @@ function ReviewPage() {
           <h3>BÌNH LUẬN</h3>
           <div className={styles.writeCmt}>
             <div className={styles.ava}>
-              <img src={member.avt} />
-              <p>{member.fullName}</p>
+              <img src={u.avt} />
+              <p>{u.fullName}</p>
             </div>
             {checkEmpty && input_cmt === "" ? (
               <h4>Hãy nhập bình luận của bạn</h4>
@@ -437,7 +413,7 @@ function ReviewPage() {
         </div>
       </div>
 
-      <LogIn trigger={login} unlog={popDown} />
+      <LogIn getData={getDataUser} trigger={login} unlog={popDown} />
       <Footer />
     </div>
   );

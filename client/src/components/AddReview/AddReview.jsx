@@ -9,6 +9,7 @@ function AddReview() {
   const location = useLocation();
 
   const { filmid_addrv, userID_addrv, user } = location.state; // "useLocation" to get the state
+  console.log("userRV: ", userID_addrv)
   const [checkEmpty, setCheckEmpty] = React.useState(false);
   const [checkMaxLen, setCheckLen] = React.useState({
     title: 0,
@@ -27,13 +28,6 @@ function AddReview() {
   const [titleFind, setTitle] = React.useState("");
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
-  const [auth, setAuth] = React.useState(true);
-  
-
-  
-  function getDataUser(u, p) {
-    
-  }
   function changeTitle(title) {
     setTitle(title);
   }
@@ -95,6 +89,7 @@ function AddReview() {
       state={{
         lst_film: lst_filmFind,
         title: titleFind,
+        user: user
       }}
     ></Navigate>
   ) : (

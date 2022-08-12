@@ -5,6 +5,7 @@ import Picture from "../Picture/Picture";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import ProfileHeader from "../Header/ProfileHeader";
+import LogIn from "../LogIn/LogIn";
 
 function FindPage(props) {
   const location = useLocation();
@@ -81,7 +82,7 @@ function FindPage(props) {
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
-                user: user
+                user: user,
               }}
             >
               <Picture key={pic._id} src={pic.img} title={pic.title} />
@@ -89,6 +90,7 @@ function FindPage(props) {
           ))}
         </div>
       </div>
+      <LogIn getData={getDataUser} trigger={login} unlog={popDown} />
       <Footer></Footer>
     </div>
   );

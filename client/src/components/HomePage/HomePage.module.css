@@ -37,7 +37,7 @@
 }
 .content .board .top center {
     text-decoration: none;
-    margin: 0.5rem 0 0 9.5rem;
+    margin: 0.5rem 0 0 4rem;
     text-align: center;
     font-weight: 500;
 }
@@ -46,7 +46,7 @@
 }
 .content .board .top span {
     position: absolute;
-    margin: 4rem 0 0 3rem;
+    margin: 2rem 0 0 3rem;
     background-color: rgb(216, 127, 44);
     font-size: 3rem;
     border-radius: 50%;

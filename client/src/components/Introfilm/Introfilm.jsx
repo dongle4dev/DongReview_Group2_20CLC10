@@ -41,7 +41,7 @@ function ReviewSumary(props) {
               cmt: props.cmt,
               time: props.time,
               title_film: props.title_film,
-              member: props.user
+              member: props.user,
             }}
           >
             Xem thêm
@@ -59,9 +59,6 @@ function ReviewSumary(props) {
 }
 const stars = [0, 1, 2, 3, 4];
 function Introfilm() {
-  const url1 = "/api/news.json";
-  const url3 = "/api/users.json";
-
   const [users, setUser] = React.useState([]);
   const [login, setLogin] = React.useState(false);
   const [pos, setPos] = React.useState(0);
@@ -76,7 +73,7 @@ function Introfilm() {
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
   const [auth, setAuth] = React.useState(null);
- 
+
   const location = useLocation();
   const {
     filmID,
@@ -89,14 +86,14 @@ function Introfilm() {
     trailer,
     rate,
     main,
-    user
+    user,
   } = location.state; // "useLocation" to get the state
-  console.log("user: ", user)
+  console.log("user: ", user);
   const [u, setUserLogin] = React.useState(user);
 
   const [point, setPoint] = React.useState(rate.toFixed(1));
   function getDataUser(u) {
-    setUserLogin(u)
+    setUserLogin(u);
     console.log("u: ", u);
   }
   function popDown() {
@@ -123,14 +120,13 @@ function Introfilm() {
   }
   //console.log(filmID, title, src, type, year, nation, description, trailer, rate, main)
   React.useEffect(() => {
-    
     const getData = async () => {
       try {
         const url2 = `http://localhost:5000/review/${filmID}/showreview`;
         console.log("before getting data");
         const res1 = await axios.get(`http://localhost:5000/news/${filmID}`);
         const res2 = await axios.get(url2);
-        const res3 = await axios.get(url3);
+        const res3 = await axios.get(`http://localhost:5000/user/all`);
         console.log("get users", res3.data);
         console.log("get news", res1.data.elements);
         console.log("get reviews", res2.data);
@@ -162,6 +158,7 @@ function Introfilm() {
     getData();
   }, []);
   const clickStar = async (index) => {
+    console.log("Click star: ", index + 1)
     const res = await axios.put(
       `http://localhost:5000/film/${filmID}/updatescore`,
       {
@@ -242,7 +239,7 @@ function Introfilm() {
       state={{
         lst_film: lst_filmFind,
         title: titleFind,
-        user: u
+        user: u,
       }}
     ></Navigate>
   ) : (
@@ -346,29 +343,34 @@ function Introfilm() {
           </div>
           <div className={styles.lstReview}>
             <p>Top review</p>
-            <p className={styles.writeReview}>
-              <Link
-                to={`/${title.replace(/ /g, "-")}/writereview`}
-                state={{
-                  filmid_addrv: filmID,
-                  userID_addrv: u.id,
-                  user: u,
-                }}
-              >
-                Viết bài
-              </Link>
-            </p>
-            {checkLike ? (
-              <i
-                onClick={clickLike}
-                className={clsx("fa-solid fa-heart", styles.love)}
-              ></i>
-            ) : (
-              <i
-                onClick={clickLike}
-                className={clsx("ti-heart", styles.love)}
-              ></i>
-            )}
+            {u.fullName !== "" ? (
+              <p className={styles.writeReview}>
+                <Link
+                  to={`/${title.replace(/ /g, "-")}/writereview`}
+                  state={{
+                    filmid_addrv: filmID,
+                    userID_addrv: u.id,
+                    user: u,
+                  }}
+                >
+                  Viết bài
+                </Link>
+              </p>
+            ) : null}
+            {u.fullName !== "" ? (
+              checkLike ? (
+                <i
+                  onClick={clickLike}
+                  className={clsx("fa-solid fa-heart", styles.love)}
+                ></i>
+              ) : (
+                <i
+                  onClick={clickLike}
+                  className={clsx("ti-heart", styles.love)}
+                ></i>
+              )
+            ) : null}
+
             {num_page === 0 ? <h2>Không có bài viết nào</h2> : null}
             {lstReview.map((item, index) => {
               if (index >= 5 * pos && index <= 5 * pos + 4) {
@@ -378,25 +380,23 @@ function Introfilm() {
                     key={item._id}
                     filmID={item.filmID}
                     userID={item.userID}
-                    // fullname={
-                    //   users.find((user) => user._id === item.userID).fullname
-                    // }
-                    //avt={users.find((user) => user._id === item.userID).avt}
-                    fullname="giahan"
-                    avt="dfsfsf"
+                    fullname={
+                      users.find((user) => user._id === item.userID).fullName
+                    }
+                    avt={users.find((user) => user._id === item.userID).avt}
+                    
                     title={item.title}
                     like={item.like}
                     share={item.share}
                     cmt={item.cmt}
                     content={item.content}
-                    time={item.time}
+                    createdAt={item.createdAt}
                     title_film={title}
                     user={u}
                   />
                 );
               }
             })}
-
             <div className={styles.square}>
               <button onClick={setBegin}>
                 <i className="ti-angle-double-left"></i>
