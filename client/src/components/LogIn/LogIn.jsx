@@ -32,43 +32,24 @@ function LogIn(props) {
       body: JSON.stringify(userdata)
     })
       .then(response => response.json())
-      .then(res => {
-        console.log("data: ", res)
-                  if(res.data != ""){
-                    props.authorize()
-                    props.unlog()
-                    props.getData(username, password)
-                    ResetData()
-                  }
-                })
-              .catch(error => console.log(error));
+      // .then(res => {
+      //   console.log("data: ", res.data)
+      //             
+      //             }
+      //           })
+      //         .catch(error => console.log(error));
     await axios.post("http://localhost:5000/user/login", userdata)
           .then(res => {
-            console.log(res.data);
-            
-          })
+            if(res.data != ""){
+              props.authorize()
+              props.unlog()
+              props.getData(username, password)
+              ResetData()
+          }
+        })
+  
         .catch(error => console.log(error));
   }
-  // function handleSignIn(){
-  //   if(username === "" || password === ""){
-  //     setEmpty(true);
-  //     return;
-  //   }
-  //   setEmpty(false);
-  //   //authorize using axios
-  //   const userdata = {username: username, password: password};
-  //   axios.post("http://localhost:5000/user/login", userdata)
-  //         .then(res => {
-  //           if(res.data != ""){
-  //             console.log(res.data)
-  //             props.authorize()
-  //             props.unlog()
-  //             props.getData(username, password)
-  //             ResetData()
-  //           }
-  //         })
-  //       .catch(error => console.log(error));
-  // }
   return props.trigger ? (
 
     <div className={styles.modal}>
@@ -85,7 +66,7 @@ function LogIn(props) {
         <div className={styles.head}>
           <h2>ĐĂNG NHẬP</h2>
         </div>
-        <p style={{ marginTop: "4rem" }}>Tên đăng nhập</p>
+        <p style={{ marginTop: "4rem"}}>Tên đăng nhập</p>
         <input type="text" placeholder=" Tên đăng nhập" onChange={(e) => setUsername(e.target.value)}></input>
         <p style={{ marginTop: "2rem" }}>Mật khẩu</p>
         <input type="password" placeholder=" Mật khẩu" onChange={(e) => setPassword(e.target.value)}></input>

@@ -7,53 +7,66 @@ function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [dob, setDOB] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [empty, setEmpty] = useState(null);
-  const [re, setRe] = useState(null);
   const [same, setSame]= useState(null);
+  const [fail, setFail] = useState(null);
   function ResetData(){
     setUsername("")
     setPassword("")
     setRePassword("")
     setEmpty(null)
-    setRe(null)
     setSame(null)
   };
-  function handleSignUp(){
+  const handleSignIn = async (us, pa) => {
+    const userdata = {username: us, password: pa}
+    //authorize using axios
+    fetch("http://localhost:5000/user/login",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userdata)
+    })
+      .then(response => response.json())
+    await axios.post("http://localhost:5000/user/login", userdata)
+          .then(res => {
+          })
+        .catch(error => console.log(error));
+  }
+  async function handleSignUp(){
     setEmpty(null)
-    setRe(null)
     setSame(null)
     console.log("clicked")
-    if(username === "" || password === ""){
+    console.log(empty, same)
+    if(username === "" || password === "" || repassword === "" || fullname === "" || dob === "" || avatar === "" ){
       setEmpty(true);
-      console.log(empty, re, same)
-      return;
-    }
-    else if(repassword === ""){
-      setEmpty(false);
-      setRe(false)
-      console.log(empty, re, same)
       return;
     }
     else if (repassword !== password){
       setEmpty(false);
-      setRe(true);
       setSame(false)
-      console.log(empty, re, same)
       return;
     }
     setSame(true);
-    console.log(empty, re, same)
-    const userdata = {username: username, password: password};
-    axios.post("http://localhost:5000/user/register", userdata)
+    const userdata = {username: username, password: password, fullName: fullname, dob: dob, avt: avatar};
+    await axios.post("http://localhost:5000/user/register", userdata)
           .then(res => {
-            if(res.data != ""){
-              console.log(res)
+            console.log(res.data)
+            console.log(res.data.status )
+            if(res.data.status != 409 && res.data.status != 500){
+              // handleSignIn(userdata.username, userdata.password)
               // đăng nhập vào tài khoản
               // thoát ra homepage và thanh HeaderUser hiện lên
               ResetData()
             }
+            else{
+              setFail(true)
+            }
           })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error));    
   }
   return (
     <div className={styles.modal}>
@@ -61,42 +74,60 @@ function SignUp() {
         <div className={styles.head}>
           <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
         </div>
-        <p style={{ marginTop: "3rem" }}>Tên đăng nhập</p>
+        <div className={styles.col} style={{left: "3rem"}}>
+          <p style={{ marginTop: "3rem" }}>Tên đăng nhập</p>
+          <input
+            type="text"
+            placeholder="Tên đăng nhập"
+            onChange={(e) => setUsername(e.target.value)}
+          ></input>
+          <p style={{ marginTop: "1rem" }}>Mật khẩu</p>
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            onChange={(e) => setPassword(e.target.value)}
+          ></input>
+          <p style={{ marginTop: "1rem" }}>Xác nhận lại mật khẩu</p>
+          <input
+            type="password"
+            placeholder="Xác nhận mật khẩu"
+            onChange={(e) => setRePassword(e.target.value)}
+          ></input>
+        </div>
+        <div className={styles.col} style={{right: "3rem"}}>
+        <p style={{
+          marginTop: "3rem",
+           }}>Họ và tên đầy đủ</p>
         <input
           type="text"
-          placeholder="Tên đăng nhập"
-          style={{ paddingLeft: "0.5rem", paddingRight: "0.5rem"}}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Nhập họ và tên của bạn"
+          onChange={(e) => setFullname(e.target.value)}
         ></input>
-        <p style={{ marginTop: "1rem" }}>Mật khẩu</p>
-        <input
-          type="password"
-          placeholder="Mật khẩu"
-          style={{ paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
-          onChange={(e) => setPassword(e.target.value)}
-        ></input>
-        <p style={{ marginTop: "1rem" }}>Xác nhận lại mật khẩu</p>
-        <input
-          type="password"
-          placeholder="Xác nhận mật khẩu"
-          style={{ paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
-          onChange={(e) => setRePassword(e.target.value)}
-        ></input>
-        <p style={{ marginTop: "1rem" }}>Email đăng ký</p>
+         <p style={{
+          marginTop: "1rem",
+           }}>Ngày sinh</p>
         <input
           type="text"
-          placeholder="Nhập email"
-          style={{ paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
-          
+          placeholder="Nhập ngày sinh của bạn"
+          onChange={(e) => setDOB(e.target.value)}
         ></input>
-        <div>
-          {empty && <p style={{color:"red", paddingLeft:"3.2rem"}}>Username or password cannot be empty</p>}
+         <p style={{
+          marginTop: "1rem",
+           }}>Link ảnh đại diện</p>
+        <input
+          type="text"
+          placeholder="Copy đường link ảnh đại diện của bạn"
+          onChange={(e) => setAvatar(e.target.value)}
+        ></input>
         </div>
         <div>
-          {same === false && <p style={{color:"red", paddingLeft:"1.5rem"}}>Password and confirm password are not the same</p>}
+          {empty && <p style={{color:"red", marginLeft:"15.5rem", marginTop: "25rem"}}>Please fill in all the blank</p>}
         </div>
         <div>
-          {re === false && <p style={{color:"red", paddingLeft:"3.2rem"}}>Please confirm your password</p>}
+          {same === false && <p style={{color:"red", marginLeft:"10.5rem", marginTop: "25rem"}}>Password and confirm password are not the same</p>}
+        </div>
+        <div>
+          {fail === true && <p style={{color:"red", marginLeft:"14.5rem", marginTop: "25rem"}}>Username has already existed</p>}
         </div>
         <div className={styles.signIn}>
           <button>
