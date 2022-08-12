@@ -5,6 +5,7 @@ const userController = require('../controllers/user.controller');
 const { signAccessToken, verifyAccessToken } = require('../helpers/jwtService')
 
 router.post('/register', userController.register);
+router.get('/all', userController.all);
 router.post('/refreshToken', userController.refreshToken);
 router.post('/login', userController.login);
 router.delete('/logout', userController.logout);

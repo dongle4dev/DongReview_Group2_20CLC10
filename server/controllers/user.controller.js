@@ -72,6 +72,16 @@ class UserController {
             next(err)
         }
     }
+    all(req, res, next) {
+        try {
+            User.find({})
+                .then((users) => res.json(users))
+                .catch(next);
+        } catch (error) {
+            next(err)
+        }
+    }
+
     //[POST] /user/logout
     logout(req, res, next) {
         res.send('Logout')
