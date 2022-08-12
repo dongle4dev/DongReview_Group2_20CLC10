@@ -102,7 +102,7 @@ function Film(props) {
 function LstFilm() {
   //const url = "/api/films.json";
   const location = useLocation();
-  const { title_header } = location.state;
+  const { title_header, user } = location.state;
   const [lst_film, setFilms] = React.useState([]);
   const [checkDelete, setChecD] = React.useState(false);
   const [id, setID] = React.useState();
@@ -112,16 +112,7 @@ function LstFilm() {
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
   const [auth, setAuth] = React.useState(null);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
-  function unauthorizeUser() {
-    setAuth(false);
-  }
-  function getDataUser(u, p) {
-    setUsername(u);
-    setPassword(p);
-  }
+  
   function changeTitle(title) {
     setTitle(title);
   }
@@ -169,6 +160,7 @@ function LstFilm() {
       state={{
         lst_film: lst_filmFind,
         title: titleFind,
+        user: user
       }}
     ></Navigate>
   ) : (
@@ -178,9 +170,7 @@ function LstFilm() {
         setCheckFind={handleFind}
         setTitle={changeTitle}
         setFilmFind={getFilmFind}
-        us={username}
-        pa={password}
-        unauthorize={unauthorizeUser}
+        user={user}
       />
       <div className={styles.tablehold}>
         <div className={styles.left}></div>

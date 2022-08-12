@@ -41,6 +41,7 @@ function ReviewSumary(props) {
               cmt: props.cmt,
               time: props.time,
               title_film: props.title_film,
+              member: props.user
             }}
           >
             Xem thêm
@@ -75,9 +76,7 @@ function Introfilm() {
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
   const [auth, setAuth] = React.useState(null);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
+ 
   const location = useLocation();
   const {
     filmID,
@@ -90,9 +89,16 @@ function Introfilm() {
     trailer,
     rate,
     main,
+    user
   } = location.state; // "useLocation" to get the state
+  console.log("user: ", user)
+  const [u, setUserLogin] = React.useState(user);
 
   const [point, setPoint] = React.useState(rate.toFixed(1));
+  function getDataUser(u) {
+    setUserLogin(u)
+    console.log("u: ", u);
+  }
   function popDown() {
     setLogin(false);
   }
@@ -236,19 +242,18 @@ function Introfilm() {
       state={{
         lst_film: lst_filmFind,
         title: titleFind,
+        user: u
       }}
     ></Navigate>
   ) : (
     <div>
-      {auth ? (
+      {u.fullName !== "" ? (
         <ProfileHeader
           title={title}
           setCheckFind={handleFind}
           setTitle={changeTitle}
           setFilmFind={getFilmFind}
-          us={username}
-          pa={password}
-          unauthorize={unauthorizeUser}
+          user={u}
         />
       ) : (
         <HeaderTitle
@@ -260,7 +265,7 @@ function Introfilm() {
       )}
 
       <div className={styles.intro}>
-        <h1 style={{ textTransform: "capitalize" }}>{title}</h1>
+        <h1>{title}</h1>
         <div className={styles.content}>
           <div className={styles.photo}>
             <Picture src={img} title={""} />
@@ -346,7 +351,8 @@ function Introfilm() {
                 to={`/${title.replace(/ /g, "-")}/writereview`}
                 state={{
                   filmid_addrv: filmID,
-                  userID_addrv: 1,
+                  userID_addrv: u.id,
+                  user: u,
                 }}
               >
                 Viết bài
@@ -385,6 +391,7 @@ function Introfilm() {
                     content={item.content}
                     time={item.time}
                     title_film={title}
+                    user={u}
                   />
                 );
               }
@@ -450,7 +457,7 @@ function Introfilm() {
           </div>
         </div>
       </div>
-      <LogIn trigger={login} unlog={popDown} />
+      <LogIn getData={getDataUser} trigger={login} unlog={popDown} />
       <Footer />
     </div>
   );

@@ -8,11 +8,10 @@ import styles from "./HomePage.module.css";
 import Picture from "../Picture/Picture";
 import pics from "../Slider/pics";
 import HeaderUser from "../Header/HeaderUser";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import FindPage from "../FindPage/FindPage";
 
 function HomePage() {
-  const navigate = useNavigate();
   const [login, setLogin] = React.useState(false);
   const [action, setAction] = React.useState([]);
   const [romance, setRomance] = React.useState([]);
@@ -23,8 +22,12 @@ function HomePage() {
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
   const [auth, setAuth] = React.useState(null);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [user, setUser] = React.useState({
+    id: "",
+    fullName: "",
+    avt: "",
+    dob: "",
+  });
 
   // console.log("title: ", titleFind, lst_filmFind);
 
@@ -43,9 +46,8 @@ function HomePage() {
   function getFilmFind(lstFilm) {
     setFilmFind(lstFilm);
   }
-  function getDataUser(u, p) {
-    setUsername(u);
-    setPassword(p);
+  function getDataUser(u) {
+    setUser(u);
   }
   React.useEffect(() => {
     const getData = async () => {
@@ -101,25 +103,25 @@ function HomePage() {
   function unauthorizeUser() {
     setAuth(false);
   }
-  
+
   return checkFind ? (
     <Navigate
       to={`/film/found-films/${titleFind.replace(/ /g, "-")}`}
       state={{
         lst_film: lst_filmFind,
         title: titleFind,
+        user: user,
       }}
     ></Navigate>
   ) : (
     // (<FindPage lst_film={lst_filmFind} />)
     <div>
-      {auth ? (
+      {user.fullName !== "" ? (
         <HeaderUser
           setCheckFind={handleFind}
           setTitle={changeTitle}
           setFilmFind={getFilmFind}
-          us={username}
-          pa={password}
+          user={user}
           unauthorize={unauthorizeUser}
         />
       ) : (
@@ -131,7 +133,7 @@ function HomePage() {
         />
       )}
 
-      <Slider />
+      <Slider user={user} />
 
       <div className={styles.content}>
         <div className={styles.board}>
@@ -154,6 +156,7 @@ function HomePage() {
                   trailer: pic.trailer,
                   rate: pic.rate,
                   main: pic.main,
+                  user: user,
                 }}
               >
                 <div>
@@ -197,6 +200,7 @@ function HomePage() {
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
+                user: user,
               }}
             >
               <Picture key={pic._id} src={pic.img} title={pic.title} />
@@ -222,6 +226,7 @@ function HomePage() {
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
+                user: user,
               }}
             >
               <Picture key={pic._id} src={pic.img} title={pic.title} />
@@ -247,6 +252,7 @@ function HomePage() {
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
+                user: user,
               }}
             >
               <Picture key={pic._id} src={pic.img} title={pic.title} />

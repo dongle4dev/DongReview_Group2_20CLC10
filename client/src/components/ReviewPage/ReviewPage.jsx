@@ -20,7 +20,6 @@ function Comment(props) {
       try {
         const res = await axios.get(url);
         const usr = res.data.find((item) => item._id === props.userID);
-        console.log("user: ", usr);
         setUser(usr);
       } catch (error) {
         console.log(error);
@@ -115,6 +114,7 @@ function ReviewPage() {
     cmt,
     time,
     title_film,
+    member
   } = location.state;
   const [user, setUser] = React.useState({
     fullname: "",
@@ -137,18 +137,9 @@ function ReviewPage() {
   const [checkEmpty, setCheckEmpty] = React.useState(false);
 
   const [auth, setAuth] = React.useState(null);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-
-  function authorizeUser() {
-    setAuth(true);
-  }
-  function unauthorizeUser() {
-    setAuth(false);
-  }
-  function getDataUser(u, p) {
-    setUsername(u);
-    setPassword(p);
+  
+  function getDataUser(u) {
+    
   }
   function popDown() {
     setLogin(false);
@@ -309,14 +300,12 @@ function ReviewPage() {
     <Page404 />
   ) : (
     <div className={styles.reviewPage}>
-      {auth ? (
+      {member.fullName !== "" ? (
         <ProfileHeader
           setCheckFind={handleFind}
           setTitle={changeTitle}
           setFilmFind={getFilmFind}
-          us={username}
-          pa={password}
-          unauthorize={unauthorizeUser}
+          user={member}
         />
       ) : (
         <HeaderTitle
@@ -334,7 +323,7 @@ function ReviewPage() {
         <div className={styles.review}>
           <div className={styles.ava}>
             <img src={user.avt} />
-            <p>{user.fullname}</p>
+            <p>{user.fullName}</p>
           </div>
 
           <ul onClick={clickOption} className={styles.option}>
@@ -397,8 +386,8 @@ function ReviewPage() {
           <h3>BÌNH LUẬN</h3>
           <div className={styles.writeCmt}>
             <div className={styles.ava}>
-              <img src={user.avt} />
-              <p>{user.fullname}</p>
+              <img src={member.avt} />
+              <p>{member.fullName}</p>
             </div>
             {checkEmpty && input_cmt === "" ? (
               <h4>Hãy nhập bình luận của bạn</h4>
