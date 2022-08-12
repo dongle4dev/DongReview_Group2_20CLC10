@@ -86,7 +86,7 @@ class ReviewController {
                 catch (err) {
                     next(err)
                 }
-                return res.statuc(200).json({
+                return res.status(200).json({
                     success: true,
                     message: "Update like success",
                     review: updatereview
@@ -117,7 +117,7 @@ class ReviewController {
                 catch (err) {
                     next(err)
                 }
-                return res.statuc(200).json({
+                return res.status(200).json({
                     success: true,
                     message: "Update like success",
                     review: updatereview

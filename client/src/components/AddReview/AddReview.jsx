@@ -8,7 +8,7 @@ import Footer from "../Footer/Footer";
 function AddReview() {
   const location = useLocation();
 
-  const { filmid_addrv, userID_addrv } = location.state; // "useLocation" to get the state
+  const { filmid_addrv, userID_addrv, user } = location.state; // "useLocation" to get the state
   const [checkEmpty, setCheckEmpty] = React.useState(false);
   const [checkMaxLen, setCheckLen] = React.useState({
     title: 0,
@@ -28,15 +28,11 @@ function AddReview() {
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
   const [auth, setAuth] = React.useState(true);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  
 
-  function unauthorizeUser() {
-    setAuth(false);
-  }
+  
   function getDataUser(u, p) {
-    setUsername(u);
-    setPassword(p);
+    
   }
   function changeTitle(title) {
     setTitle(title);
@@ -108,9 +104,7 @@ function AddReview() {
         setCheckFind={handleFind}
         setTitle={changeTitle}
         setFilmFind={getFilmFind}
-        us={username}
-        pa={password}
-        unauthorize={unauthorizeUser}
+        user={user}
       />
       {/* <div className={styles.intro}>
         <h1 style={{ textTransform: "capitalize" }}>VIẾT BÀI REVIEW</h1>

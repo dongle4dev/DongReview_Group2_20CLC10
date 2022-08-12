@@ -8,7 +8,7 @@ import ProfileHeader from "../Header/ProfileHeader";
 
 function FindPage(props) {
   const location = useLocation();
-  const { lst_film, title } = location.state;
+  const { lst_film, title, user } = location.state;
 
   const [login, setLogin] = React.useState(false);
   const [checkFind, setFind] = React.useState(false);
@@ -16,21 +16,17 @@ function FindPage(props) {
   const [lst_filmFind, setFilmFind] = React.useState([]);
 
   const [auth, setAuth] = React.useState(null);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [u, setUserLogin] = React.useState(user);
 
   function popDown() {
     setLogin(false);
   }
-
+  function getDataUser(u) {
+    setUserLogin(u);
+    console.log("u: ", u);
+  }
   function popUp() {
     setLogin(true);
-  }
-  function authorizeUser() {
-    setAuth(true);
-  }
-  function unauthorizeUser() {
-    setAuth(false);
   }
   function changeTitle(title) {
     setTitle(title);
@@ -51,15 +47,13 @@ function FindPage(props) {
     ></Navigate>
   ) : (
     <div>
-      {auth ? (
+      {u.fullName !== "" ? (
         <ProfileHeader
           title="TÌM KIẾM"
           setCheckFind={handleFind}
           setTitle={changeTitle}
           setFilmFind={getFilmFind}
-          us={username}
-          pa={password}
-          unauthorize={unauthorizeUser}
+          user={u}
         />
       ) : (
         <Header
@@ -87,6 +81,7 @@ function FindPage(props) {
                 trailer: pic.trailer,
                 rate: pic.rate,
                 main: pic.main,
+                user: user
               }}
             >
               <Picture key={pic._id} src={pic.img} title={pic.title} />

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styles from "./Header.module.css";
 import LogIn from "../LogIn/LogIn";
+import { Link } from "react-router-dom";
 function HeaderUser(props) {
   const [option, setOption] = useState(false);
   const [data_find, setInput] = useState("");
@@ -57,10 +58,12 @@ function HeaderUser(props) {
           <li className={styles.subnav1}>
             <ul className={styles.subnav1}>
               <li>
-                <a href="#">Trang cá nhân</a>
+                <Link to={`/admin`} state={{member: props.user}}>
+                  Trang cá nhân
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={() => props.unauthorize()}>
+                <a  href="#">
                   Đăng xuất
                 </a>
               </li>
@@ -70,7 +73,7 @@ function HeaderUser(props) {
           ""
         )}
         <i className="ti-github"></i>
-        <p className={styles.login}>{props.us}</p>
+        <p className={styles.login}>{props.user.fullName}</p>
       </div>
 
       <p className={styles.line}>none</p>

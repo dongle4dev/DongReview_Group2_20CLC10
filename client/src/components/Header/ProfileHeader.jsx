@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { Link, BrowserRouter } from "react-router-dom";
 import styles from "./Header.module.css";
 import LogIn from "../LogIn/LogIn";
 function ProfileHeader(props) {
@@ -58,7 +58,9 @@ function ProfileHeader(props) {
           <li className={styles.subnav1}>
             <ul className={styles.subnav1}>
               <li>
-                <a href="/admin">Trang cá nhân</a>
+                <Link to={`/admin`} state={{ member: props.user }}>
+                  Trang cá nhân
+                </Link>
               </li>
               <li>
                 <a href="/" onClick={() => props.unauthorize()}>
@@ -71,7 +73,7 @@ function ProfileHeader(props) {
           ""
         )}
         <i className="ti-github"></i>
-        <p className={styles.login}>username</p>
+        <p className={styles.login}>{props.user.fullName}</p>
       </div>
       <h1 className={styles.title}>{props.title}</h1>
       <p className={styles.line}>none</p>

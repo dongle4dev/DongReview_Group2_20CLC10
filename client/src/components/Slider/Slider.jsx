@@ -8,7 +8,7 @@ import styles from "./Slider.module.css";
 import pics from "./pics";
 
 const checks = [0, 1, 2];
-function Slider() {
+function Slider(props) {
   const [pos, setPos] = React.useState(0);
 
   function increase() {
@@ -52,6 +52,7 @@ function Slider() {
                   trailer: pic.trailer,
                   rate: pic.rate,
                   main: pic.main,
+                  user: props.user,
                 }}
               >
                 <Picture src={pic.img} title={pic.title} key={pic._id} />
@@ -62,7 +63,10 @@ function Slider() {
       </div>
       <div className={styles.dot}>
         {checks.map((check, index) => (
-          <span key={index} className={index === pos ? styles.sdot : styles.ndot}></span>
+          <span
+            key={index}
+            className={index === pos ? styles.sdot : styles.ndot}
+          ></span>
         ))}
       </div>
     </div>
