@@ -26,7 +26,7 @@ function HomePage() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  console.log("title: ", titleFind, lst_filmFind);
+  // console.log("title: ", titleFind, lst_filmFind);
 
   // window.onload = function () {
   //   if (!window.location.hash) {
@@ -52,7 +52,8 @@ function HomePage() {
       try {
         const res1 = await axios.get("http://localhost:5000/film/all");
         const res2 = await axios.get("http://localhost:5000/film/top-films");
-        // console.log("topfilms: ", res2.data);
+        console.log("lst_films: ", res1.data);
+        console.log("topfilms: ", res2.data);
         let count = 0;
         setAction(
           res1.data.filter((item) => {

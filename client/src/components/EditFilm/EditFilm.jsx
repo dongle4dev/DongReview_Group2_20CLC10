@@ -19,22 +19,22 @@ function AddFilm() {
     main_ud,
     news_ud,
   } = location.state; // "useLocation" to get the state
+
+  const len_news = news_ud.length;
   console.log(news_ud.length);
-  const len = news_ud.length;
+  const arr_new = news_ud;
   const [input_arr, setArr] = React.useState(main_ud.map((x) => 0));
   const [charcts, setLstMain] = React.useState(main_ud);
   const [new1, setNew1] = React.useState((news_ud) => {
-    if (len > 0) {
+    if (len_news >= 1) {
       return {
-        _id: news_ud[0]._id,
         filmID: filmID_ud,
-        img: news_ud[0].img,
-        src: news_ud[0].src,
-        title: news_ud[0].title,
+        img: arr_new[0].img,
+        src: arr_new[0].src,
+        title: arr_new[0].title,
       };
     } else {
       return {
-        _id: news_ud[0]._id,
         filmID: filmID_ud,
         img: "",
         src: "",
@@ -43,17 +43,15 @@ function AddFilm() {
     }
   });
   const [new2, setNew2] = React.useState((news_ud) => {
-    if (len > 0) {
+    if (len_news >= 2) {
       return {
-        _id: news_ud[1]._id,
         filmID: filmID_ud,
-        img: news_ud[1].img,
-        src: news_ud[1].src,
-        title: news_ud[1].title,
+        img: arr_new[1].img,
+        src: arr_new[1].src,
+        title: arr_new[1].title,
       };
     } else {
       return {
-        _id: news_ud[1]._id,
         filmID: filmID_ud,
         img: "",
         src: "",
@@ -62,17 +60,15 @@ function AddFilm() {
     }
   });
   const [new3, setNew3] = React.useState((news_ud) => {
-    if (len > 0) {
+    if (len_news >= 3) {
       return {
-        _id: news_ud[2]._id,
         filmID: filmID_ud,
-        img: news_ud[2].img,
-        src: news_ud[2].src,
-        title: news_ud[2].title,
+        img: arr_new[2].img,
+        src: arr_new[2].src,
+        title: arr_new[2].title,
       };
     } else {
       return {
-        _id: news_ud[2]._id,
         filmID: filmID_ud,
         img: "",
         src: "",
@@ -81,17 +77,15 @@ function AddFilm() {
     }
   });
   const [new4, setNew4] = React.useState((news_ud) => {
-    if (len > 0) {
+    if (len_news >= 4) {
       return {
-        _id: news_ud[3]._id,
         filmID: filmID_ud,
-        img: news_ud[3].img,
-        src: news_ud[3].src,
-        title: news_ud[3].title,
+        img: arr_new[3].img,
+        src: arr_new[3].src,
+        title: arr_new[3].title,
       };
     } else {
       return {
-        _id: news_ud[3]._id,
         filmID: filmID_ud,
         img: "",
         src: "",
@@ -100,17 +94,15 @@ function AddFilm() {
     }
   });
   const [new5, setNew5] = React.useState((news_ud) => {
-    if (len !== 0) {
+    if (len_news >= 5) {
       return {
-        _id: news_ud[4]._id,
         filmID: filmID_ud,
-        img: news_ud[4].img,
-        src: news_ud[4].src,
-        title: news_ud[4].title,
+        img: arr_new[4].img,
+        src: arr_new[4].src,
+        title: arr_new[4].title,
       };
     } else {
       return {
-        _id: news_ud[4]._id,
         filmID: filmID_ud,
         img: "",
         src: "",
@@ -261,36 +253,102 @@ function AddFilm() {
       // Authorization: "Bearer my-token",
       "My-Custom-Header": "foobar",
     };
-    const res1 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new1,
-      { headers }
-    );
-    console.log("Posted new1", res1);
-    const res2 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new2,
-      { headers }
-    );
-    console.log("Posted new2", res2);
-    const res3 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new3,
-      { headers }
-    );
-    console.log("Posted new3", res3);
-    const res4 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new4,
-      { headers }
-    );
-    console.log("Posted new4", res4);
-    const res5 = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      new5,
-      { headers }
-    );
-    console.log("Posted new5", res5);
+    if (len_news < 5) {
+      if (new1.title !== "" && new1.img !== "" && new1.src !== "") {
+        const res1 = await axios.post(
+          `http://localhost:5000/news/store`,
+          new1,
+          {
+            headers,
+          }
+        );
+        console.log("Posted new1", res1);
+      }
+      if (new2.title !== "" && new2.img !== "" && new2.src !== "") {
+        const res2 = await axios.post(
+          `http://localhost:5000/news/store`,
+          new2,
+          {
+            headers,
+          }
+        );
+        console.log("Posted new2", res2);
+      }
+      if (
+        new3.title !== "" &&
+        new3.img !== "" &&
+        new3.src !== ""
+      ) {
+        const res3 = await axios.post(
+          `http://localhost:5000/news/store`,
+          new3,
+          {
+            headers,
+          }
+        );
+        console.log("Posted new3", res3);
+      }
+      if (new4.title !== "" && new4.img !== "" && new4.src !== "") {
+        const res4 = await axios.post(
+          `http://localhost:5000/news/store`,
+          new4,
+          {
+            headers,
+          }
+        );
+        console.log("Posted new4", res4);
+      }
+
+      if (new5.title !== "" && new5.img !== "" && new5.src !== "") {
+        const res5 = await axios.post(
+          `http://localhost:5000/news/store`,
+          new5,
+          {
+            headers,
+          }
+        );
+        console.log("Posted new5", res5);
+      }
+    } else {
+      const res1 = await axios.put(
+        `http://localhost:5000/news/${arr_new[0]._id}`,
+        new1,
+        { headers }
+      );
+      console.log("Posted new1", res1);
+      if (len_news >= 2) {
+        const res2 = await axios.put(
+          `http://localhost:5000/news/${arr_new[1]._id}`,
+          new2,
+          { headers }
+        );
+        console.log("Posted new2", res2);
+      }
+      if (len_news >= 3) {
+        const res3 = await axios.put(
+          `http://localhost:5000/news/${arr_new[2]._id}`,
+          new3,
+          { headers }
+        );
+        console.log("Posted new3", res3);
+      }
+      if (len_news >= 4) {
+        const res4 = await axios.put(
+          `http://localhost:5000/news/${arr_new[3]._id}`,
+          new4,
+          { headers }
+        );
+        console.log("Posted new4", res4);
+      }
+      if (len_news >= 5) {
+        const res5 = await axios.put(
+          `http://localhost:5000/news/${arr_new[4]._id}`,
+          new5,
+          { headers }
+        );
+        console.log("Posted new5", res5);
+      }
+    }
   };
   return (
     <div className={styles.modal}>

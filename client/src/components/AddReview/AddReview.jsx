@@ -10,11 +10,17 @@ function AddReview() {
 
   const { filmid_addrv, userID_addrv } = location.state; // "useLocation" to get the state
   const [checkEmpty, setCheckEmpty] = React.useState(false);
+  const [checkMaxLen, setCheckLen] = React.useState({
+    title: 0,
+    content: 0
+  });
   const [review, setReview] = React.useState({
     filmID: filmid_addrv,
     userID: userID_addrv,
     title: "",
     content: "",
+    like: 0,
+    cmt: 0
   });
 
   const [checkFind, setFind] = React.useState(false);
@@ -53,6 +59,22 @@ function AddReview() {
         [name]: value,
       };
     });
+    if (name === "title") {
+      setCheckLen((prev)=> {
+        return {
+          title: value.length,
+          content: prev.content
+        }
+      })
+    }
+    if (name === "content") {
+      setCheckLen((prev) => {
+        return {
+          title: prev.title,
+          content: value.length,
+        };
+      });
+    }
   }
   const postReview = async (e) => {
     if (review.title === "" || review.content === "") {
@@ -64,7 +86,7 @@ function AddReview() {
         "Content-type": "application/json",
       };
       const res = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts",
+        "http://localhost:5000/review/store",
         review,
         { headers }
       );
@@ -99,7 +121,7 @@ function AddReview() {
           {checkEmpty && review.title === "" ? (
             <h4>Hãy nhập tiêu đề bài viết</h4>
           ) : null}
-
+          {checkMaxLen.title === 100 ? <h4>Tối đa là 100 kí tự</h4> : null}
           <div>
             <textarea
               onChange={handleChange}
@@ -115,6 +137,7 @@ function AddReview() {
           {checkEmpty && review.content === "" ? (
             <h4>Hãy nhập nội dung bài viết</h4>
           ) : null}
+          {checkMaxLen.content === 1000 ? <h4>Tối đa là 1000 kí tự</h4> : null}
           <div>
             <textarea
               onChange={handleChange}

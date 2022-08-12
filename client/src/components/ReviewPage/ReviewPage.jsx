@@ -31,8 +31,10 @@ function Comment(props) {
   return (
     <div className={styles.cmt}>
       <div className={styles.ava}>
-        <img src={user.avt} />
-        <p>{user.fullname}</p>
+        {/* <img src={user.avt} />
+        <p>{user.fullname}</p> */}
+        <img src="" />
+        <p>giahan</p>
       </div>
       <p>{props.content}</p>
     </div>
@@ -118,6 +120,7 @@ function ReviewPage() {
     fullname: "",
     avt: "",
   });
+  const [num_cmt, setNumCmt] = React.useState(0);
   const [cmts, setCmts] = React.useState([]);
   const [login, setLogin] = React.useState(false);
   const [num_like, setLike] = React.useState(like);
@@ -131,6 +134,7 @@ function ReviewPage() {
   const [checkFind, setFind] = React.useState(false);
   const [titleFind, setTitle] = React.useState("");
   const [lst_filmFind, setFilmFind] = React.useState([]);
+  const [checkEmpty, setCheckEmpty] = React.useState(false);
 
   const [auth, setAuth] = React.useState(null);
   const [username, setUsername] = React.useState("");
@@ -168,16 +172,24 @@ function ReviewPage() {
     const getData = async () => {
       try {
         const res1 = await axios.get(url1);
-        const res2 = await axios.get(url2);
+        const res2 = await axios.get(
+          `http://localhost:5000/cmt/${reviewID}/allcmt`
+        );
+        // const res3 = await axios.get(
+        //    `http://localhost:5000/review/${reviewID}/getreview`
+        //  );
+        // setNumCmt(res3.data.cmt);
         const usr_review = res1.data.find((item) => item._id === userID);
-
-        const lst_cmt = res2.data.filter((cmt) => {
+        console.log(res2.data);
+        const lst_cmt = res2.data.listofcmt.filter((cmt) => {
           if (cmt.reviewID === reviewID) return true;
         });
         num_page = Math.ceil(lst_cmt.length / 8);
         setUser({
-          fullname: usr_review.fullname,
-          avt: usr_review.avt,
+          //fullname: usr_review.fullname,
+          fullname: "giahan",
+          //avt: usr_review.avt,
+          avt: "ffff",
         });
         console.log("lst_cmt: ", lst_cmt);
         setCmts(lst_cmt);
@@ -216,16 +228,23 @@ function ReviewPage() {
     if (value === 1) setChecF(true);
     else if (value === 2) setChecD(true);
   }
-  function clickLike(event) {
+  const clickLike = async (event) => {
     if (check === false) {
       setCheck(true);
       setLike(num_like + 1);
+      const res = await axios.get(
+        `http://localhost:5000/review/${reviewID}/updatelike`
+      );
+      console.log(res.data);
     } else {
       setCheck(false);
       setLike(num_like - 1);
+      const res = await axios.get(
+        `http://localhost:5000/review/${reviewID}/updatelike`
+      );
     }
     event.preventDefault();
-  }
+  };
   function handleChange(event) {
     const { value } = event.target;
 
@@ -236,25 +255,27 @@ function ReviewPage() {
     });
   }
   const postCmt = async (e) => {
-    const data = {
-      reviewID: reviewID,
-      userID: userID,
-      filmID: filmID,
-      like: 3,
-      content: input_cmt,
-    };
-    const headers = {
-      Authorization: "Bearer my-token",
-      "My-Custom-Header": "foobar",
-      "Content-type": "application/json",
-    };
-    const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      data,
-      { headers }
-    );
-    console.log("Posted a comment", res);
-    setInput("");
+    if (input_cmt === "" || input_cmt.length >= 1000) {
+      setCheckEmpty(true);
+    } else {
+      const data = {
+        reviewID: reviewID,
+        userID: userID,
+        filmID: filmID,
+        like: 3,
+        content: input_cmt,
+      };
+      const headers = {
+        Authorization: "Bearer my-token",
+        "My-Custom-Header": "foobar",
+        "Content-type": "application/json",
+      };
+      const res = await axios.post("http://localhost:5000/cmt/store", data, {
+        headers,
+      });
+      console.log("Posted a comment", res);
+      setInput("");
+    }
   };
   const sendReport = async (inputReport) => {
     const headers = {
@@ -263,16 +284,14 @@ function ReviewPage() {
       "Content-type": "application/json",
     };
     const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
+      "http://localhost:5000/report/store",
       inputReport,
       { headers }
     );
     console.log("Sent a report", res);
   };
   const deleteReview = async () => {
-    const del_url =
-      "http://localhost:5000/" +
-      `/${title_film.replace(/ /g, "-")}/${reviewID}`;
+    const del_url = `http://localhost:5000/review/${reviewID}`;
     console.log(del_url);
     const res = await axios.delete(del_url);
     console.log("Deleted the review", res);
@@ -318,28 +337,39 @@ function ReviewPage() {
             <p>{user.fullname}</p>
           </div>
 
+          <ul onClick={clickOption} className={styles.option}>
+            <li>
+              <i className="fa-solid fa-ellipsis"></i>
+              {checkOption ? (
+                <ul className={styles.choices}>
+                  <li value={1} onClick={open}>
+                    Báo cáo
+                  </li>
+                  <li value={2} onClick={open}>
+                    Xóa bài viết
+                  </li>
+                </ul>
+              ) : null}
+            </li>
+          </ul>
+          {checkReport ? (
+            <FormReport
+              reviewid_rp={reviewID}
+              sendReport={sendReport}
+              close={close}
+            />
+          ) : null}
+          {checkDelete ? (
+            <FormComfirm deleteReview={deleteReview} close={close} />
+          ) : null}
           <div className={styles.sumr}>
+            <i className="fa-solid fa-ellipsis"></i>
             <h1>{title}</h1>
             <h2>Ngày đăng: {time}</h2>
-            <p>
+            <p className={styles.sum_content}>
               {content}
-              <ul onClick={clickOption} className={styles.option}>
-                <li>
-                  <i className="fa-solid fa-ellipsis"></i>
-                  {checkOption ? (
-                    <ul className={styles.choices}>
-                      <li value={1} onClick={open}>
-                        Báo cáo
-                      </li>
-                      <li value={2} onClick={open}>
-                        Xóa bài viết
-                      </li>
-                    </ul>
-                  ) : null}
-                </li>
-              </ul>
 
-              {checkReport ? (
+              {/* {checkReport ? (
                 <FormReport
                   reviewid_rp={reviewID}
                   sendReport={sendReport}
@@ -348,7 +378,7 @@ function ReviewPage() {
               ) : null}
               {checkDelete ? (
                 <FormComfirm deleteReview={deleteReview} close={close} />
-              ) : null}
+              ) : null} */}
             </p>
             <div className={styles.icon}>
               <p>{num_like}</p>
@@ -358,7 +388,7 @@ function ReviewPage() {
                 <i onClick={clickLike} className="ti-heart"></i>
               )}
 
-              <p>{cmt}</p>
+              <p>{cmts.length}</p>
               <i className="ti-comment"></i>
             </div>
           </div>
@@ -370,6 +400,12 @@ function ReviewPage() {
               <img src={user.avt} />
               <p>{user.fullname}</p>
             </div>
+            {checkEmpty && input_cmt === "" ? (
+              <h4>Hãy nhập bình luận của bạn</h4>
+            ) : null}
+            {checkEmpty && input_cmt.length === 1000 ? (
+              <h4>Tối đa 1000 kí tự</h4>
+            ) : null}
             <textarea
               onChange={handleChange}
               onKeyDown={(event) => {
