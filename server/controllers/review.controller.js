@@ -86,7 +86,7 @@ class ReviewController {
                 catch (err) {
                     next(err)
                 }
-                return res.statuc(200).json({
+                return res.status(200).json({
                     success: true,
                     message: "Update like success",
                     review: updatereview
@@ -117,9 +117,39 @@ class ReviewController {
                 catch (err) {
                     next(err)
                 }
-                return res.statuc(200).json({
+                return res.status(200).json({
                     success: true,
                     message: "Update like success",
+                    review: updatereview
+                })
+            }
+            return res
+                .status(404)
+                .json({
+                    success: false,
+                    message: "Wrong id",
+                })
+
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async dislike(req, res, next) {
+        try {
+            const review = await Review.findById(req.params.id)
+            if (review) {
+                review.like = review.like - 1
+                let updatereview = null
+                try {
+                    updatereview = await review.save()
+                }
+                catch (err) {
+                    next(err)
+                }
+                return res.status(200).json({
+                    success: true,
+                    message: " Dislike success",
                     review: updatereview
                 })
             }

@@ -18,6 +18,7 @@ const Review = new Schema({
     title: { type: String, default: '' },
     content: { type: String, default: '' },
     like: { type: Number },
+    ngaydang:{type: String},
     // //slug: { type: String, slug: id, require: true}, 
 }, {
     timestamps: true,
