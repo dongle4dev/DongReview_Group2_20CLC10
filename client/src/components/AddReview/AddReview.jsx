@@ -19,6 +19,8 @@ function AddReview() {
     userID: userID_addrv,
     title: "",
     content: "",
+    like: 0,
+    cmt: 0
   });
 
   const [checkFind, setFind] = React.useState(false);
@@ -84,7 +86,7 @@ function AddReview() {
         "Content-type": "application/json",
       };
       const res = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts",
+        "http://localhost:5000/review/store",
         review,
         { headers }
       );
