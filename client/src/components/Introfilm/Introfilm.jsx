@@ -372,10 +372,12 @@ function Introfilm() {
                     key={item._id}
                     filmID={item.filmID}
                     userID={item.userID}
-                    fullname={
-                      users.find((user) => user._id === item.userID).fullname
-                    }
-                    avt={users.find((user) => user._id === item.userID).avt}
+                    // fullname={
+                    //   users.find((user) => user._id === item.userID).fullname
+                    // }
+                    //avt={users.find((user) => user._id === item.userID).avt}
+                    fullname="giahan"
+                    avt="dfsfsf"
                     title={item.title}
                     like={item.like}
                     share={item.share}
