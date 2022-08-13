@@ -9,7 +9,9 @@ function LogIn(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [empty, setEmpty] = useState(null);
-  
+  const [long, setLong] = useState(null);
+  const [mess, setMess] = useState("");
+
   // const [auth, setAuth] = useState(null);
   function ResetData() {
     setUsername("");
@@ -17,6 +19,7 @@ function LogIn(props) {
   }
 
   const handleSignIn = async () => {
+    setLong(null);
     if (username === "" || password === "") {
       setEmpty(true);
       return;
@@ -30,16 +33,33 @@ function LogIn(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userdata),
-    }).then((response) => response.json())
-      .then(data => {
-        if (data != "") {
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status === 500) {
+          setLong(true);
+          setMess(data.message);
+          props.getData({
+            id: "",
+            fullName: "",
+            dob: "",
+          });
+        } else if (data.status === "Can not find user") {
+          setLong(true);
+          setMess(data.status);
+          props.getData({
+            id: "",
+            fullName: "",
+            dob: "",
+          });
+        } else if (data !== "") {
           props.unlog();
           props.getData(data.elements);
           console.log(data);
           ResetData();
         }
       });
-  
   };
   return props.trigger ? (
     <div className={styles.modal}>
@@ -73,6 +93,11 @@ function LogIn(props) {
             <p style={{ color: "red", paddingLeft: "3.2rem" }}>
               Username or password cannot be empty
             </p>
+          )}
+        </div>
+        <div>
+          {long && (
+            <p style={{ color: "red", paddingLeft: "0.5rem" }}>{mess}</p>
           )}
         </div>
         <div className={styles.signIn}>

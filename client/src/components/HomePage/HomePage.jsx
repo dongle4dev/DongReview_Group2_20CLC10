@@ -29,7 +29,6 @@ function HomePage() {
     dob: "",
   });
 
-
   function changeTitle(title) {
     setTitle(title);
   }
