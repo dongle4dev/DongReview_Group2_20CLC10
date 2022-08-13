@@ -83,7 +83,7 @@ class FilmController {
                 let t = new Film();
                 t = req.body;
 
-                film.rate = t.rate
+                film.rate = (t.rate + film.rate*50)/51
                 let updatefilm = null
                 try {
                     updatefilm = await film.save()
