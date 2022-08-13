@@ -226,7 +226,7 @@ function ReviewPage() {
       setCheck(false);
       setLike(num_like - 1);
       const res = await axios.get(
-        `http://localhost:5000/review/${reviewID}/updatelike`
+        `http://localhost:5000/review/${reviewID}/dislike`
       );
     }
     event.preventDefault();
