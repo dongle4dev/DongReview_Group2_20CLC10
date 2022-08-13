@@ -78,9 +78,25 @@ class FilmController {
     try {
       const film = await Film.findById(req.params.id);
 
+                film.rate = (t.rate + film.rate*50)/51
+                let updatefilm = null
+                try {
+                    updatefilm = await film.save()
+                }
+                catch (err) {
+                    next(err)
+                }
+                return res.status(200).json({
+                    success: true,
+                    message: "Update score success",
+                    film: updatefilm,
+                })
+            }
+
       if (film) {
         let t = new Film();
         t = req.body;
+
 
         film.rate = (t.rate + film.rate * 50) / 51;
         let updatefilm = null;
