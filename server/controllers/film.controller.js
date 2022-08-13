@@ -91,8 +91,8 @@ class FilmController {
                     message: "Update score success",
                     film: updatefilm,
                 })
-            }
-     catch (err) {
+    }
+    catch (err) {
       next(err);
     }
   }
