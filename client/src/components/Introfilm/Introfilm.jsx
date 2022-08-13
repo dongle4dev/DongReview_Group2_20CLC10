@@ -91,7 +91,7 @@ function Introfilm() {
   console.log("user: ", user);
   const [u, setUserLogin] = React.useState(user);
 
-  const [point, setPoint] = React.useState(rate.toFixed(1));
+  const [point, setPoint] = React.useState(rate);
   function getDataUser(u) {
     setUserLogin(u);
     console.log("u: ", u);
@@ -176,6 +176,7 @@ function Introfilm() {
     );
     console.log("Put data: ", res.data);
     setRate(index + 1);
+    setPoint(res.data.film.rate);
   };
   function clickLike(event) {
     if (checkLike === false) {
@@ -338,7 +339,7 @@ function Introfilm() {
               }
             })}
 
-            <span>Rating: {point}</span>
+            <span>Rating: {point.toFixed(1)}</span>
           </div>
           <div className={styles.lstReview}>
             <p>Top review</p>
