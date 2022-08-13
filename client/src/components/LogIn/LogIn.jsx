@@ -11,6 +11,7 @@ function LogIn(props) {
   const [empty, setEmpty] = useState(null);
   const [long, setLong] = useState(null);
   const [mess, setMess] = useState("");
+  const [auth, setAuth] = useState(null);
 
   // const [auth, setAuth] = useState(null);
   function ResetData() {
@@ -40,6 +41,13 @@ function LogIn(props) {
         if (data.status === 500) {
           setLong(true);
           setMess(data.message);
+          props.getData({
+            id: "",
+            fullName: "",
+            dob: "",
+          });
+        } else if (data.status === 401) {
+          setAuth(true);
           props.getData({
             id: "",
             fullName: "",
@@ -100,11 +108,17 @@ function LogIn(props) {
             <p style={{ color: "red", paddingLeft: "0.5rem" }}>{mess}</p>
           )}
         </div>
+        <div>
+          {auth && (
+            <p style={{ color: "red", paddingLeft: "8rem" }}>Wrong password!</p>
+          )}
+        </div>
         <div className={styles.signIn}>
           <button>
             <a onClick={() => handleSignIn()}>Đăng nhập</a>
           </button>
         </div>
+
         <div className={styles.alter}>
           <a href="/signup">Đăng kí</a>/
           <a href="/forgotpassword">Quên mật khẩu</a>
