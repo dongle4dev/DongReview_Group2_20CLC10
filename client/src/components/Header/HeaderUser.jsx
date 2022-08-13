@@ -83,7 +83,7 @@ function HeaderUser(props) {
                   </Link>
                 </li>
               )}
-             
+
               <li>
                 <a href="#">Đăng xuất</a>
               </li>
@@ -93,7 +93,9 @@ function HeaderUser(props) {
           ""
         )}
         <i className="ti-github"></i>
-        <p className={styles.login}>{props.user.fullName}</p>
+        <p className={styles.login} style={{ justifyContent: "center" }}>
+          {props.user.fullName}
+        </p>
       </div>
 
       <p className={styles.line}>none</p>

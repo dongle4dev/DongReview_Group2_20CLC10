@@ -176,7 +176,6 @@ function Introfilm() {
     );
     console.log("Put data: ", res.data);
     setRate(index + 1);
-    setPoint(((index + 1 + rate * 20) / 21).toFixed(1));
   };
   function clickLike(event) {
     if (checkLike === false) {
