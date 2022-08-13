@@ -327,36 +327,39 @@ function ReviewPage() {
             <h2>Ngày đăng: {createdAt}</h2>
             <p className={styles.sum_content}>
               {content}
-              <ul onClick={clickOption} className={styles.option}>
-                <li>
-                  <i className="fa-solid fa-ellipsis"></i>
-                  {checkOption ? (
-                    checkAdmin ? (
-                      <ul className={styles.choices}>
-                        <li value={1} onClick={open}>
-                          Báo cáo
-                        </li>
-                        <li value={2} onClick={open}>
-                          Xóa bài viết
-                        </li>
-                      </ul>
-                    ) : (
-                      <ul className={styles.choices}>
-                        {member.id !== userID ? (
+              {member.fullName !== "" ? (
+                <ul onClick={clickOption} className={styles.option}>
+                  <li>
+                    <i className="fa-solid fa-ellipsis"></i>
+                    {checkOption ? (
+                      checkAdmin ? (
+                        <ul className={styles.choices}>
                           <li value={1} onClick={open}>
                             Báo cáo
                           </li>
-                        ) : null}
-                        {member.id === userID ? (
                           <li value={2} onClick={open}>
                             Xóa bài viết
                           </li>
-                        ) : null}
-                      </ul>
-                    )
-                  ) : null}
-                </li>
-              </ul>
+                        </ul>
+                      ) : (
+                        <ul className={styles.choices}>
+                          {member.id !== userID ? (
+                            <li value={1} onClick={open}>
+                              Báo cáo
+                            </li>
+                          ) : null}
+                          {member.id === userID ? (
+                            <li value={2} onClick={open}>
+                              Xóa bài viết
+                            </li>
+                          ) : null}
+                        </ul>
+                      )
+                    ) : null}
+                  </li>
+                </ul>
+              ) : null}
+
               {checkReport ? (
                 <FormReport
                   reviewid_rp={reviewID}

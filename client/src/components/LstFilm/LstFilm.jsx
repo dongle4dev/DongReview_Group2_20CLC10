@@ -81,7 +81,7 @@ function Film(props) {
           state={{
             filmID_ud: props.filmID,
             title_ud: props.title,
-            src_ud: props.src,
+            src_ud: props.img,
             type_ud: props.type,
             year_ud: props.year,
             nation_ud: props.nation,

@@ -43,10 +43,7 @@ function MemberPage() {
       <div className={styles.mainInfo}>
         <div className={styles.layer1}>
           <div className={styles.avatar}>
-            <img
-              src={member.avt}
-              alt="avatar"
-            ></img>
+            <img src={member.avt} alt="avatar"></img>
           </div>
           <h1> TRANG CÁ NHÂN</h1>
         </div>
@@ -64,12 +61,12 @@ function MemberPage() {
           {" "}
           &#x2023; Các bài viết đã thêm{" "}
         </a>
-        <a className={styles.more} href="">
+        {/* <a className={styles.more} href="">
           {" "}
           Xem thêm...{" "}
-        </a>
+        </a> */}
       </div>
-      <div className={styles.content}>
+      {/* <div className={styles.content}>
         <div className={styles.item}>
           <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
         </div>
@@ -94,18 +91,18 @@ function MemberPage() {
             key={pics[0 + 3].key}
           />
         </div>
-      </div>
+      </div> */}
       <div className={styles.tag_container}>
         <a className={styles.tag} href="">
           {" "}
           &#x2023; Phim yêu thích
         </a>
-        <a className={styles.more} href="">
+        {/* <a className={styles.more} href="">
           {" "}
           Xem thêm...{" "}
-        </a>
+        </a> */}
       </div>
-      <div className={styles.content}>
+      {/* <div className={styles.content}>
         <div className={styles.item}>
           <Picture src={pics[0].src} title={pics[0].title} key={pics[0].key} />
         </div>
@@ -130,7 +127,7 @@ function MemberPage() {
             key={pics[0 + 3].key}
           />
         </div>
-      </div>
+      </div> */}
       <Footer></Footer>
     </div>
   );

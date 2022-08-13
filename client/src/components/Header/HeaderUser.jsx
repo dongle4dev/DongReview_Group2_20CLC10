@@ -85,7 +85,9 @@ function HeaderUser(props) {
               )}
 
               <li>
-                <a href="#">Đăng xuất</a>
+                <a href="/">
+                  Đăng xuất
+                </a>
               </li>
             </ul>
           </li>

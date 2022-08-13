@@ -339,7 +339,7 @@ function Introfilm() {
               }
             })}
 
-            <span>Rating: {point.toFixed(1)}</span>
+            <span>Rating: {point.toFixed(2)}</span>
           </div>
           <div className={styles.lstReview}>
             <p>Top review</p>
