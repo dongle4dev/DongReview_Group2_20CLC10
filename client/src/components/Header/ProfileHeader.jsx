@@ -6,6 +6,19 @@ import LogIn from "../LogIn/LogIn";
 function ProfileHeader(props) {
   const [option, setOption] = useState(false);
   const [data_find, setInput] = useState("");
+  const [checkAdmin, setCheckAdmin] = useState(false);
+  React.useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("http://localhost:5000/user/all");
+      console.log("lst_user_header: ", res.data);
+      res.data.filter((u) => {
+        if (u._id === props.user.id && u.isAdmin) {
+          setCheckAdmin(true);
+        }
+      });
+    };
+    getData();
+  }, []);
   function Options() {
     setOption(!option);
   }
@@ -57,11 +70,19 @@ function ProfileHeader(props) {
         {option ? (
           <li className={styles.subnav1}>
             <ul className={styles.subnav1}>
-              <li>
-                <Link to={`/admin`} state={{ member: props.user }}>
-                  Trang cá nhân
-                </Link>
-              </li>
+              {checkAdmin ? (
+                <li>
+                  <Link to={`/admin`} state={{ member: props.user }}>
+                    Trang cá nhân
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link to={`/member`} state={{ member: props.user }}>
+                    Trang cá nhân
+                  </Link>
+                </li>
+              )}
               <li>
                 <a href="/" onClick={() => props.unauthorize()}>
                   Đăng xuất

@@ -44,7 +44,7 @@ function Slider(props) {
                   key: pic._id,
                   filmID: pic._id,
                   title: pic.title,
-                  src: pic.img,
+                  img: pic.img,
                   type: pic.type,
                   year: pic.year,
                   nation: pic.nation,

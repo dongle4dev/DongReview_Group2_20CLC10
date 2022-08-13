@@ -129,6 +129,7 @@ function ReviewPage() {
   const [titleFind, setTitle] = React.useState("");
   const [lst_filmFind, setFilmFind] = React.useState([]);
   const [checkEmpty, setCheckEmpty] = React.useState(false);
+  const [checkAdmin, setCheckAdmin] = React.useState(false);
 
   function getDataUser(u) {
     setUserLogin(u);
@@ -158,6 +159,13 @@ function ReviewPage() {
         const res2 = await axios.get(
           `http://localhost:5000/cmt/${reviewID}/allcmt`
         );
+        const res3 = await axios.get("http://localhost:5000/user/all");
+        console.log("lst_user_header: ", res3.data);
+        res3.data.filter((u) => {
+          if (u._id === member.id && u.isAdmin) {
+            setCheckAdmin(true);
+          }
+        });
         // const res3 = await axios.get(
         //    `http://localhost:5000/review/${reviewID}/getreview`
         //  );
@@ -323,14 +331,29 @@ function ReviewPage() {
                 <li>
                   <i className="fa-solid fa-ellipsis"></i>
                   {checkOption ? (
-                    <ul className={styles.choices}>
-                      <li value={1} onClick={open}>
-                        Báo cáo
-                      </li>
-                      <li value={2} onClick={open}>
-                        Xóa bài viết
-                      </li>
-                    </ul>
+                    checkAdmin ? (
+                      <ul className={styles.choices}>
+                        <li value={1} onClick={open}>
+                          Báo cáo
+                        </li>
+                        <li value={2} onClick={open}>
+                          Xóa bài viết
+                        </li>
+                      </ul>
+                    ) : (
+                      <ul className={styles.choices}>
+                        {member.id !== userID ? (
+                          <li value={1} onClick={open}>
+                            Báo cáo
+                          </li>
+                        ) : null}
+                        {member.id === userID ? (
+                          <li value={2} onClick={open}>
+                            Xóa bài viết
+                          </li>
+                        ) : null}
+                      </ul>
+                    )
                   ) : null}
                 </li>
               </ul>

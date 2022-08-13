@@ -29,14 +29,7 @@ function HomePage() {
     dob: "",
   });
 
-  // console.log("title: ", titleFind, lst_filmFind);
 
-  // window.onload = function () {
-  //   if (!window.location.hash) {
-  //     window.location = window.location + "#loaded";
-  //     window.location.reload();
-  //   }
-  // };
   function changeTitle(title) {
     setTitle(title);
   }

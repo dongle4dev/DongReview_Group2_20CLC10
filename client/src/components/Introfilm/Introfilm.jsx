@@ -158,7 +158,7 @@ function Introfilm() {
     getData();
   }, []);
   const clickStar = async (index) => {
-    console.log("Click star: ", index + 1)
+    console.log("Click star: ", index + 1);
     const res = await axios.put(
       `http://localhost:5000/film/${filmID}/updatescore`,
       {
@@ -170,7 +170,7 @@ function Introfilm() {
         nation: nation,
         description: description,
         trailer: trailer,
-        rate: (index + 1 + rate * 20) / 21,
+        rate: index + 1,
         main: main,
       }
     );
@@ -384,7 +384,6 @@ function Introfilm() {
                       users.find((user) => user._id === item.userID).fullName
                     }
                     avt={users.find((user) => user._id === item.userID).avt}
-                    
                     title={item.title}
                     like={item.like}
                     share={item.share}
