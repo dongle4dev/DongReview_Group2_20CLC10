@@ -13,7 +13,6 @@ router.get('/:id/updatelike', reviewController.updatelike)
 router.get('/:id/dislike', reviewController.dislike)
 router.get('/:id/showreview', reviewController.showallreview)
 router.get('/:id/getreview', reviewController.show)
-router.get('/:id/topreview', reviewController.findTopreview)
 router.delete('/:id', reviewController.deleteReview)
 
 module.exports = router;

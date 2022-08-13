@@ -12,7 +12,7 @@ class ReviewController {
         try {
             let a = req.params.id
             let listofreview = []
-            const reviews = await Review.find()
+            const reviews = await Review.find().sort({"like": -1})
             for (const item of reviews) {
                 let k = item
                 let o = k.filmID
@@ -171,18 +171,6 @@ class ReviewController {
             return res.json({ status: "dele finish" })
         } catch (err) {
             console.error(`[error] ${e}`)
-            next(err)
-        }
-    }
-
-    async findTopreview(req, res, next) {
-        try {
-            const reviews = await Review.find().sort({ like: -1 }).limit(12)
-            return res.json({
-                status: "Ok",
-                elements: reviews
-            })
-        } catch (err) {
             next(err)
         }
     }
