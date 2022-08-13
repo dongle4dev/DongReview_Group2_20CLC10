@@ -49,39 +49,34 @@ class FilmController {
     }
   }
 
-    //[DELETE] /film/:id
-    async deleteFilm(req, res, next) {
-        try {
-            const deleted = await Film.deleteOne({ _id: req.params.id });
+  //[DELETE] /film/:id
+  async deleteFilm(req, res, next) {
+    try {
+      const deleted = await Film.deleteOne({ _id: req.params.id });
 
-            return res.json({ status: "Ok" })
-        } catch (e) {
-            console.error(`[error] ${e}`);
-            next(e)
-        }
+      return res.json({ status: "Ok" });
+    } catch (e) {
+      console.error(`[error] ${e}`);
+      next(e);
     }
+  }
 
-    //[GET] /film/top-films
-    async findTopFilms(req, res, next) {
-        try {
-            const result = await Film.find().sort({ rate: 1 }).limit(12)
+  //[GET] /film/top-films
+  async findTopFilms(req, res, next) {
+    try {
+      const result = await Film.find().sort({ rate: 1 }).limit(12);
 
-            return res.json({
-                status: "Ok",
-                elements: result
-            })
-        } catch (err) {
-            next(err)
-        }
+      return res.json({
+        status: "Ok",
+        elements: result,
+      });
+    } catch (err) {
+      next(err);
     }
-    async updatescore(req, res, next) {
-        try {
-            const film = await Film.findById(req.params.id)
-
-            if (film) {
-
-                let t = new Film();
-                t = req.body;
+  }
+  async updatescore(req, res, next) {
+    try {
+      const film = await Film.findById(req.params.id);
 
                 film.rate = (t.rate + film.rate*50)/51
                 let updatefilm = null
@@ -98,11 +93,28 @@ class FilmController {
                 })
             }
 
+      if (film) {
+        let t = new Film();
+        t = req.body;
+
+
+        film.rate = (t.rate + film.rate * 50) / 51;
+        let updatefilm = null;
+        try {
+          updatefilm = await film.save();
+        } catch (err) {
+          next(err);
         }
-        catch (err) {
-            next(err)
-        }
+        return res.status(200).json({
+          success: true,
+          message: "Update score success",
+          film: updatefilm,
+        });
+      }
+    } catch (err) {
+      next(err);
     }
+  }
 }
 
 //Tạo ra instance FilmController ra ngoài khi được gọi

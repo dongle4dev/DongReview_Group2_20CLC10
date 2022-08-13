@@ -93,8 +93,10 @@ function ProfileHeader(props) {
         ) : (
           ""
         )}
-        <i className="ti-github"></i>
-        <p className={styles.login}>{props.user.fullName}</p>
+        <i className="ti-github" ></i>
+        <p className={styles.login} >
+          {props.user.fullName}
+        </p>
       </div>
       <h1 className={styles.title}>{props.title}</h1>
       <p className={styles.line}>none</p>
